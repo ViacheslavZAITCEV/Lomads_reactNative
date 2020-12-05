@@ -11,6 +11,9 @@ export default function App() {
   );
 }
 
+// @Slava
+// test gitHub-connection
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

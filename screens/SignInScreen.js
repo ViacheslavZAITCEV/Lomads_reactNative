@@ -8,28 +8,9 @@ export default function SignInScreen() {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
-            <Input
-                placeholder="e-mail"
-                leftIcon={
-                    <Icon
-                        name='fa-envelope-o'
-                        size={24}
-                        color='D70026'
-                    />
-                }
-            />
+            <Input label="e-mail" placeholder="entrer mon adresse e-mail"/>
 
-            <Input
-                placeholder="mot de passe"
-                secureTextEntry={true}
-                leftIcon={
-                    <Icon
-                        name='fa-lock'
-                        size={24}
-                        color='D70026'
-                    />
-                }
-            />
+            <Input label="mot de passe" placeholder="entrer mon mot de passe" secureTextEntry={true}/>
 
             <Button
                 title="Connexion"

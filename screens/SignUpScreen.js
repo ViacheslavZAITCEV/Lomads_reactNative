@@ -16,7 +16,7 @@ function SignUpScreen(props) {
 
     var handleSubmitSignup = async () => {
 
-        const data = await fetch('/sign-up', {
+        const data = await fetch('/users/sign-up', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `userFirstnameFromFront=${signUpUserFirstname}&userLastnameFromFront=${signUpUserLastname}emailFromFront=${signUpEmail}&passwordFromFront=${signUpPassword}`

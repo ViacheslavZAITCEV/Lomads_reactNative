@@ -19,7 +19,7 @@ function SignInScreen({ navigation, addToken }) {
         const data = await fetch('/users/sign-in', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
+            body: `email=${signInEmail}&password=${signInPassword}`
         })
 
         const body = await data.json()

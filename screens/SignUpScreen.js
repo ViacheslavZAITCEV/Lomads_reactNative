@@ -19,7 +19,7 @@ function SignUpScreen(props) {
         const data = await fetch('/users/sign-up', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `userFirstnameFromFront=${signUpUserFirstname}&userLastnameFromFront=${signUpUserLastname}emailFromFront=${signUpEmail}&passwordFromFront=${signUpPassword}`
+            body: `prenom=${signUpUserFirstname}&nom=${signUpUserLastname}&email=${signUpEmail}&password=${signUpPassword}`
         })
 
         const body = await data.json()

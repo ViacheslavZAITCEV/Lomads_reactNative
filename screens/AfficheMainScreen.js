@@ -44,6 +44,7 @@ export default function AfficheMainScreen() {
       />
       
     </View>
+
   
    
       <ScrollView style={{flex:2}}>

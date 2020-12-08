@@ -22,6 +22,10 @@ export default function AfficheMainScreen() {
 
       <HeaderWithAvatar />
 
+      <Button title="Go to AfficheSpecialScreen"
+        onPress={() => navigation.navigate('AfficheSpecialScreen')}
+      />
+
       <View style={{ flexDirection: 'row', width: 300, alignItems: 'center' }}>
         <Input
           placeholder="Recherche"

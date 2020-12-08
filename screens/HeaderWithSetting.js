@@ -1,11 +1,8 @@
-import 'react-native-gesture-handler';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { Header, Icon } from 'react-native-elements';
 
 function HeaderWithSetting() {
   return (
-    <NavigationContainer>
       <Header
         backgroundColor='#16253D'
         height={40}
@@ -24,7 +21,6 @@ function HeaderWithSetting() {
           />
         }
       />
-    </NavigationContainer>
   )
 }
 

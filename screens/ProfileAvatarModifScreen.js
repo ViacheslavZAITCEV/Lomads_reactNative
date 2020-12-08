@@ -4,7 +4,7 @@ import { Text } from 'react-native-elements';
 
 import HeaderWithSetting from './HeaderWithSetting';
 
-export default function ProfileSettingScreen({ navigation }) {
+export default function ProfileAvatarMofidScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
 
@@ -13,16 +13,16 @@ export default function ProfileSettingScreen({ navigation }) {
       <Button title="Go to ProfileMainScreen"
         onPress={() => navigation.navigate('ProfileMainScreen')}
       />
-      <Button title="Go to ProfileAvatarModifScreen"
-        onPress={() => navigation.navigate('ProfileAvatarModifScreen')}
-      />      
+      <Button title="Go to ProfileSettingScreen"
+        onPress={() => navigation.navigate('ProfileSettingScreen')}
+      />
       <Button title="Go to ProfilePreferenceScreen"
         onPress={() => navigation.navigate('ProfilePreferenceScreen')}
-      />      
+      />
 
       <ScrollView contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>
-          Profile setting screen
+          Profile avatar modification screen
         </Text>
       </ScrollView>
 

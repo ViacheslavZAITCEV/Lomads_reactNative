@@ -56,7 +56,7 @@ export default function AfficheMainScreen() {
             </View>
             <View style={{alignItems:'center', width:150, margin:5}}>
               <Image style={{width:150, height:210}} source={{uri:'https://files.offi.fr/evenement/78407/images/120/14d4f207ad9eaff63fdaa68f0133f322.jpg'}}/>
-              <Text style={{textAlign:'center'}}>LE PETIT PAYS</Text>
+              <Text style={{textAlign:'center'}}>PETIT PAYS</Text>
             </View>
             <View style={{alignItems:'center', width:150, margin:5}}>
               <Image style={{width:150, height:210}} source={{uri:'https://files.offi.fr/evenement/78623/images/120/790cbdd6b7492218877f4acb86d8963b.jpg'}}/>
@@ -130,7 +130,7 @@ export default function AfficheMainScreen() {
           <ScrollView horizontal={true}>
             <View style={{alignItems:'center', width:150, margin:5}}>
               <Image style={{width:150, height:210, margin:5}} source={{uri:'https://files.offi.fr/programmation/1745784/images/120/14c5a0bfdbf63b0621fa69c67dedd5ea.png'}}/>
-              <Text style={{textAlign:'center', marginTop:3}}>MARINA KAYNE</Text>
+              <Text style={{textAlign:'center', marginTop:3}}>MARINA KAYE</Text>
             </View>
 
             <View style={{alignItems:'center', width:150, margin:5}}>

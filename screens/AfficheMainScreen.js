@@ -14,7 +14,7 @@ import {
 import HeaderWithAvatar from './HeaderWithAvatar';
 
 
-export default function AfficheMainScreen() {
+export default function AfficheMainScreen({ navigation }) {
 
 
   return (

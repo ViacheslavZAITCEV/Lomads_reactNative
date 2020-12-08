@@ -8,6 +8,9 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@progress/kendo-licensing": "^1.1.0",
+    "@progress/kendo-react-dropdowns": "^4.1.0",
+    "@progress/kendo-react-intl": "^4.1.0",
     "@react-native-community/masked-view": "0.1.10",
     "bootstrap": "^4.5.3",
     "expo": "~39.0.2",

@@ -2,19 +2,20 @@ import React from 'react';
 import { View, ScrollView } from 'react-native';
 import { Text } from 'react-native-elements';
 
-import HeaderWithAvatar from './HeaderWithAvatar';
+import HeaderWithSetting from './HeaderWithSetting';
 
-export default function MessagesMainScreen() {
+export default function ProfileSettingScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
 
-      <HeaderWithAvatar />
+      <HeaderWithSetting/>
 
       <ScrollView contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>
-          Messages main screen
-      </Text>
+          Profile setting screen
+        </Text>
       </ScrollView>
+
     </View>
   );
 }

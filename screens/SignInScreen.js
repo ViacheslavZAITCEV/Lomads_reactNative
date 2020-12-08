@@ -16,11 +16,7 @@ function SignInScreen({ navigation, addToken }) {
 
     var handleSubmitSignin = async () => {
 
-<<<<<<< HEAD
-        const data = await fetch('/sign-in', {
-=======
         const data = await fetch('/users/sign-in', {
->>>>>>> 9c9b76fe0a6eb27ab45ea7cd529ea76dad7c66e8
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `email=${signInEmail}&password=${signInPassword}`

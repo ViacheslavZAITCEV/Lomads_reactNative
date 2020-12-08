@@ -14,13 +14,16 @@ import {
 import HeaderWithAvatar from './HeaderWithAvatar';
 
 
-export default function AfficheMainScreen() {
-
+export default function AfficheMainScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1 }}>
 
       <HeaderWithAvatar />
+
+      <Button title="Go to AfficheSpecialScreen"
+        onPress={() => navigation.navigate('AfficheSpecialScreen')}
+      />
 
       <View style={{ flexDirection: 'row', width: 300, alignItems: 'center' }}>
         <Input

@@ -47,7 +47,7 @@ function AfficheMainScreen(props) {
 
   useEffect(() => {
     const getEvents = async() => {
-      const data = await fetch(`http://192.168.1.17:3000/pullEvents`)
+      const data = await fetch(`http://192.168.0.14:3000/pullEvents`)
       const body = await data.json()
       setEventsList(body) 
     }
@@ -183,8 +183,6 @@ function AfficheMainScreen(props) {
     }
   })
 
-  
-  
   return (
     <View style={{ flex: 1}}>
           <HeaderWithAvatar />
@@ -204,11 +202,8 @@ function AfficheMainScreen(props) {
           onPress={()=> console.log("filtres ok")}
         />
         
-        
       </View>
 
-    
-    
         <ScrollView style={{flex:2}}>
 
           <Text style={{fontSize:22, flexDirection:'flex-start', margin:7, fontWeight:'bold'}} onPress={()=> {console.log("OnPress CINEMA OK")}}>CINEMA</Text>
@@ -221,7 +216,6 @@ function AfficheMainScreen(props) {
                 </ScrollView>
               </View>
 
-
             <Text style={{fontSize:22, flexDirection:'flex-start', margin:7, fontWeight:'bold'}} onPress={()=> {console.log("OnPress THÉÂTRE OK")}}>THÉÂTRE</Text>
 
             <View style={{backgroundColor:'red', paddingBottom:15}}>
@@ -231,8 +225,6 @@ function AfficheMainScreen(props) {
 
                 </ScrollView>
               </View>
-
-
 
             <Text style={{fontSize:22, flexDirection:'flex-start', margin:7, fontWeight:'bold'}} onPress={()=> {console.log("OnPress THÉÂTRE OK")}}>EXPOSITIONS & MUSÉES</Text>
 
@@ -272,7 +264,6 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state){
   return {token: state.token}
 }
-
 
 export default connect(
   mapStateToProps,

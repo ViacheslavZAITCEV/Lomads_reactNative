@@ -12,7 +12,7 @@ import FriendsMainScreen from './screens/FriendsMainScreen';
 import FriendsProfileScreen from './screens/FriendsProfileScreen';
 import FriendsAddScreen from './screens/FriendsAddScreen';
 
-import MessagesMainScreen from './screens/MessagesMainScreen';
+// import MessagesMainScreen from './screens/MessagesMainScreen';
 
 import PlanMainScreen from './screens/PlanMainScreen';
 import PlanInvitationScreen from './screens/PlanInvitationScreen';
@@ -183,7 +183,6 @@ var BottomNavigator = createBottomTabNavigator(
   }
 );
 
-
 const Navigation = createAppContainer(BottomNavigator);
 
 export default function App() {
@@ -193,4 +192,3 @@ export default function App() {
     </Provider>
   );
  }
-

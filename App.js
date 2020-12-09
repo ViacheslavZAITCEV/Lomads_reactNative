@@ -5,6 +5,8 @@ import React from 'react';
 import AfficheMainScreen from './screens/AfficheMainScreen';
 import AfficheSpecialScreen from './screens/AfficheSpecialScreen';
 import AfficheByTypeScreen from './screens/AfficheByTypeScreen';
+import SignInScreen from './screens/SignInScreen';
+import SignUpScreen from './screens/SignUpScreen';
 
 import FriendsMainScreen from './screens/FriendsMainScreen';
 import FriendsProfileScreen from './screens/FriendsProfileScreen';
@@ -43,6 +45,18 @@ var AfficheStack = createStackNavigator({
   },
   AfficheByTypeScreen: {
     screen: AfficheByTypeScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  SignInScreen: {
+    screen: SignInScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  SignUpScreen: {
+    screen: SignUpScreen,
     navigationOptions: () => ({
       header: null
     })
@@ -127,7 +141,7 @@ var ProfileStack = createStackNavigator({
 var BottomNavigator = createBottomTabNavigator(
   {
     "À l'affiche": AfficheStack,
-    Messages: MessagesMainScreen,
+    // Messages: MessagesMainScreen,
     Planifier: PlanStack,
     Amis: FriendsStack,
     Profil: ProfileStack

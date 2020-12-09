@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header, Icon } from 'react-native-elements';
 
-function HeaderWithSetting() {
+function HeaderWithSetting({ navigation }) {
   return (
       <Header
         backgroundColor='#16253D'
@@ -17,7 +17,7 @@ function HeaderWithSetting() {
         }}
         rightComponent={
           <Icon name='setting' type='antdesign' size={25} color='#F8F5F2'
-            onPress={() => console.log('OnPress vers ProfileSettingScreen')}
+            onPress={() => navigation.navigate('ProfileSettingScreen')}
           />
         }
       />

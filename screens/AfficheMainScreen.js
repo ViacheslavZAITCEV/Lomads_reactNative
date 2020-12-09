@@ -1,177 +1,280 @@
-import React from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
+import React, {useEffect, useState} from "react";
+import { 
+  StyleSheet, 
+  View, 
+  Image, 
   ScrollView,
-} from 'react-native';
-import {
-  Text,
+  ImageBackground  } from 'react-native';
+import { 
+  Text, 
+  Header, 
   Input,
   Button,
-} from 'react-native-elements';
+  Card,
+  Badge,
+   } from 'react-native-elements';
+import { AntDesign } from '@expo/vector-icons'; 
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import {connect} from 'react-redux';
 
 import HeaderWithAvatar from './HeaderWithAvatar';
 
+const styles= StyleSheet.create({
+  imageBackground:{
+    flex:1,
+    resizeMode:"cover",
+    justifyContent:"center",
+  }
+})
 
-export default function AfficheMainScreen({ navigation }) {
+//? COULEUR BACKGROUND CARD scroll->  couleur 
+// background card -> couleur 3/4/5
+// badge -> navbar color
+// sans bordures``
 
+//! DONNER LES LIGNES DE CODE DE L'ICONE HEART A EMMA -> OK mais a voir avec EMMA
+
+
+//! DEMANDER COMMENT FAIRE UN TAB INVERSE
+
+
+
+function AfficheMainScreen(props) {
+
+  const imageBackground= {uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6"};
+
+  const [eventsList, setEventsList] = useState([]);
+
+  useEffect(() => {
+    const getEvents = async() => {
+      const data = await fetch(`http://192.168.1.17:3000/pullEvents`)
+      const body = await data.json()
+      setEventsList(body) 
+    }
+    getEvents()    
+  },[])
+
+  let tokenOK = () => {
+    if(props.token){
+      console.log("TOKEN", props.token)
+      props.navigation.navigate('AfficheSpecialScreen')
+    } else{
+      console.log('token qbsent')
+      props.navigation.navigate('SignInScreen')
+    }
+  }
+
+  var cine = eventsList.map(x => {
+    if (x.type === 'film'){
+      console.log('id evene,ent',x._id)
+      return (
+        
+        <Card 
+        containerStyle={{paddingTop:0, paddingLeft:0, paddingRight:0, paddingBottom:0, maxWidth:'47%'}}>
+            <Card.Image 
+              style={{width:180, height:235}} 
+              source={{uri: x.image}}
+              resizeMode="cover"
+              onPress={()=> 
+                {console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA");
+                  props.onAddIdEvent(x._id);
+                  tokenOK();
+              }}
+            />
+            <AntDesign 
+              name="heart" 
+              size={25} 
+              color='red'
+              style={{ position: 'absolute', top:5, left: 140 }}
+              onPress={()=>console.log("LIKÉ")}
+              />
+            <Text style={{textAlign:'center', fontWeight:'bold', maxWidth:"80%", padding:1 }}>{x.nom}</Text>
+                <Text>Une ville</Text><Text> 200m.</Text>
+            <View style = {{alignItems:'center', margin:2}}>
+              <Badge badgeStyle={{backgroundColor:'#16253D', margin:1 }} value={x.categories[0]}/>
+            </View>
+          </Card>
+      )
+    }
+  })
+
+  var theatre = eventsList.map(x => {
+    if (x.type === 'théâtre'){
+      return (
+        
+        <Card containerStyle={{paddingTop:0, paddingLeft:0, paddingRight:0, paddingBottom:0, maxWidth:'47%'}} >
+            <Card.Image 
+              style={{width:180, height:235}} 
+              source={{uri: x.image}}
+              resizeMode="cover"
+              onPress={()=> console.log(">>>>>>>>>>>>>>>>>>>>>>CARD THEATRE")}
+            />
+            <AntDesign 
+              name="heart" 
+              size={25} 
+              color='red'
+              style={{ position: 'absolute', top:5, left: 140 }}
+              onPress={()=>console.log("LIKÉ")}
+              />
+            <Text style={{textAlign:'center', fontWeight:'bold', maxWidth:"80%", padding:1 }}>{x.nom}</Text>
+                <Text>Une ville</Text><Text> 200m.</Text>
+            <View style = {{alignItems:'center', margin:2}}>
+              <Badge badgeStyle={{backgroundColor:'#16253D', margin:1 }} value={x.categories[0]}/>
+            </View>
+          </Card>
+      )
+    }
+  })
+  
+  var expos = eventsList.map(x => {
+    if (x.type === 'exposition'){
+      console.log(">>>>>>>>>>>", x.categories)
+      return (
+        
+        <Card containerStyle={{paddingTop:0, paddingLeft:0, paddingRight:0, paddingBottom:0, maxWidth:'47%'}} >
+            <Card.Image 
+              style={{width:180, height:235}} 
+              source={{uri: x.image}}
+              resizeMode="cover"
+              onPress={()=> console.log(">>>>>>>>>>>>>>>>>>>>>>CARD EXPOS")}
+            />
+            <AntDesign 
+              name="heart" 
+              size={25} 
+              color='red'
+              style={{ position: 'absolute', top:5, left: 140 }}
+              onPress={()=>console.log("LIKÉ")}
+              />
+            <Text style={{textAlign:'center', fontWeight:'bold', maxWidth:"80%", padding:1 }}>{x.nom}</Text>
+                <Text>Une ville</Text><Text> 200m.</Text>
+            <View style = {{alignItems:'center', margin:2}}>
+              <Badge badgeStyle={{backgroundColor:'#16253D', margin:1 }} value={x.categories[0]}/>
+            </View>
+          </Card>
+      )
+    }
+  })
+
+  var concert = eventsList.map(x => {
+    if (x.type === 'concert'){
+      return (
+        
+        <Card containerStyle={{paddingTop:0, paddingLeft:0, paddingRight:0, paddingBottom:0, maxWidth:'47%'}} >
+            <Card.Image 
+              style={{width:180, height:235}} 
+              source={{uri: x.image}}
+              resizeMode="cover"
+              onPress={()=> console.log(">>>>>>>>>>>>>>>>>>>>>>CARD CONCERT")}
+            />
+            <AntDesign 
+              name="heart" 
+              size={25} 
+              color='red'
+              style={{ position: 'absolute', top:5, left: 140 }}
+              onPress={()=>console.log("LIKÉ")}
+              />
+            <Text style={{textAlign:'center', fontWeight:'bold', maxWidth:"80%", padding:1 }}>{x.nom}</Text>
+                <Text>Une ville</Text><Text> 200m.</Text>
+            <View style = {{alignItems:'center', margin:2}}>
+              <Badge badgeStyle={{backgroundColor:'#16253D', margin:1 }} value={x.categories[0]}/>
+            </View>
+          </Card>
+      )
+    }
+  })
+
+  
+  
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1}}>
+          <HeaderWithAvatar />
 
-      <HeaderWithAvatar />
+    <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
-      <Button title="Go to AfficheSpecialScreen"
-        onPress={() => navigation.navigate('AfficheSpecialScreen')}
-      />
-
-      <View style={{ flexDirection: 'row', width: 300, alignItems: 'center' }}>
+      <View style={{flexDirection:'row', width: 300, cover:'width', marginTop:5,}}>
         <Input
-          placeholder="Recherche"
+          placeholder="CHERCHER"
+          inputStyle= {{borderWidth:1, borderColor:'grey', backgroundColor:'white'}}
         />
         <Button
           type='outline'
           title="Filtres"
-          buttonStyle={{ backgroundColor: "#EFB509" }}
-          titleStyle={{ color: 'white' }}
-          onPress={() => console.log("filtres ok")}
+          buttonStyle={{backgroundColor: "#EFB509"}}  
+          titleStyle={{color:'white'}}
+          onPress={()=> console.log("filtres ok")}
         />
-
+        
+        
       </View>
 
+    
+    
+        <ScrollView style={{flex:2}}>
 
-      <ScrollView style={{ flex: 2 }}>
-        <Text style={{ fontSize: 20, flexDirection: 'flex-start', marginTop: 10, fontWeight: 'bold' }} onPress={() => { console.log("OnPress CINEMA OK") }}>CINEMA</Text>
-        <ScrollView horizontal={true}>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210 }} source={{ uri: 'https://files.offi.fr/evenement/79246/images/120/ad64f2fe27d2be710398ae79fc1b862b.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>TENET</Text>
-          </View>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210 }} source={{ uri: 'https://files.offi.fr/evenement/78407/images/120/14d4f207ad9eaff63fdaa68f0133f322.jpg' }} />
-            <Text style={{ textAlign: 'center' }}>PETIT PAYS</Text>
-          </View>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210 }} source={{ uri: 'https://files.offi.fr/evenement/78623/images/120/790cbdd6b7492218877f4acb86d8963b.jpg' }} />
-            <Text style={{ textAlign: 'center' }}>POLICE</Text>
-          </View>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210 }} source={{ uri: 'https://files.offi.fr/evenement/79384/images/120/235e8ac6037292a3d5d90802e4c11623.jpg' }} />
-            <Text style={{ textAlign: 'center' }}>LES CHOSES QU'ON DIT LES CHOSES QU'ON FAIT</Text>
-          </View>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210 }} source={{ uri: 'https://files.offi.fr/evenement/79310/images/120/4501c939178d73695a5a0f93bb2e77d4.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>EFFACER L'HISTORIQUE</Text>
-          </View>
+          <Text style={{fontSize:22, flexDirection:'flex-start', margin:7, fontWeight:'bold'}} onPress={()=> {console.log("OnPress CINEMA OK")}}>CINEMA</Text>
+        
+            <View style={{backgroundColor:'#16253D', paddingBottom:15}}>
+                <ScrollView horizontal={true}>
+                  
+                  {cine}
 
-        </ScrollView>
+                </ScrollView>
+              </View>
 
-        <Text style={{ fontSize: 20, flexDirection: 'flex-start', marginTop: 10, fontWeight: 'bold' }} onPress={() => { console.log("OnPress THEATRE OK") }}>THÉÂTRE</Text>
-        <ScrollView horizontal={true}>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/1412736/images/120/287ab115dfd9c92800e7c1c9c56de302.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>DESPERATE HOUSEMEN</Text>
-          </View>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/1488905/images/120/8905d5365e767287fb63aaa6189885c6.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>LES FRANGLAISES</Text>
-          </View>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/956706/images/120/2be53cdeef1450da1b5a9fb3e259b97c.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>LES FAUX BRITISH</Text>
-          </View>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/1544211/images/120/27caab587e67f01a5d7aeaa16be23a87.jpeg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>MIGRANDO</Text>
-          </View>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/962546/images/120/cf332ea55f6402003ab297f60087352c.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>LE PORTEUR D'HISTOIRE</Text>
-          </View>
-        </ScrollView>
 
-        <Text style={{ fontSize: 20, flexDirection: 'flex-start', marginTop: 10, fontWeight: 'bold' }} onPress={() => { console.log("OnPress EXPOS/MUSEES OK") }}>EXPOSITIONS & MUSÉE</Text>
-        <ScrollView horizontal={true}>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/1640628/images/120/5622f9282e8008bdd4092482a080e759.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3, }}>MATISSE, COMME UN ROMAN</Text>
-          </View>
+            <Text style={{fontSize:22, flexDirection:'flex-start', margin:7, fontWeight:'bold'}} onPress={()=> {console.log("OnPress THÉÂTRE OK")}}>THÉÂTRE</Text>
 
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/1680419/images/120/1286a7c630590d52506ba6164c6d9046.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>CHRISTIAN LOUBOUTIN, L'EXHIBITION[NISTE]</Text>
-          </View>
+            <View style={{backgroundColor:'red', paddingBottom:15}}>
+                <ScrollView horizontal={true}>
+                  
+                  {theatre}
 
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/1676208/images/120/2d4315cce880da8fcdf65512d96d6ad3.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>OTTO FREUNDKUCH (1878-1943), La révélation de l'abstraction</Text>
-          </View>
+                </ScrollView>
+              </View>
 
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/1711217/images/120/41c77f9a475517aaabce0648cc01f045.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>Voyage sur la route du Kisokaidō</Text>
-          </View>
 
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/1748200/images/120/d1f00afd4202048cf3af666584b81fe8.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>Pierre Dac, Du côté d'ailleurs</Text>
-          </View>
+
+            <Text style={{fontSize:22, flexDirection:'flex-start', margin:7, fontWeight:'bold'}} onPress={()=> {console.log("OnPress THÉÂTRE OK")}}>EXPOSITIONS & MUSÉES</Text>
+
+            <View style={{backgroundColor:'orange', paddingBottom:15}}>
+                <ScrollView horizontal={true}>
+                
+                  {expos}
+
+                </ScrollView>
+              </View>
+
+            <Text style={{fontSize:22, flexDirection:'flex-start', margin:7, fontWeight:'bold'}} onPress={()=> {console.log("OnPress THÉÂTRE OK")}}>CONCERTS</Text>
+
+            <View style={{backgroundColor:'purple', paddingBottom:15}}>
+                <ScrollView horizontal={true}>
+
+                  {concert}
+
+                </ScrollView>
+            </View>
 
         </ScrollView>
 
-        <Text style={{ fontSize: 20, flexDirection: 'flex-start', marginTop: 10, fontWeight: 'bold' }} onPress={() => { console.log("OnPress CONCERTS OK") }}>CONCERTS</Text>
-        <ScrollView horizontal={true}>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/1745784/images/120/14c5a0bfdbf63b0621fa69c67dedd5ea.png' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>MARINA KAYE</Text>
-          </View>
-
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/1690525/images/120/c52b1748aeea9d287c5e3378dbba88d9.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>VIANEY</Text>
-          </View>
-
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/lieu/1756/images/120/7050b0cb5781bf590ac18ea8756d6731.png' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>« L'Olimpiade » opera seria de Vivaldi</Text>
-          </View>
-
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/1702061/images/120/a52bed7ec87997ae22a3af0299df9d07.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>ASAF AVIDAN</Text>
-          </View>
-
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/programmation/1690463/images/200/319574944cbd30de78a99aff0cc668b7.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>Céline Dion - Courage World Tour</Text>
-          </View>
-        </ScrollView>
-
-        <Text style={{ fontSize: 20, flexDirection: 'flex-start', marginTop: 10, fontWeight: 'bold' }} onPress={() => { console.log("OnPress FESTIVALS OK") }}>FESTIVALS</Text>
-        <ScrollView horizontal={true}>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://files.offi.fr/medias/img/affiche-jeunes-talents-2020.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>Festival Européen Jeunes Talents</Text>
-          </View>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://lh3.googleusercontent.com/proxy/JoVe3qsg7K5pcketv7w2YOmOj9bHeiCho9PSiE2C-7P62Nj3gbw5IApQrNd5kbH1TtwrzJnvLbv2qAYwAXP8XVI7QSvQKckquPml3cJXkeYkCNfBbjllt3ahjXMGNZ0YByvimxedrxKDiWnroV873W-TE9q_igfHbBlunImnO57H6QLOus3tJgjC' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>LOLLAPALOOZA 2021</Text>
-          </View>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://lh3.googleusercontent.com/proxy/lnaaULiy6DLWN7wYYHoQw2fPD2v9m2vAcIXPskVUl0JOCS4wMxPvk_ntyZA35WQBepqBUujFDOojBEX9TteD9wqrygf5B9Aw-aJg96yU-f8JmjxCJfd1XrCAetClTIGWZcwnqtno7muGW-fAmmmGJwWsP13gZL-R4G7N6VND977dFppVfawndto7Uh1miaxH-xczvbkMFyFG7_JIXgdZaFUON0oV' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>DREAM NATION 2020</Text>
-          </View>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://www.histoire-immigration.fr/sites/default/files/thumbnails/image/gf_2020.jpg' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>LE GRAND FESTIVAL 2020</Text>
-          </View>
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: 'https://lh3.googleusercontent.com/proxy/Co03Euji6E5_5xOuEF-VPZjW5xQB8BGjhk2JOW6vdRQE4IcA2MYVEQadEdfSRUnyJIt5GJD_RdingJQdVXMAUPn_81uEF6rJaK5jew' }} />
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>PARIS MUSIC FESTIVAL</Text>
-          </View>
-        </ScrollView>
-
-      </ScrollView>
+      </ImageBackground>
     </View>
   );
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onAddIdEvent: function(idEvent) { 
+      dispatch( {type: 'addIdEvent', idEvent:idEvent}) 
+    }
+  }
+}
+
+function mapStateToProps(state){
+  return {token: state.token}
+}
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AfficheMainScreen);

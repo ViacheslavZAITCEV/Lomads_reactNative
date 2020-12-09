@@ -28,6 +28,16 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 
 import { Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
+import {createStore, combineReducers} from 'redux';
+import {Provider} from 'react-redux';
+
+import tokenReducer from './reducers/token.reducer';
+import idEventReducer from './reducers/idevent.reducer';
+
+
+const store = createStore(combineReducers({tokenReducer,idEventReducer}));
+
+
 var AfficheStack = createStackNavigator({
   AfficheMainScreen: {
     screen: AfficheMainScreen,
@@ -159,5 +169,14 @@ var BottomNavigator = createBottomTabNavigator(
   }
 );
 
-var Navigation = createAppContainer(BottomNavigator);
-export default Navigation;
+
+const Navigation = createAppContainer(BottomNavigator);
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
+  );
+ }
+

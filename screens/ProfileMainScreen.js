@@ -2,7 +2,21 @@ import React from 'react';
 import { View, ScrollView } from 'react-native';
 import { Text, Avatar, Divider, Button } from 'react-native-elements';
 
-function ProfileMainScreen({ navigation }) {
+//Initialisation de Redux
+import { connect } from 'react-redux';
+
+// ----------------------------------------------
+//        ProfileMainScreen
+// ----------------------------------------------
+function ProfileMainScreen(props, {navigation}) {
+  console.log ('token = ', props.token);
+
+  if (props.token === undefined){
+    props.navigation.navigate('SignInScreen');
+  }
+
+  console.log('condition est passee');
+
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
 
@@ -42,4 +56,11 @@ function ProfileMainScreen({ navigation }) {
   );
 }
 
-export default ProfileMainScreen;
+function mapStateToProps(state){
+  return {token: state.token}
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(ProfileMainScreen);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View } from 'react-native';
 import { Header, Text, Input, Button } from 'react-native-elements';
 
@@ -41,13 +41,6 @@ function SignUpScreen(props) {
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-
-            <Header
-                backgroundColor='#16253D'
-                height={40}
-                leftComponent={{ text: 'GoWizMe', style: { color: '#F8F5F2', fontWeight: 'bold', fontSize: 15 } }}
-                centerComponent={{ text: 'Paris', style: { color: '#F8F5F2', fontWeight: 'bold', fontSize: 25 } }}
-            />
 
             <Text>Inscription à GoWizMe</Text>
 

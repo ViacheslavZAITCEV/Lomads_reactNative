@@ -19,8 +19,6 @@ import { AntDesign } from '@expo/vector-icons';
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import { connect } from 'react-redux';
 
-// import HeaderWithAvatar from '../shared/HeaderWithAvatar';
-
 const styles = StyleSheet.create({
   imageBackground: {
     flex: 1,
@@ -28,7 +26,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   }
 })
-
 
 
 //! ICONE HEART -> OK mais a voir avec EMMA
@@ -41,10 +38,9 @@ const styles = StyleSheet.create({
 //? -> Icone coeur -> CLICK -> change couleur
 
 
-
 function AfficheMainScreen(props) {
 
-  function dirigerSignature() {
+  function checkToken() {
     // verification de token
     // si token est present -> realiser action1
     // si token n'est pas present -> diriger vers sign-in
@@ -54,7 +50,6 @@ function AfficheMainScreen(props) {
     } else {
 
     }
-
 
   }
 
@@ -91,7 +86,7 @@ function AfficheMainScreen(props) {
       props.navigation.navigate('AfficheSpecialScreen')
     } else {
       console.log('token qbsent')
-      props.navigation.navigate('SignInScreen')
+      props.navigation.navigate('AfficheSpecialScreen')
     }
   }
 

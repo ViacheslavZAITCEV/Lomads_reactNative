@@ -47,7 +47,7 @@ function AfficheMainScreen(props) {
 
   useEffect(() => {
     const getEvents = async() => {
-      const data = await fetch(`http://192.168.1.17:3000/pullEvents`)
+      const data = await fetch(`http://192.168.1.142:3000/pullEvents`)
       const body = await data.json()
       setEventsList(body) 
     }
@@ -60,7 +60,7 @@ function AfficheMainScreen(props) {
       props.navigation.navigate('AfficheSpecialScreen')
     } else{
       console.log('token qbsent')
-      props.navigation.navigate('SignInScreen')
+      props.navigation.navigate('AfficheSpecialScreen')
     }
   }
 

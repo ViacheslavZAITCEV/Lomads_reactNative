@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {
   StyleSheet,
   View,
+
 } from 'react-native';
 import {
   Text,
@@ -11,6 +12,9 @@ import {
   
 } from 'react-native-elements';
 
+import {Picker} from '@react-native-picker/picker';
+
+
 import HeaderWithAvatar from './HeaderWithAvatar';
 
 import {connect} from 'react-redux';
@@ -18,36 +22,53 @@ import {connect} from 'react-redux';
 
 
 function AfficheSpecialScreen(props) {
-  const [evenement,setEvenement] = useState('') 
+  const [evenement,setEvenement] = useState({});
+  const [lieuEvenement,setLieuEvenement] = useState([]);
+  const [selectLieuEvenement,setSelectLieuEvenement] = useState('');
+  const [dateEvenement,setDateEvenement] = useState([]);
+
   useEffect(() => {
     const findEvent = async() => {
-      const data = await fetch(`https//192.168.1.142:3000/pullEventDetaille`, {
+      console.log("PROPS RECU", props.idEvent)
+      const data = await fetch(`http://192.168.1.142:3000/pullEventDetaille`, {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
-        body: 'id='+props.idEvent
-      });
+        body: 'id='+props.idEvent});
 
       const body = await data.json()
-      console.log(body)
+      
       setEvenement (body) 
     }
     findEvent ()    
   },[])
 
-  var event = evenement.map((event,i) => {
+  var recupLieu = () => {
+    for (var i = 0; evenement.lieux_dates.length;i++) {
+      console.log("coucou")
+      //console.log("lqlqlqlq",lieux_dates[i].salle )
+      //setLieuEvenement([...lieuEvenement, {salle:lieux_dates[i].salle, adresse:lieux_dates[i].adresse,cp:lieux_dates[i].cp}])
+    }
+  }
+  recupLieu();
+  console.log("lieu evene,ent",lieuEvenement)
+
+  // var lieu = lieuEvenement.map((lieu,i)=>{
+  //   return(<Picker.Item label="Java" value={lieu.salle} />)
+  // })
+ 
     return (
       <View style={{ flex: 1, alignItems: 'center' }}>
 
       <HeaderWithAvatar />
 
         <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-          <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: event.image }} />
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>{event.nom}</Text>
+          <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: evenement.image }} />
+          <Text style={{ textAlign: 'center', marginTop: 3 }}>{evenement.nom}</Text>
          
 
         </View>
         <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>{event.description}</Text>
+          <Text style={{ textAlign: 'center', marginTop: 3 }}>{evenement.description}</Text>
 
         </View>
 
@@ -57,23 +78,29 @@ function AfficheSpecialScreen(props) {
         </View>
 
         <View style={{ alignItems: 'center', width: 150, margin: 5 }}></View>
+        {/* <Picker
+          selectedValue={lieuEvenement}
+         style={{height: 50, width: 100}}
+         onValueChange={(itemValue, itemIndex) =>
+          setSelectLieuEvenement({itemValue})
+          }>
+         {lieu}
+        </Picker> */}
 
      
 
   
     </View>
     )
-  })
-  return (
-    
-  );
+  
+
 }
 function mapStateToProps(state){
-  return {idEvent: state.idEvent}
+  return {idEvent: state.idEventReducer}
 }
 
 
 export default connect(
   mapStateToProps,
-null,
+  null
 )(AfficheSpecialScreen);

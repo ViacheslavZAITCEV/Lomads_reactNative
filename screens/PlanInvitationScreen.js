@@ -4,14 +4,14 @@ import { Text } from 'react-native-elements';
 
 import HeaderWithAvatar from './HeaderWithAvatar';
 
-export default function PlanMainScreen({ navigation }) {
+export default function PlanInvitationScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
 
       <HeaderWithAvatar />
 
-      <Button title="Go to PlanInvitationScreen"
-        onPress={() => navigation.navigate('PlanInvitationScreen')}
+      <Button title="Go to PlanMainScreen"
+        onPress={() => navigation.navigate('PlanMainScreen')}
       />
       <Button title="Go to PlanDetailScreen"
         onPress={() => navigation.navigate('PlanDetailScreen')}
@@ -22,7 +22,7 @@ export default function PlanMainScreen({ navigation }) {
 
       <ScrollView contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>
-          Plan main screen
+          Plan invitation screen
       </Text>
       </ScrollView>
     </View>

@@ -3,23 +3,158 @@ console.disableYellowBox = true;
 import React from 'react';
 
 import AfficheMainScreen from './screens/AfficheMainScreen';
+import AfficheSpecialScreen from './screens/AfficheSpecialScreen';
+import AfficheByTypeScreen from './screens/AfficheByTypeScreen';
+import SignInScreen from './screens/SignInScreen';
+import SignUpScreen from './screens/SignUpScreen';
+
 import FriendsMainScreen from './screens/FriendsMainScreen';
-import MessagesMainScreen from './screens/MessagesMainScreen';
+import FriendsProfileScreen from './screens/FriendsProfileScreen';
+import FriendsAddScreen from './screens/FriendsAddScreen';
+
+// import MessagesMainScreen from './screens/MessagesMainScreen';
+
 import PlanMainScreen from './screens/PlanMainScreen';
+import PlanInvitationScreen from './screens/PlanInvitationScreen';
+import PlanDetailScreen from './screens/PlanDetailScreen';
+import PlanOrgaScreen from './screens/PlanOrgaScreen';
+
 import ProfileMainScreen from './screens/ProfileMainScreen';
+import ProfileSettingScreen from './screens/ProfileSettingScreen';
+import ProfilePreferenceScreen from './screens/ProfilePreferenceScreen';
+import ProfileAvatarModifScreen from './screens/ProfileAvatarModifScreen';
 
 import {createAppContainer } from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 
 import { Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
+import {createStore, combineReducers} from 'redux';
+import {Provider} from 'react-redux';
+
+import tokenReducer from './reducers/token.reducer';
+import idEventReducer from './reducers/idevent.reducer';
+
+
+const store = createStore(combineReducers({tokenReducer,idEventReducer}));
+
+
+var AfficheStack = createStackNavigator({
+  AfficheMainScreen: {
+    screen: AfficheMainScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  AfficheSpecialScreen: {
+    screen: AfficheSpecialScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  AfficheByTypeScreen: {
+    screen: AfficheByTypeScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  SignInScreen: {
+    screen: SignInScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  SignUpScreen: {
+    screen: SignUpScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  }
+});
+
+var PlanStack = createStackNavigator({
+  PlanMainScreen: {
+    screen: PlanMainScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  PlanInvitationScreen: {
+    screen: PlanInvitationScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  PlanDetailScreen: {
+    screen: PlanDetailScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  PlanOrgaScreen: {
+    screen: PlanOrgaScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  }
+});
+
+var FriendsStack = createStackNavigator({
+  FriendsMainScreen: {
+    screen: FriendsMainScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  FriendsProfileScreen: {
+    screen: FriendsProfileScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  FriendsAddScreen: {
+    screen: FriendsAddScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  }
+});
+
+var ProfileStack = createStackNavigator({
+  ProfileMainScreen: {
+    screen: ProfileMainScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  ProfileSettingScreen: {
+    screen: ProfileSettingScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  ProfilePreferenceScreen: {
+    screen: ProfilePreferenceScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  ProfileAvatarModifScreen: {
+    screen: ProfileAvatarModifScreen,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+});
+
 var BottomNavigator = createBottomTabNavigator(
   {
-    "À l'affiche": AfficheMainScreen,
-    Messages: MessagesMainScreen,
-    Planifier: PlanMainScreen,
-    Amis: FriendsMainScreen,
-    Profil: ProfileMainScreen
+    "À l'affiche": AfficheStack,
+    // Messages: MessagesMainScreen,
+    Planifier: PlanStack,
+    Amis: FriendsStack,
+    Profil: ProfileStack
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -48,5 +183,12 @@ var BottomNavigator = createBottomTabNavigator(
   }
 );
 
-var Navigation = createAppContainer(BottomNavigator);
-export default Navigation;
+const Navigation = createAppContainer(BottomNavigator);
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
+  );
+ }

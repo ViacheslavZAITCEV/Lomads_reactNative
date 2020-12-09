@@ -2,13 +2,9 @@ import React from 'react';
 import { View, ScrollView } from 'react-native';
 import { Text, Avatar, Divider, Button } from 'react-native-elements';
 
-import HeaderWithSetting from './HeaderWithSetting';
-
 function ProfileMainScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
-
-      <HeaderWithSetting />
 
       <Avatar
         size='xlarge'

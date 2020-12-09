@@ -2,13 +2,9 @@ import React from 'react';
 import { View, ScrollView } from 'react-native';
 import { Text, Button } from 'react-native-elements';
 
-import HeaderWithAvatar from './HeaderWithAvatar';
-
 export default function FriendsMainScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
-
-      <HeaderWithAvatar />
 
       <View style={{ flexDirection: 'column', width: 300, cover: 'width', marginTop: 5, }}>
         <Text> Mes invitations </Text>

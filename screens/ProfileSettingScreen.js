@@ -2,13 +2,9 @@ import React from 'react';
 import { View, ScrollView, Button } from 'react-native';
 import { Text } from 'react-native-elements';
 
-import HeaderWithSetting from './HeaderWithSetting';
-
 export default function ProfileSettingScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
-
-      <HeaderWithSetting/>
 
       <Button title="Go to ProfileMainScreen"
         onPress={() => navigation.navigate('ProfileMainScreen')}

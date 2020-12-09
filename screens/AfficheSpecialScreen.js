@@ -2,13 +2,13 @@ import React from 'react';
 import { View, ScrollView, Button } from 'react-native';
 import { Text } from 'react-native-elements';
 
-import HeaderWithAvatar from './HeaderWithAvatar';
+// import HeaderWithAvatar from '../shared/HeaderWithAvatar';
 
-export default function AfficheSpecialScreen({ navigation }) {
+function AfficheSpecialScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
       
-      <HeaderWithAvatar />
+      {/* <HeaderWithAvatar /> */}
 
       <ScrollView contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>
@@ -18,3 +18,5 @@ export default function AfficheSpecialScreen({ navigation }) {
     </View>
   );
 }
+
+export default AfficheSpecialScreen

@@ -28,6 +28,11 @@ import {createAppContainer } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 
+import HeaderLeft from './shared/HeaderLeft';
+import HeaderCity from './shared/HeaderCity';
+import HeaderRightAvatar from './shared/HeaderRightAvatar';
+import HeaderRightSetting from './shared/HeaderRightSetting';
+
 import { Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import {createStore, combineReducers} from 'redux';
@@ -36,117 +41,218 @@ import {Provider} from 'react-redux';
 import tokenReducer from './reducers/token.reducer';
 import idEventReducer from './reducers/idevent.reducer';
 
-
 const store = createStore(combineReducers({tokenReducer,idEventReducer}));
 
+// ===============================================================================
+//                        NAVIGATION SCREENS A L'AFFICHE
+// ===============================================================================
 
-var AfficheStack = createStackNavigator({
+var AfficheScreens = {
   AfficheMainScreen: {
     screen: AfficheMainScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
   },
   AfficheSpecialScreen: {
     screen: AfficheSpecialScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
   },
   AfficheByTypeScreen: {
     screen: AfficheByTypeScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
   },
   SignInScreen: {
     screen: SignInScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
   },
   SignUpScreen: {
     screen: SignUpScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
   }
-});
+}
 
-var PlanStack = createStackNavigator({
+var AfficheStack = createStackNavigator (AfficheScreens, {
+  defaultNavigationOptions: {
+    headerStyle: { backgroundColor: '#16253D', height: 70 }
+  }
+})
+
+// ===============================================================================
+//                        NAVIGATION SCREENS PLANIFIER
+// ===============================================================================
+
+var PlanScreens = {
   PlanMainScreen: {
     screen: PlanMainScreen,
-    navigationOptions: () => ({
-      header: null
-    })
-  },
-  PlanInvitationScreen: {
-    screen: PlanInvitationScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
   },
   PlanDetailScreen: {
     screen: PlanDetailScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
+  },
+  PlanInvitationScreen: {
+    screen: PlanInvitationScreen,
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
   },
   PlanOrgaScreen: {
     screen: PlanOrgaScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
   }
-});
+}
 
-var FriendsStack = createStackNavigator({
+var PlanStack = createStackNavigator (PlanScreens, {
+  defaultNavigationOptions: {
+    headerStyle: { backgroundColor: '#16253D', height: 70 }
+  }
+})
+
+// ===============================================================================
+//                        NAVIGATION SCREENS AMIS
+// ===============================================================================
+
+var FriendsScreens = {
   FriendsMainScreen: {
     screen: FriendsMainScreen,
-    navigationOptions: () => ({
-      header: null
-    })
-  },
-  FriendsProfileScreen: {
-    screen: FriendsProfileScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
   },
   FriendsAddScreen: {
     screen: FriendsAddScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
+  },
+  FriendsProfileScreen: {
+    screen: FriendsProfileScreen,
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
   }
-});
+}
 
-var ProfileStack = createStackNavigator({
+var FriendsStack = createStackNavigator (FriendsScreens, {
+  defaultNavigationOptions: {
+    headerStyle: { backgroundColor: '#16253D', height: 70 }
+  }
+})
+
+// ===============================================================================
+//                        NAVIGATION SCREENS PROFIL
+// ===============================================================================
+
+var ProfileScreens = {
   ProfileMainScreen: {
     screen: ProfileMainScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightSetting navigation={navigation}/>
+      }
+    }
   },
   ProfileSettingScreen: {
     screen: ProfileSettingScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightSetting navigation={navigation}/>
+    }
   },
   ProfilePreferenceScreen: {
     screen: ProfilePreferenceScreen,
-    navigationOptions: () => ({
-      header: null
-    })
+    navigationOptions: {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightSetting navigation={navigation}/>
+    }
   },
   ProfileAvatarModifScreen: {
     screen: ProfileAvatarModifScreen,
-    navigationOptions: () => ({
-      header: null
-    })
-  },
-});
+    navigationOptions: {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightSetting navigation={navigation}/>
+    }
+  }
+}
+
+var ProfileStack = createStackNavigator (ProfileScreens, {
+  defaultNavigationOptions: {
+    headerStyle: { backgroundColor: '#16253D', height: 70 }
+  }
+})
+
+
+// ===============================================================================
+//                        NAVIGATION BOTTOM NAVIGATOR
+// ===============================================================================
 
 var BottomNavigator = createBottomTabNavigator(
   {

@@ -10,11 +10,8 @@ export default function FriendsProfileScreen({ navigation }) {
       
       <HeaderWithAvatar />
 
-      <Button title="Go to FriendsMainScreen"
+      <Button title="Go back to FriendsMainScreen"
         onPress={() => navigation.navigate('FriendsMainScreen')}
-      />
-      <Button title="Go to FriendsAddScreen"
-        onPress={() => navigation.navigate('FriendsAddScreen')}
       />
 
       <ScrollView contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

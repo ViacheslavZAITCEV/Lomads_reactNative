@@ -10,17 +10,15 @@ export default function FriendsAddScreen({ navigation }) {
       
       <HeaderWithAvatar />
 
-      <Button title="Go to FriendsMainScreen"
-        onPress={() => navigation.navigate('FriendsMainScreen')}
-      />
-      <Button title="Go to FriendsProfileScreen"
-        onPress={() => navigation.navigate('FriendsProfileScreen')}
-      />
-
       <ScrollView contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+
         <Text>
-          Friends add screen
+          Chercher ses amis par leur nom de famille
         </Text>
+        <Text>
+          Inviter ses amis par email
+        </Text>
+        
       </ScrollView>
     </View>
   );

@@ -2,16 +2,17 @@ import React, {useEffect, useState} from "react";
 import { 
   StyleSheet, 
   View, 
-  Image, 
   ScrollView,
   ImageBackground  } from 'react-native';
 import { 
   Text, 
-  Header, 
   Input,
   Button,
   Card,
   Badge,
+  BottomSheet,
+  ListItem,
+  CheckBox
    } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons'; 
 import DropdownButton from 'react-bootstrap/DropdownButton'
@@ -27,21 +28,36 @@ const styles= StyleSheet.create({
   }
 })
 
-//? COULEUR BACKGROUND CARD scroll->  couleur 
-// background card -> couleur 3/4/5
-// badge -> navbar color
-// sans bordures``
 
-//! DONNER LES LIGNES DE CODE DE L'ICONE HEART A EMMA -> OK mais a voir avec EMMA
+
+//! ICONE HEART -> OK mais a voir avec EMMA
 
 
 //! DEMANDER COMMENT FAIRE UN TAB INVERSE
+
+//? TODO: 
+//? -> Bouton filtre en dropdown
+//? -> Icone coeur -> CLICK -> change couleur
 
 
 
 function AfficheMainScreen(props) {
 
   const imageBackground= {uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6"};
+
+  const [isVisible, setIsVisible] = useState(false);
+  const FilterList = [
+  { title: 'CINEMA' },
+  { title: 'THÉÂTRE' },
+  { title: 'EXPOS' },
+  { title: 'CONCERT' },
+  {
+    title: 'Annuler',
+    containerStyle: {backgroundColor: 'D70026'},
+    titleStyle: { color: 'white' },
+    onPress: () => setIsVisible(false),
+  },
+];
 
   const [eventsList, setEventsList] = useState([]);
 
@@ -70,9 +86,9 @@ function AfficheMainScreen(props) {
       return (
         
         <Card 
-        containerStyle={{paddingTop:0, paddingLeft:0, paddingRight:0, paddingBottom:0, maxWidth:'47%'}}>
+        containerStyle={{paddingTop:0, paddingLeft:0, paddingRight:0, paddingBottom:0, maxWidth:'47%', backgroundColor:'#F8F5F2'}}>
             <Card.Image 
-              style={{width:180, height:235}} 
+              style={{width:170, height:230}} 
               source={{uri: x.image}}
               resizeMode="cover"
               onPress={()=> 
@@ -84,12 +100,12 @@ function AfficheMainScreen(props) {
             <AntDesign 
               name="heart" 
               size={25} 
-              color='red'
+              color='#D70026'
               style={{ position: 'absolute', top:5, left: 140 }}
               onPress={()=>console.log("LIKÉ")}
               />
-            <Text style={{textAlign:'center', fontWeight:'bold', maxWidth:"80%", padding:1 }}>{x.nom}</Text>
-                <Text>Une ville</Text><Text> 200m.</Text>
+            <Text style={{textAlign:'center', fontWeight:'bold', maxWidth:"80%", padding:5 }}>{x.nom}</Text>
+                <Text style={{margin:2}}>Une ville</Text><Text> 200m.</Text>
             <View style = {{alignItems:'center', margin:2}}>
               <Badge badgeStyle={{backgroundColor:'#16253D', margin:1 }} value={x.categories[0]}/>
             </View>
@@ -102,9 +118,9 @@ function AfficheMainScreen(props) {
     if (x.type === 'théâtre'){
       return (
         
-        <Card containerStyle={{paddingTop:0, paddingLeft:0, paddingRight:0, paddingBottom:0, maxWidth:'47%'}} >
+        <Card containerStyle={{paddingTop:0, paddingLeft:0, paddingRight:0, paddingBottom:0, maxWidth:'47%', backgroundColor:'#F8F5F2'}} >
             <Card.Image 
-              style={{width:180, height:235}} 
+              style={{width:170, height:230}} 
               source={{uri: x.image}}
               resizeMode="cover"
               onPress={()=> console.log(">>>>>>>>>>>>>>>>>>>>>>CARD THEATRE")}
@@ -112,12 +128,12 @@ function AfficheMainScreen(props) {
             <AntDesign 
               name="heart" 
               size={25} 
-              color='red'
+              color='#D70026'
               style={{ position: 'absolute', top:5, left: 140 }}
               onPress={()=>console.log("LIKÉ")}
               />
             <Text style={{textAlign:'center', fontWeight:'bold', maxWidth:"80%", padding:1 }}>{x.nom}</Text>
-                <Text>Une ville</Text><Text> 200m.</Text>
+            <Text style={{margin:2}}>Une ville</Text><Text> 200m.</Text>
             <View style = {{alignItems:'center', margin:2}}>
               <Badge badgeStyle={{backgroundColor:'#16253D', margin:1 }} value={x.categories[0]}/>
             </View>
@@ -128,12 +144,11 @@ function AfficheMainScreen(props) {
   
   var expos = eventsList.map(x => {
     if (x.type === 'exposition'){
-      console.log(">>>>>>>>>>>", x.categories)
       return (
         
-        <Card containerStyle={{paddingTop:0, paddingLeft:0, paddingRight:0, paddingBottom:0, maxWidth:'47%'}} >
+        <Card containerStyle={{paddingTop:0, paddingLeft:0, paddingRight:0, paddingBottom:0, maxWidth:'47%', backgroundColor:'#F8F5F2'}} >
             <Card.Image 
-              style={{width:180, height:235}} 
+              style={{width:170, height:230}} 
               source={{uri: x.image}}
               resizeMode="cover"
               onPress={()=> console.log(">>>>>>>>>>>>>>>>>>>>>>CARD EXPOS")}
@@ -141,12 +156,12 @@ function AfficheMainScreen(props) {
             <AntDesign 
               name="heart" 
               size={25} 
-              color='red'
+              color='#D70026'
               style={{ position: 'absolute', top:5, left: 140 }}
               onPress={()=>console.log("LIKÉ")}
               />
             <Text style={{textAlign:'center', fontWeight:'bold', maxWidth:"80%", padding:1 }}>{x.nom}</Text>
-                <Text>Une ville</Text><Text> 200m.</Text>
+            <Text style={{margin:2}}>Une ville</Text><Text> 200m.</Text>
             <View style = {{alignItems:'center', margin:2}}>
               <Badge badgeStyle={{backgroundColor:'#16253D', margin:1 }} value={x.categories[0]}/>
             </View>
@@ -159,9 +174,9 @@ function AfficheMainScreen(props) {
     if (x.type === 'concert'){
       return (
         
-        <Card containerStyle={{paddingTop:0, paddingLeft:0, paddingRight:0, paddingBottom:0, maxWidth:'47%'}} >
+        <Card containerStyle={{paddingTop:0, paddingLeft:0, paddingRight:0, paddingBottom:0, maxWidth:'47%', backgroundColor:'#F8F5F2'}} >
             <Card.Image 
-              style={{width:180, height:235}} 
+              style={{width:170, height:230}} 
               source={{uri: x.image}}
               resizeMode="cover"
               onPress={()=> console.log(">>>>>>>>>>>>>>>>>>>>>>CARD CONCERT")}
@@ -169,12 +184,12 @@ function AfficheMainScreen(props) {
             <AntDesign 
               name="heart" 
               size={25} 
-              color='red'
+              color='#D70026'
               style={{ position: 'absolute', top:5, left: 140 }}
               onPress={()=>console.log("LIKÉ")}
               />
             <Text style={{textAlign:'center', fontWeight:'bold', maxWidth:"80%", padding:1 }}>{x.nom}</Text>
-                <Text>Une ville</Text><Text> 200m.</Text>
+            <Text style={{margin:2}}>Une ville</Text><Text> 200m.</Text>
             <View style = {{alignItems:'center', margin:2}}>
               <Badge badgeStyle={{backgroundColor:'#16253D', margin:1 }} value={x.categories[0]}/>
             </View>
@@ -184,14 +199,13 @@ function AfficheMainScreen(props) {
   })
 
   
-  
   return (
     <View style={{ flex: 1}}>
           <HeaderWithAvatar />
 
     <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
-      <View style={{flexDirection:'row', width: 300, cover:'width', marginTop:5,}}>
+      <View style={{flexDirection:'row', width: 300, cover:'width', marginTop:5,paddingBottom:0}}>
         <Input
           placeholder="CHERCHER"
           inputStyle= {{borderWidth:1, borderColor:'grey', backgroundColor:'white'}}
@@ -199,59 +213,83 @@ function AfficheMainScreen(props) {
         <Button
           type='outline'
           title="Filtres"
-          buttonStyle={{backgroundColor: "#EFB509"}}  
+          buttonStyle={{backgroundColor: "#D70026"}}  
           titleStyle={{color:'white'}}
-          onPress={()=> console.log("filtres ok")}
+          onPress={()=> console.log("filtres ok", setIsVisible(true))}
         />
-        
-        
       </View>
 
+      <BottomSheet isVisible={isVisible}>
+        {FilterList.map((l, i) => (
+          <ListItem key={i} containerStyle={{maxHeight:"100%"}} onPress={l.onPress}>
+            <ListItem.Content>
+              <ListItem.Title style={{fontWeight:'bold'}} onPress={()=> console.log(l.title)}>{l.title}</ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        ))}
+      </BottomSheet>
+      
     
     
         <ScrollView style={{flex:2}}>
 
-          <Text style={{fontSize:22, flexDirection:'flex-start', margin:7, fontWeight:'bold'}} onPress={()=> {console.log("OnPress CINEMA OK")}}>CINEMA</Text>
+          <Text 
+            style={{
+              fontSize:22, 
+              margin:7, 
+              fontWeight:'bold'}} 
+            onPress={()=> {console.log("OnPress CINEMA OK")}}>
+          CINEMA</Text>
         
-            <View style={{backgroundColor:'#16253D', paddingBottom:15}}>
-                <ScrollView horizontal={true}>
-                  
-                  {cine}
-
-                </ScrollView>
-              </View>
+            <View style={{backgroundColor:'#3C6382', paddingBottom:15}}>
+              <ScrollView horizontal={true}>
+                {cine}
+              </ScrollView>
+            </View>
 
 
-            <Text style={{fontSize:22, flexDirection:'flex-start', margin:7, fontWeight:'bold'}} onPress={()=> {console.log("OnPress THÉÂTRE OK")}}>THÉÂTRE</Text>
+            <Text 
+              style={{
+                fontSize:22, 
+                margin:7, 
+                fontWeight:'bold'}} 
+              onPress={()=> {console.log("OnPress THÉÂTRE OK")}}>
+            THÉÂTRE</Text>
 
-            <View style={{backgroundColor:'red', paddingBottom:15}}>
-                <ScrollView horizontal={true}>
-                  
-                  {theatre}
-
-                </ScrollView>
-              </View>
+            <View style={{backgroundColor:'#E55039', paddingBottom:15}}>
+              <ScrollView horizontal={true}>
+                {theatre}
+              </ScrollView>
+            </View>
 
 
 
-            <Text style={{fontSize:22, flexDirection:'flex-start', margin:7, fontWeight:'bold'}} onPress={()=> {console.log("OnPress THÉÂTRE OK")}}>EXPOSITIONS & MUSÉES</Text>
+            <Text 
+              style={{
+                fontSize:22, 
+                margin:7, 
+                fontWeight:'bold'}} 
+              onPress={()=> {console.log("OnPress THÉÂTRE OK")}}>
+            EXPOSITIONS & MUSÉES</Text>
 
-            <View style={{backgroundColor:'orange', paddingBottom:15}}>
-                <ScrollView horizontal={true}>
-                
-                  {expos}
+            <View style={{backgroundColor:'#F6E58D', paddingBottom:15}}>
+              <ScrollView horizontal={true}>
+                {expos}
+              </ScrollView>
+            </View>
 
-                </ScrollView>
-              </View>
+            <Text 
+              style={{
+                fontSize:22, 
+                margin:7, 
+                fontWeight:'bold'}} 
+              onPress={()=> {console.log("OnPress THÉÂTRE OK")}}>
+            CONCERTS</Text>
 
-            <Text style={{fontSize:22, flexDirection:'flex-start', margin:7, fontWeight:'bold'}} onPress={()=> {console.log("OnPress THÉÂTRE OK")}}>CONCERTS</Text>
-
-            <View style={{backgroundColor:'purple', paddingBottom:15}}>
-                <ScrollView horizontal={true}>
-
-                  {concert}
-
-                </ScrollView>
+            <View style={{backgroundColor:'#3C6382', paddingBottom:15}}>
+              <ScrollView horizontal={true}>
+                {concert}
+              </ScrollView>
             </View>
 
         </ScrollView>

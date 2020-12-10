@@ -1,4 +1,4 @@
-export default function(user = '-= GoWizMe_from_Redux =-', action) {
+export default function(user = {}, action) {
     console.log('user reduceur ')
     if(action.type == 'user') {
         console.log('enregistrement user : ', action.user)

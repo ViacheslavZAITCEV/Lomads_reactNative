@@ -3,7 +3,8 @@ import {
   StyleSheet,
   View,
   ScrollView,
-  ImageBackground
+  ImageBackground,
+  AsyncStorage
 } from 'react-native';
 import {
   Text,
@@ -59,19 +60,30 @@ function AfficheMainScreen(props) {
 
   const [eventsList, setEventsList] = useState([]);
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState (props.token)
 
   useEffect(() => {
     const getEvents = async () => {
-      const data = await fetch(`http://192.168.0.14:3000/pullEvents`)
+      const data = await fetch(`http://172.17.1.111:3000/pullEvents`);
       const body = await data.json()
       setEventsList(body)
     }
-    const getUser = ()=>{
-      setUser(props.token);
+    const getUserfromStorage = async () => {
+      await AsyncStorage.getItem('user', async function (error, data){
+        
+        console.log('Read from Storage: user=', data);
+        console.log('Read from Storage: error=', error);
+        setToken(data);
+        const userBD = await fetch(`http:/172.17.1.111:3000/pullEvents`);
+        const body = await userBD.json()
+        setUser(body)
+
+      });
     }
     getEvents();
-    getUser();
-  }, [user])
+    getUserfromStorage ();
+  },[])
+
 
   let tokenOK = () => {
     if (props.token) {
@@ -373,7 +385,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return {token: state.token}
+  return {
+    token: state.token,
+    user : state.user
+  }
 }
 
 export default connect(

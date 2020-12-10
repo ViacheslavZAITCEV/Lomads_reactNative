@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import { Header, Input, Button } from 'react-native-elements';
 
 //Initialisation de Redux
@@ -29,10 +29,7 @@ function SignInScreen(props, { navigation, addToken }) {
 
         console.log('reponse Backend:', body);
         if (body.response) {
-            setUserExists(true);
-            //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
-            props.addToken(body.token);
-            props.addUser({
+            var userBE = {
                 nom : body.nom,
                 prenom : body.prenom,
                 avatar : body.avatar,
@@ -44,7 +41,12 @@ function SignInScreen(props, { navigation, addToken }) {
                 amis  : body.amis,
                 confidentialite  : body.confidentialite,
                 age : body.age,
-            });
+            };
+            AsyncStorage.setItem('user', JSON.stringify(userBE));
+            setUserExists(true);
+            //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
+            props.addToken(body.token);
+            props.addUser(userBE);
             console.log('user est connecté');
             props.navigation.navigate('AfficheMainScreen');
         } else {

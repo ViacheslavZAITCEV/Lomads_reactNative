@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  ImageBackground
-} from 'react-native';
-import {
-  Text,
-  Input,
-  Button,
-  Card,
-  Badge,
-  BottomSheet,
-  ListItem,
-} from 'react-native-elements';
+
+import { StyleSheet,  View, ScrollView, ImageBackground } from 'react-native';
+import { Text,  Input, Button, Card, Badge, BottomSheet, ListItem, } from 'react-native-elements';
+
 import { AntDesign } from '@expo/vector-icons';
+
 import { connect } from 'react-redux';
+
 
 const styles = StyleSheet.create({
   imageBackground: {
@@ -24,8 +15,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   }
 })
-
-
 
 
 function AfficheMainScreen(props) {
@@ -72,9 +61,7 @@ function AfficheMainScreen(props) {
     if (x.type === 'film') {
       console.log("CINE>>>>>",x._id)
       return (
-
-        <Card
-          containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }}>
+        <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }}>
           <Card.Image
             style={{ width: 170, height: 230 }}
             source={{ uri: x.image }}
@@ -106,14 +93,13 @@ function AfficheMainScreen(props) {
     if (x.type === 'théâtre') {
       console.log("THEATRE>>>>>",x._id)
       return (
-
         <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
           <Card.Image
             style={{ width: 170, height: 230 }}
             source={{ uri: x.image }}
             resizeMode="cover"
             onPress={() => {
-              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA");
+              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE THEATRE");
               props.onAddIdEvent(x._id);
               tokenOK();
             }}          
@@ -139,14 +125,13 @@ function AfficheMainScreen(props) {
     if (x.type === 'exposition') {
       console.log("EXPOS>>>>>",x._id)
       return (
-
         <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
           <Card.Image
             style={{ width: 170, height: 230 }}
             source={{ uri: x.image }}
             resizeMode="cover"
             onPress={() => {
-              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA");
+              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE EXPOS");
               props.onAddIdEvent(x._id);
               tokenOK();
             }}          
@@ -172,14 +157,13 @@ function AfficheMainScreen(props) {
     if (x.type === 'concert') {
       console.log("CONCERT>>>>>",x._id)
       return (
-
         <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
           <Card.Image
             style={{ width: 170, height: 230 }}
             source={{ uri: x.image }}
             resizeMode="cover"
             onPress={() => {
-              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA");
+              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CONCERT");
               props.onAddIdEvent(x._id);
               tokenOK();
             }}          
@@ -206,7 +190,7 @@ function AfficheMainScreen(props) {
 
       <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
-      <View style={{ flexDirection: 'row', width: 300, cover: 'width', marginTop: 5, paddingBottom: 0, marginBottom:0 }}>
+      <View style={{ flexDirection: 'row', width: 300, cover: 'width', marginTop: 10, paddingBottom: 0, marginBottom:0 }}>
             <Input
               placeholder="CHERCHER"
               inputStyle={{ borderWidth: 1, borderColor: 'grey', backgroundColor: 'white', marginBottom:0 }}
@@ -317,7 +301,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return {token: state.token }
+  return {token: state.tokenReducer }
 }
 
 export default connect(

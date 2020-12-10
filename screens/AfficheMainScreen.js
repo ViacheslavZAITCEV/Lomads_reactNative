@@ -7,6 +7,10 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
 
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
+
+
 
 const styles = StyleSheet.create({
   imageBackground: {
@@ -35,6 +39,22 @@ function AfficheMainScreen(props) {
       onPress: () => setIsVisible(false),
     },
   ];
+
+  useEffect(() => {
+    async function askPermissions() {
+      var { status } = await Permissions.askAsync(Permissions.LOCATION);
+      if (status === 'granted') {
+        
+        Location.watchPositionAsync({distanceInterval: 10},
+          (location) => {
+            console.log("DATA GPS>>>>>>>",location);
+          }
+        );
+      }
+    }
+    askPermissions();
+  }, []);
+
 
   const [eventsList, setEventsList] = useState([]);
 

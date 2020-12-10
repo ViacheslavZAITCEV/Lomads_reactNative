@@ -233,7 +233,7 @@ var ProfileScreens = {
       return {
       headerLeft: () => <HeaderLeft navigation={navigation}/>,
       headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightSetting navigation={navigation}/>
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
       }
     }
   },

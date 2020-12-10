@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import { Avatar, Text, Divider, Badge, Card } from 'react-native-elements';
+import { Avatar, Text, Divider, Badge } from 'react-native-elements';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
@@ -32,18 +32,33 @@ function ProfileMainScreen({ navigation }) {
       {/* PREFERENCES */}
 
       <View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
           <Text h4 fontWeight='bold'
             onPress={() => navigation.navigate('ProfilePreferenceScreen')}
           >
             Mes préférences
           </Text>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
-          <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value='cinéma' />
-          <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value='expositions' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='humour' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='action' />
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
+          <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
+          <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Expositions' />
+          <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Théatre' />
+          <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Concerts' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Comédie' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Science-Fiction' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Classique' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Urbaine' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Rock' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Pop' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musical' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Beaux-Arts' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Civilisations' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Contemporain' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Drame' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Histoire' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Française' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='One-Man Show' />
         </View>
       </View>
 

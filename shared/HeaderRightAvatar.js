@@ -24,6 +24,14 @@ export default function HeaderRightAvatar({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    width: '100%',
+    height: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#16253D'
+  },
   headerAvatar: {
     right: 10
   }

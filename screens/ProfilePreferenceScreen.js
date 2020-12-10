@@ -200,7 +200,7 @@ export default function ProfilePreferenceScreen({ navigation }) {
             onPress={() => setCategorieMusiqueUrbaine(!categorieMusiqueUrbaine)}
           />
           <CheckBox
-            title='OneMan Show'
+            title='One-Man Show'
             checkedIcon='check-square'
             uncheckedIcon='square'
             checkedColor='#EFB509'

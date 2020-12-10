@@ -13,10 +13,8 @@ import {
   Badge,
   BottomSheet,
   ListItem,
-  CheckBox
 } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
-import DropdownButton from 'react-bootstrap/DropdownButton'
 import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
@@ -28,14 +26,6 @@ const styles = StyleSheet.create({
 })
 
 
-//! ICONE HEART -> OK mais a voir avec EMMA
-
-
-//! DEMANDER COMMENT FAIRE UN TAB INVERSE
-
-//? TODO: 
-//? -> Bouton filtre en dropdown
-//? -> Icone coeur -> CLICK -> change couleur
 
 
 function AfficheMainScreen(props) {
@@ -61,7 +51,7 @@ function AfficheMainScreen(props) {
 
   useEffect(() => {
     const getEvents = async () => {
-      const data = await fetch(`http://192.168.0.14:3000/pullEvents`)
+      const data = await fetch(`http://192.168.1.17:3000/pullEvents`)
       const body = await data.json()
       setEventsList(body)
     }
@@ -73,14 +63,14 @@ function AfficheMainScreen(props) {
       console.log("TOKEN", props.token)
       props.navigation.navigate('AfficheSpecialScreen')
     } else {
-      console.log('token qbsent')
+      console.log('token absent')
       props.navigation.navigate('AfficheSpecialScreen')
     }
   }
 
   var cine = eventsList.map(x => {
     if (x.type === 'film') {
-      console.log('id evene,ent', x._id)
+      console.log("CINE>>>>>",x._id)
       return (
 
         <Card
@@ -114,6 +104,7 @@ function AfficheMainScreen(props) {
 
   var theatre = eventsList.map(x => {
     if (x.type === 'théâtre') {
+      console.log("THEATRE>>>>>",x._id)
       return (
 
         <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
@@ -121,7 +112,11 @@ function AfficheMainScreen(props) {
             style={{ width: 170, height: 230 }}
             source={{ uri: x.image }}
             resizeMode="cover"
-            onPress={() => console.log(">>>>>>>>>>>>>>>>>>>>>>CARD THEATRE")}
+            onPress={() => {
+              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA");
+              props.onAddIdEvent(x._id);
+              tokenOK();
+            }}          
           />
           <AntDesign
             name="heart"
@@ -142,6 +137,7 @@ function AfficheMainScreen(props) {
 
   var expos = eventsList.map(x => {
     if (x.type === 'exposition') {
+      console.log("EXPOS>>>>>",x._id)
       return (
 
         <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
@@ -149,7 +145,11 @@ function AfficheMainScreen(props) {
             style={{ width: 170, height: 230 }}
             source={{ uri: x.image }}
             resizeMode="cover"
-            onPress={() => console.log(">>>>>>>>>>>>>>>>>>>>>>CARD EXPOS")}
+            onPress={() => {
+              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA");
+              props.onAddIdEvent(x._id);
+              tokenOK();
+            }}          
           />
           <AntDesign
             name="heart"
@@ -170,6 +170,7 @@ function AfficheMainScreen(props) {
 
   var concert = eventsList.map(x => {
     if (x.type === 'concert') {
+      console.log("CONCERT>>>>>",x._id)
       return (
 
         <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
@@ -177,7 +178,11 @@ function AfficheMainScreen(props) {
             style={{ width: 170, height: 230 }}
             source={{ uri: x.image }}
             resizeMode="cover"
-            onPress={() => console.log(">>>>>>>>>>>>>>>>>>>>>>CARD CONCERT")}
+            onPress={() => {
+              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA");
+              props.onAddIdEvent(x._id);
+              tokenOK();
+            }}          
           />
           <AntDesign
             name="heart"
@@ -201,46 +206,21 @@ function AfficheMainScreen(props) {
 
       <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
-        <View style={{ flexDirection: 'row', width: 300, cover: 'width', marginTop: 5, }}>
-          <Input
-            placeholder="CHERCHER"
-            inputStyle={{ borderWidth: 1, borderColor: 'grey', backgroundColor: 'white' }}
-          />
-          <Button
-            type='outline'
-            title="Filtres"
-            buttonStyle={{ backgroundColor: "#EFB509" }}
-            titleStyle={{ color: 'white' }}
-            onPress={() => console.log("filtres ok")}
-          />
-
-        </View>
-
-        <ScrollView style={{ flex: 2 }}>
-
-          <Text style={{ fontSize: 22, flexDirection: 'flex-start', margin: 7, fontWeight: 'bold' }} onPress={() => { console.log("OnPress CINEMA OK") }}>CINEMA</Text>
-
-          <View style={{ backgroundColor: '#16253D', paddingBottom: 15 }}>
-            <ScrollView horizontal={true}>
-
-              {cine}
-
-            </ScrollView>
-          </View>
-
-          <Text style={{ fontSize: 22, flexDirection: 'flex-start', margin: 7, fontWeight: 'bold' }} onPress={() => { console.log("OnPress THÉÂTRE OK") }}>THÉÂTRE
-          </Text>
-          <View style={{ flexDirection: 'row', width: 300, cover: 'width', marginTop: 5, paddingBottom: 0 }}>
+      <View style={{ flexDirection: 'row', width: 300, cover: 'width', marginTop: 5, paddingBottom: 0, marginBottom:0 }}>
             <Input
               placeholder="CHERCHER"
-              inputStyle={{ borderWidth: 1, borderColor: 'grey', backgroundColor: 'white' }}
+              inputStyle={{ borderWidth: 1, borderColor: 'grey', backgroundColor: 'white', marginBottom:0 }}
             />
             <Button
               type='outline'
               title="Filtres"
-              buttonStyle={{ backgroundColor: "#D70026" }}
+              buttonStyle={{ backgroundColor: "#D70026", marginBottom:0 }}
               titleStyle={{ color: 'white' }}
-              onPress={() => console.log("filtres ok", setIsVisible(true))}
+              onPress={() => {
+                console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA");
+                props.onAddIdEvent(x._id);
+                tokenOK();
+              }}            
             />
           </View>
 
@@ -266,42 +246,13 @@ function AfficheMainScreen(props) {
               CINEMA
             </Text>
 
-            <View style={{ backgroundColor: '#3C6382', paddingBottom: 15 }}>
-              <ScrollView horizontal={true}>
+              <View style={{ backgroundColor: '#3C6382', paddingBottom: 15 }}>
+                <ScrollView horizontal={true}>
+                  {cine}
+                </ScrollView>
+              </View>
 
-                {cine}
-
-              </ScrollView>
-            </View>
-
-            <View style={{ backgroundColor: 'red', paddingBottom: 15 }}>
-              <ScrollView horizontal={true}>
-
-                {theatre}
-
-              </ScrollView>
-            </View>
-
-            <Text style={{ fontSize: 22, flexDirection: 'flex-start', margin: 7, fontWeight: 'bold' }} onPress={() => { console.log("OnPress THÉÂTRE OK") }}>EXPOSITIONS & MUSÉES</Text>
-
-            <View style={{ backgroundColor: 'orange', paddingBottom: 15 }}>
-              <ScrollView horizontal={true}>
-
-                {expos}
-
-              </ScrollView>
-            </View>
-
-            <Text style={{ fontSize: 22, flexDirection: 'flex-start', margin: 7, fontWeight: 'bold' }} onPress={() => { console.log("OnPress THÉÂTRE OK") }}>CONCERTS
-            </Text>
-
-            <View style={{ backgroundColor: 'purple', paddingBottom: 15 }}>
-              <ScrollView horizontal={true}>
-
-                {concert}
-
-              </ScrollView>
-            </View>
+           
             <Text
               style={{
                 fontSize: 22,
@@ -312,13 +263,12 @@ function AfficheMainScreen(props) {
               THÉÂTRE
             </Text>
 
-            <View style={{ backgroundColor: '#E55039', paddingBottom: 15 }}>
-              <ScrollView horizontal={true}>
+              <View style={{ backgroundColor: '#E55039', paddingBottom: 15 }}>
+                <ScrollView horizontal={true}>
+                  {theatre}
+                </ScrollView>
+              </View>
 
-                {theatre}
-
-              </ScrollView>
-            </View>
 
             <Text
               style={{
@@ -326,15 +276,15 @@ function AfficheMainScreen(props) {
                 margin: 7,
                 fontWeight: 'bold'
               }}
-              onPress={() => { console.log("OnPress THÉÂTRE OK") }}>
+              onPress={() => { console.log("OnPress EXPOS OK") }}>
               EXPOSITIONS & MUSÉES
             </Text>
 
-            <View style={{ backgroundColor: '#F6E58D', paddingBottom: 15 }}>
-              <ScrollView horizontal={true}>
-                {expos}
-              </ScrollView>
-            </View>
+              <View style={{ backgroundColor: '#F6E58D', paddingBottom: 15 }}>
+                <ScrollView horizontal={true}>
+                  {expos}
+                </ScrollView>
+              </View>
 
             <Text
               style={{
@@ -342,18 +292,17 @@ function AfficheMainScreen(props) {
                 margin: 7,
                 fontWeight: 'bold'
               }}
-              onPress={() => { console.log("OnPress THÉÂTRE OK") }}>
-              CONCERTS
+              onPress={() => { console.log("OnPress CONCERTS OK") }}>
+              CONCERT
             </Text>
 
-            <View style={{ backgroundColor: '#3C6382', paddingBottom: 15 }}>
-              <ScrollView horizontal={true}>
-                {concert}
-              </ScrollView>
-            </View>
+              <View style={{ backgroundColor: '#3C6382', paddingBottom: 15 }}>
+                <ScrollView horizontal={true}>
+                  {concert}
+                </ScrollView>
+              </View>
 
           </ScrollView>
-        </ScrollView>
       </ImageBackground>
     </View>
   );

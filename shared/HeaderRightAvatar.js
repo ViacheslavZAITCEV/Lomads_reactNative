@@ -16,7 +16,7 @@ export default function HeaderRightAvatar({ navigation }) {
         onPress={goToProfileMainScreen}
         source={{
           uri:
-            'https://www.presse-citron.net/wordpress_prod/wp-content/uploads/2019/05/justice-league-retour-a-un-batman-plus-traditionnel-et-heroique-une-e1559338081214.jpg',
+            'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
         }}
       />
     </View>

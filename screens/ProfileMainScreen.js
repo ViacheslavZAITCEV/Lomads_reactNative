@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
 import { Avatar, Text, Divider, Button, Badge, Card } from 'react-native-elements';
-import { AntDesign } from '@expo/vector-icons';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
@@ -16,18 +15,18 @@ function ProfileMainScreen({ navigation }) {
       <View style={{ flexDirection: 'column', alignItems: 'center' }}>
         <Avatar
           size='large'
-          marginTop={25}
-          marginBottom={25}
+          marginTop={10}
+          marginBottom={10}
           rounded
+          // onPress={() => navigation.navigate('ProfileAvatarModifScreen')}          
           source={{
             uri:
-              'https://www.presse-citron.net/wordpress_prod/wp-content/uploads/2019/05/justice-league-retour-a-un-batman-plus-traditionnel-et-heroique-une-e1559338081214.jpg',
+              'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
           }}
-          onPress={() => navigation.navigate('ProfileAvatarModifScreen')}
         />
-        <Text h4>Bruce Wayne</Text>
+        <Text h4>John Doe</Text>
         <Text h5>Paris, FR</Text>
-        <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#16253D', width: 250, height: 2 }} />
+        <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#EFB509', width: 250, height: 2 }} />
       </View>
 
       {/* PREFERENCES */}
@@ -47,7 +46,7 @@ function ProfileMainScreen({ navigation }) {
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='action' />
         </View>
         <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-        <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#16253D', width: 250, height: 2 }} />
+        <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#EFB509', width: 250, height: 2 }} />
         </View>
       </View>
 
@@ -98,7 +97,7 @@ function ProfileMainScreen({ navigation }) {
       </View>
 
       <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-        <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#16253D', width: 250, height: 2 }} />
+        <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#EFB509', width: 250, height: 2 }} />
       </View>
 
       {/* SORTIES PANIFIEES */}

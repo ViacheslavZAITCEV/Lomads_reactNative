@@ -80,7 +80,7 @@ function mapDispatchToProps(dispatch) {
     return {
         // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
         addToken: function (token) {
-            dispatch({ type: 'addToken', token })
+            dispatch({ type: 'saveToken', token })
         }
     }
 }

@@ -208,7 +208,7 @@ var FriendsStack = createStackNavigator (FriendsScreens, {
 
 var ProfileScreens = {
   ProfileMainScreen: {
-    screen: ProfileMainScreen,
+    screen: ( store.token ) ? ProfileMainScreen : SignInScreen,
     navigationOptions: ({ navigation }) => {
       return {
       headerLeft: () => <HeaderLeft navigation={navigation}/>,

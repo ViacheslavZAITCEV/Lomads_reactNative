@@ -79,7 +79,7 @@ function AfficheMainScreen(props) {
     }
     getEvents()
   }, [])
-
+ézaa
   let tokenOK = () => {
     if (props.token) {
       console.log("TOKEN", props.token)

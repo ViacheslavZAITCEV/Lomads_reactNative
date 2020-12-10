@@ -218,7 +218,7 @@ function AfficheMainScreen(props) {
 
         <ScrollView style={{ flex: 2 }}>
 
-          <Text style={{ fontSize: 22, flexDirection: 'flex-start', margin: 7, fontWeight: 'bold' }} onPress={() => { console.log("OnPress CINEMA OK") }}>CINEMA</Text>
+          <Text style={{ fontSize: 22, flexDirection: 'row', margin: 7, fontWeight: 'bold' }} onPress={() => { console.log("OnPress CINEMA OK") }}>CINEMA</Text>
 
           <View style={{ backgroundColor: '#16253D', paddingBottom: 15 }}>
             <ScrollView horizontal={true}>
@@ -228,7 +228,7 @@ function AfficheMainScreen(props) {
             </ScrollView>
           </View>
 
-          <Text style={{ fontSize: 22, flexDirection: 'flex-start', margin: 7, fontWeight: 'bold' }} onPress={() => { console.log("OnPress THÉÂTRE OK") }}>THÉÂTRE
+          <Text style={{ fontSize: 22, flexDirection: 'row', margin: 7, fontWeight: 'bold' }} onPress={() => { console.log("OnPress THÉÂTRE OK") }}>THÉÂTRE
           </Text>
           <View style={{ flexDirection: 'row', width: 300, cover: 'width', marginTop: 5, paddingBottom: 0 }}>
             <Input
@@ -282,7 +282,7 @@ function AfficheMainScreen(props) {
               </ScrollView>
             </View>
 
-            <Text style={{ fontSize: 22, flexDirection: 'flex-start', margin: 7, fontWeight: 'bold' }} onPress={() => { console.log("OnPress THÉÂTRE OK") }}>EXPOSITIONS & MUSÉES</Text>
+            <Text style={{ fontSize: 22, flexDirection: 'row', margin: 7, fontWeight: 'bold' }} onPress={() => { console.log("OnPress THÉÂTRE OK") }}>EXPOSITIONS & MUSÉES</Text>
 
             <View style={{ backgroundColor: 'orange', paddingBottom: 15 }}>
               <ScrollView horizontal={true}>
@@ -292,7 +292,7 @@ function AfficheMainScreen(props) {
               </ScrollView>
             </View>
 
-            <Text style={{ fontSize: 22, flexDirection: 'flex-start', margin: 7, fontWeight: 'bold' }} onPress={() => { console.log("OnPress THÉÂTRE OK") }}>CONCERTS
+            <Text style={{ fontSize: 22, flexDirection: 'row', margin: 7, fontWeight: 'bold' }} onPress={() => { console.log("OnPress THÉÂTRE OK") }}>CONCERTS
             </Text>
 
             <View style={{ backgroundColor: 'purple', paddingBottom: 15 }}>

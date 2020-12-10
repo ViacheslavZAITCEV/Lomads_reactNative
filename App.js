@@ -42,6 +42,7 @@ import tokenReducer from './reducers/token.reducer';
 import idEventReducer from './reducers/idevent.reducer';
 
 const store = createStore(combineReducers({tokenReducer,idEventReducer}));
+console.log('store.token=', store.token)
 
 // ===============================================================================
 //                        NAVIGATION SCREENS A L'AFFICHE

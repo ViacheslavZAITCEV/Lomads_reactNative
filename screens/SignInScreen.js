@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { Header, Input, Button } from 'react-native-elements';
 
@@ -12,7 +12,7 @@ function SignInScreen(props, { navigation, addToken }) {
 
     const [userExists, setUserExists] = useState(false)
 
-    const [listErrorsSignin, setErrorsSignin] = useState([])
+    const [listErrorsSignin, setErrorsSignin] = useState('')
 
     var handleSubmitSignin = async () => {
 
@@ -25,24 +25,27 @@ function SignInScreen(props, { navigation, addToken }) {
 
         const body = await data.json()
 
-        console.log(body);
-        if (body.result === true) {
-            setUserExists(true)
+        console.log('reponse Backend:', body);
+        if (body.response) {
+            setUserExists(true);
             //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
-            addToken(body.token)
+            props.addToken(body.token);
+            console.log('user est connecté');
+            props.navigation.navigate('AfficheMainScreen');
         } else {
             setErrorsSignin(body.error)
         }
     }
 
     
-    if (userExists) {
-        return <Redirect to='/AfficheMainScreen' />
-    }
+    // if (userExists) {
+    //     return <Redirect to='/AfficheMainScreen' />
+    // }
 
-    var tabErrorsSignin = listErrorsSignin.map((error, i) => {
-        return (<p>{error}</p>)
-    })
+    
+    // var tabErrorsSignin = listErrorsSignin.map((error, i) => {
+    //     return (<p>{error}</p>)
+    // })
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

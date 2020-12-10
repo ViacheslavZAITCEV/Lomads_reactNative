@@ -25,7 +25,7 @@ function AfficheSpecialScreen(props) {
   useEffect(() => {
     const findEvent = async() => {
       console.log("PROPS RECU", props.idEvent)
-      const data = await fetch(`http://192.168.1.142:3000/pullEventDetaille`, {
+      const data = await fetch(`http://192.168.1.17:3000/pullEventDetaille`, {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'id='+props.idEvent});
@@ -37,15 +37,15 @@ function AfficheSpecialScreen(props) {
     findEvent ()    
   },[])
 
-  var recupLieu = () => {
-    for (var i = 0; evenement.lieux_dates.length;i++) {
-      console.log("coucou")
-      //console.log("lqlqlqlq",lieux_dates[i].salle )
-      //setLieuEvenement([...lieuEvenement, {salle:lieux_dates[i].salle, adresse:lieux_dates[i].adresse,cp:lieux_dates[i].cp}])
-    }
-  }
-  recupLieu();
-  console.log("lieu evene,ent",lieuEvenement)
+  // var recupLieu = () => {
+  //   for (var i = 0; evenement.lieux_dates.length;i++) {
+  //     console.log("coucou")
+  //     //console.log("lqlqlqlq",lieux_dates[i].salle )
+  //     //setLieuEvenement([...lieuEvenement, {salle:lieux_dates[i].salle, adresse:lieux_dates[i].adresse,cp:lieux_dates[i].cp}])
+  //   }
+  // }
+  // recupLieu();
+  // console.log("lieu evene,ent",lieuEvenement)
 
   // var lieu = lieuEvenement.map((lieu,i)=>{
   //   return(<Picker.Item label="Java" value={lieu.salle} />)

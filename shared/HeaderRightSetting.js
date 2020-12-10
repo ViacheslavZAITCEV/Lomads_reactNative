@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
-export default function HeaderRightSetting({navigation}) {
+export default function HeaderRightSetting({ navigation }) {
 
   const goToProfileSettings = () => {
     navigation.navigate('ProfileSettingScreen')

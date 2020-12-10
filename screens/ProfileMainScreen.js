@@ -5,17 +5,7 @@ import { Text, Avatar, Divider, Button } from 'react-native-elements';
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
-// ----------------------------------------------
-//        ProfileMainScreen
-// ----------------------------------------------
-function ProfileMainScreen(props, {navigation}) {
-  console.log ('token = ', props.token);
-
-  if (props.token === undefined){
-    props.navigation.navigate('SignInScreen');
-  }
-
-  console.log('condition est passee');
+function ProfileMainScreen({navigation}) {
 
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
@@ -23,7 +13,7 @@ function ProfileMainScreen(props, {navigation}) {
       <Avatar
         size='xlarge'
         marginTop={15}
-        marginBottom={10}
+        marginBottom={25}
         rounded
         source={{
           uri:

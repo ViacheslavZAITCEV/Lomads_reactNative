@@ -219,26 +219,32 @@ var ProfileScreens = {
   },
   ProfileSettingScreen: {
     screen: ProfileSettingScreen,
-    navigationOptions: {
+    navigationOptions: ({ navigation }) => {
+      return {
       headerLeft: () => <HeaderLeft navigation={navigation}/>,
       headerTitle: () => <HeaderCity navigation={navigation}/>,
       headerRight: () => <HeaderRightSetting navigation={navigation}/>
+      }
     }
   },
   ProfilePreferenceScreen: {
     screen: ProfilePreferenceScreen,
-    navigationOptions: {
+    navigationOptions: ({ navigation }) => {
+      return {
       headerLeft: () => <HeaderLeft navigation={navigation}/>,
       headerTitle: () => <HeaderCity navigation={navigation}/>,
       headerRight: () => <HeaderRightSetting navigation={navigation}/>
+      }
     }
   },
   ProfileAvatarModifScreen: {
     screen: ProfileAvatarModifScreen,
-    navigationOptions: {
+    navigationOptions: ({ navigation }) => {
+      return {
       headerLeft: () => <HeaderLeft navigation={navigation}/>,
       headerTitle: () => <HeaderCity navigation={navigation}/>,
       headerRight: () => <HeaderRightSetting navigation={navigation}/>
+      }
     }
   }
 }

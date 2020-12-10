@@ -3,7 +3,8 @@ import {
   StyleSheet,
   View,
   ScrollView,
-  ImageBackground
+  ImageBackground,
+  AsyncStorage
 } from 'react-native';
 import {
   Text,
@@ -3774,6 +3775,11 @@ function AfficheMainScreen(props) {
     ],
     "__v": 0
 }]);
+
+const [user, setUser] = useState(null);
+const [token, setToken] = useState (props.token)
+
+
 //   useEffect(() => {
 //     const getEvents = async () => {
 //       const data = await fetch(`http://192.168.1.17:3000/pullEvents`)
@@ -3782,6 +3788,23 @@ function AfficheMainScreen(props) {
 //     }
 //     getEvents()
 //   }, [])
+
+  useEffect(() => {
+    const getUserfromStorage = async () => {
+      await AsyncStorage.getItem('user', async function (error, data){
+        
+        console.log('Read from Storage: user=', data);
+        console.log('Read from Storage: error=', error);
+        setToken(data);
+        const userBD = await fetch(`http:/172.17.1.111:3000/pullEvents`);
+        const body = await userBD.json()
+        setUser(body)
+
+      });
+    }
+    getUserfromStorage ();
+  },[])
+
 
   let tokenOK = () => {
     if (props.token) {
@@ -4045,7 +4068,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return { token: state.tokenReducer, currentCity: state.currentCityReducer }
+  return { 
+    token: state.tokenReducer,
+    user : state.user,
+    currentCity: state.currentCityReducer
+  }
 }
 
 export default connect(

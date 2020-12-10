@@ -58,6 +58,7 @@ function AfficheMainScreen(props) {
   ];
 
   const [eventsList, setEventsList] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const getEvents = async () => {
@@ -65,8 +66,12 @@ function AfficheMainScreen(props) {
       const body = await data.json()
       setEventsList(body)
     }
-    getEvents()
-  }, [])
+    const getUser = ()=>{
+      setUser(props.token);
+    }
+    getEvents();
+    getUser();
+  }, [user])
 
   let tokenOK = () => {
     if (props.token) {
@@ -368,7 +373,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return {token: state.token }
+  return {token: state.token}
 }
 
 export default connect(

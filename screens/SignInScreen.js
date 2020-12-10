@@ -14,6 +14,7 @@ function SignInScreen(props, { navigation, addToken }) {
 
     const [listErrorsSignin, setErrorsSignin] = useState('')
 
+
     var handleSubmitSignin = async () => {
 
         console.log ('function handleSubmitSignin');
@@ -23,6 +24,7 @@ function SignInScreen(props, { navigation, addToken }) {
             body: `email=${signInEmail}&password=${signInPassword}`
         })
 
+
         const body = await data.json()
 
         console.log('reponse Backend:', body);
@@ -30,6 +32,19 @@ function SignInScreen(props, { navigation, addToken }) {
             setUserExists(true);
             //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
             props.addToken(body.token);
+            props.addUser({
+                nom : body.nom,
+                prenom : body.prenom,
+                avatar : body.avatar,
+                ville  : body.ville,
+                preferences  : body.preferences,
+                groupes  : body.groupes,
+                eventsFavoris  : body.eventsFavoris,
+                sorties  : body.sorties,
+                amis  : body.amis,
+                confidentialite  : body.confidentialite,
+                age : body.age,
+            });
             console.log('user est connecté');
             props.navigation.navigate('AfficheMainScreen');
         } else {
@@ -60,7 +75,7 @@ function SignInScreen(props, { navigation, addToken }) {
                 title="Connexion"
                 buttonStyle={{
                     color: '#FFFFFF',
-                    backgroundColor: 'D70026'
+                    backgroundColor: '#D70026'
                 }}
                 onPress={() => handleSubmitSignin()}
             />
@@ -69,7 +84,7 @@ function SignInScreen(props, { navigation, addToken }) {
                 title="Inscription"
                 buttonStyle={{
                     color: '#FFFFFF',
-                    backgroundColor: 'D70026'
+                    backgroundColor: '#16253D'
                 }}
                 onPress={() => props.navigation.navigate('SignUpScreen')}
             />
@@ -84,6 +99,9 @@ function mapDispatchToProps(dispatch) {
         // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
         addToken: function (token) {
             dispatch({ type: 'saveToken', token })
+        },
+        addUser : function (user) {
+            dispatch({ type: 'user', user});
         }
     }
 }

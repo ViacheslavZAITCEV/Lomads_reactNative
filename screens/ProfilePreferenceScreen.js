@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, ScrollView } from 'react-native';
-import { Text, CheckBox, Button } from 'react-native-elements';
+import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, CheckBox } from 'react-native-elements';
 
 export default function ProfilePreferenceScreen({ navigation }) {
 
@@ -36,228 +36,230 @@ export default function ProfilePreferenceScreen({ navigation }) {
 
 
   return (
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ flex: 1 }}>
 
-      <View>
-        <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', maxWidth: "100%", marginTop: 15, marginBottom: 15 }}>
+      <View style={{ backgroundColor: '#E55039' }}>
+        <Text style={{ color: 'white', textAlign: 'center', fontSize: 18, fontWeight: 'bold', maxWidth: "100%", marginTop: 10, marginBottom: 10 }}>
           DEFINIR MES PREFERENCES
         </Text>
       </View>
 
-      <Button
+      <ScrollView contentContainerStyle={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
 
-        type='outline'
-        title="valider"
-        buttonStyle={{ backgroundColor: "#D70026" }}
-        titleStyle={{ color: 'white' }}
-        onPress={() => navigation.navigate('ProfileMainScreen')}
-      />
-
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-
-      {/* =============================================================================
+        {/* =============================================================================
                                      CHECKBOX POUR TYPES
-      ============================================================================= */}
+        ============================================================================= */}
 
-        <View>
-          <View>
-            <Text style={{ textAlign: 'left', fontSize: 15, fontWeight: 'bold', maxWidth: "100%", marginTop: 15 }}>
-              TYPES
+        <Text style={{ textAlign: 'left', fontSize: 20, fontWeight: 'bold', maxWidth: "100%", marginTop: 15 }}>
+          TYPES D'EVENEMENTS
             </Text>
-            <View>
-              <ScrollView contentContainerStyle={{ flexDirection: 'column', alignItems: 'left', justifyContent: 'center' }}>
-                <CheckBox
-                  title='Films'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={typeFilms}
-                  onPress={() => setTypeFilms(!typeFilms)}
-                />
-                <CheckBox
-                  title='Concerts'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={typeConcerts}
-                  onPress={() => setTypeConcerts(!typeConcerts)}
-                />
-                <CheckBox
-                  title='Expositions'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={typeExpositions}
-                  onPress={() => setTypeExpositions(!typeExpositions)}
-                />
-                <CheckBox
-                  title='Théatre'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={typeTheatre}
-                  onPress={() => setTypeTheatre(!typeTheatre)}
-                />
-              </ScrollView>
-            </View>
-          </View>
+        <View>
+          <ScrollView
+            horizontal={true}
+            contentContainerStyle={{ flexDirection: 'row', alignItems: 'left', justifyContent: 'center' }}
+          >
+            <CheckBox
+              title='Films'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={typeFilms}
+              onPress={() => setTypeFilms(!typeFilms)}
+            />
+            <CheckBox
+              title='Concerts'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={typeConcerts}
+              onPress={() => setTypeConcerts(!typeConcerts)}
+            />
+            <CheckBox
+              title='Expositions'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={typeExpositions}
+              onPress={() => setTypeExpositions(!typeExpositions)}
+            />
+            <CheckBox
+              title='Théatre'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={typeTheatre}
+              onPress={() => setTypeTheatre(!typeTheatre)}
+            />
+          </ScrollView>
         </View>
 
         {/* =============================================================================
                                       CHECKBOX POUR CATEGORIES
-        ============================================================================= */}
+          ============================================================================= */}
 
-        <View>
-          <View>
-            <Text style={{ textAlign: 'left', fontSize: 15, fontWeight: 'bold', maxWidth: "100%", marginTop: 15 }}>
-              CATEGORIES
+        <Text style={{ textAlign: 'left', fontSize: 20, fontWeight: 'bold', maxWidth: "100%", marginTop: 15 }}>
+          CATEGORIES
             </Text>
-            <View>
-              <ScrollView contentContainerStyle={{ flexDirection: 'column', alignItems: 'left', justifyContent: 'center' }}>
-                <CheckBox
-                  title='Beaux-Arts'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieBeauxArts}
-                  onPress={() => setCategorieBeauxArts(!categorieBeauxArts)}
-                />
-                <CheckBox
-                  title='Civilisations'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieCivilisations}
-                  onPress={() => setCategorieCivilisations(!categorieCivilisations)}
-                />
-                <CheckBox
-                  title='Classique'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieClassique}
-                  onPress={() => setCategorieClassique(!categorieClassique)}
-                />
-                <CheckBox
-                  title='Comédie'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieComedie}
-                  onPress={() => setCategorieComedie(!categorieComedie)}
-                />
-                <CheckBox
-                  title='Contemporain'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieContemporain}
-                  onPress={() => setCategorieContemporain(!categorieContemporain)}
-                />
-                <CheckBox
-                  title='Drame'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieDrame}
-                  onPress={() => setCategorieDrame(!categorieDrame)}
-                />
-                <CheckBox
-                  title='Fantastique'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieFantastique}
-                  onPress={() => setCategorieFantastique(!categorieFantastique)}
-                />
-                <CheckBox
-                  title='Histoire'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieHistoire}
-                  onPress={() => setCategorieHistoire(!categorieHistoire)}
-                />
-                <CheckBox
-                  title='Musical'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieMusical}
-                  onPress={() => setCategorieMusical(!categorieMusical)}
-                />
-                <CheckBox
-                  title='Musique Française'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieMusiqueFrancaise}
-                  onPress={() => setCategorieMusiqueFrancaise(!categorieMusiqueFrancaise)}
-                />
-                <CheckBox
-                  title='Musique Urbaine'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieMusiqueUrbaine}
-                  onPress={() => setCategorieMusiqueUrbaine(!categorieMusiqueUrbaine)}
-                />
-                <CheckBox
-                  title='OneMan Show'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieOneManShow}
-                  onPress={() => setCategorieOneManShow(!categorieOneManShow)}
-                />
-                <CheckBox
-                  title='Pop'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categoriePop}
-                  onPress={() => setCategoriePop(!categoriePop)}
-                />
-                <CheckBox
-                  title='Rock'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieRock}
-                  onPress={() => setCategorieRock(!categorieRock)}
-                />
-                <CheckBox
-                  title='Science-Fiction'
-                  checkedIcon='check-square'
-                  uncheckedIcon='square'
-                  checkedColor='#EFB509'
-                  uncheckedColor='#dfe4ea'
-                  checked={categorieScienceFiction}
-                  onPress={() => setCategorieScienceFiction(!categorieScienceFiction)}
-                />
-              </ScrollView>
-            </View>
-          </View>
+        <View>
+          <ScrollView
+            horizontal={true}
+            contentContainerStyle={{ flexDirection: 'row', alignItems: 'left', justifyContent: 'center' }}
+          >
+            <CheckBox
+              title='Beaux-Arts'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieBeauxArts}
+              onPress={() => setCategorieBeauxArts(!categorieBeauxArts)}
+            />
+            <CheckBox
+              title='Civilisations'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieCivilisations}
+              onPress={() => setCategorieCivilisations(!categorieCivilisations)}
+            />
+            <CheckBox
+              title='Classique'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieClassique}
+              onPress={() => setCategorieClassique(!categorieClassique)}
+            />
+            <CheckBox
+              title='Comédie'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieComedie}
+              onPress={() => setCategorieComedie(!categorieComedie)}
+            />
+            <CheckBox
+              title='Contemporain'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieContemporain}
+              onPress={() => setCategorieContemporain(!categorieContemporain)}
+            />
+            <CheckBox
+              title='Drame'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieDrame}
+              onPress={() => setCategorieDrame(!categorieDrame)}
+            />
+            <CheckBox
+              title='Fantastique'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieFantastique}
+              onPress={() => setCategorieFantastique(!categorieFantastique)}
+            />
+            <CheckBox
+              title='Histoire'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieHistoire}
+              onPress={() => setCategorieHistoire(!categorieHistoire)}
+            />
+            <CheckBox
+              title='Musical'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieMusical}
+              onPress={() => setCategorieMusical(!categorieMusical)}
+            />
+            <CheckBox
+              title='Musique Française'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieMusiqueFrancaise}
+              onPress={() => setCategorieMusiqueFrancaise(!categorieMusiqueFrancaise)}
+            />
+            <CheckBox
+              title='Musique Urbaine'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieMusiqueUrbaine}
+              onPress={() => setCategorieMusiqueUrbaine(!categorieMusiqueUrbaine)}
+            />
+            <CheckBox
+              title='OneMan Show'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieOneManShow}
+              onPress={() => setCategorieOneManShow(!categorieOneManShow)}
+            />
+            <CheckBox
+              title='Pop'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categoriePop}
+              onPress={() => setCategoriePop(!categoriePop)}
+            />
+            <CheckBox
+              title='Rock'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieRock}
+              onPress={() => setCategorieRock(!categorieRock)}
+            />
+            <CheckBox
+              title='Science-Fiction'
+              checkedIcon='check-square'
+              uncheckedIcon='square'
+              checkedColor='#EFB509'
+              uncheckedColor='#dfe4ea'
+              checked={categorieScienceFiction}
+              onPress={() => setCategorieScienceFiction(!categorieScienceFiction)}
+            />
+          </ScrollView>
         </View>
+      </ScrollView>
+
+      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+        <TouchableOpacity
+          style={{
+            width: '100%', height: 38, backgroundColor: '#D70026',
+            alignItems: 'center', justifyContent: 'center'
+          }}
+          onPress={() => navigation.navigate('ProfileMainScreen')}
+        >
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Valider les changements</Text>
+        </TouchableOpacity>
       </View>
+
     </View>
   );
 }

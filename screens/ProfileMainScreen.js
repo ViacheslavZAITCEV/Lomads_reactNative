@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
-import { Avatar, Text, Divider, Button, Badge, Card } from 'react-native-elements';
+import { View, TouchableOpacity } from 'react-native';
+import { Avatar, Text, Divider, Badge, Card } from 'react-native-elements';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
@@ -8,13 +8,13 @@ import { connect } from 'react-redux';
 function ProfileMainScreen({ navigation }) {
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
 
       {/* AVATAR, NOM, PRENOM, VILLE */}
 
       <View style={{ flexDirection: 'column', alignItems: 'center' }}>
         <Avatar
-          size='large'
+          size='xlarge'
           marginTop={10}
           marginBottom={10}
           rounded
@@ -33,118 +33,31 @@ function ProfileMainScreen({ navigation }) {
 
       <View>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text h4 
-            fontWeight='bold'
-            onPress={() => navigation.navigate('ProfilePreferenceScreen')}>
-              Préférences
+          <Text h4 fontWeight='bold'
+            onPress={() => navigation.navigate('ProfilePreferenceScreen')}
+          >
+            Mes préférences
           </Text>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop:5 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
           <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value='cinéma' />
           <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value='expositions' />
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='humour' />
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='action' />
         </View>
-        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-        <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#EFB509', width: 250, height: 2 }} />
-        </View>
       </View>
 
-      {/* FAVORIS */}
-
-      <View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text h4 fontWeight='bold'>Favoris</Text>
-        </View>
-        <ScrollView horizontal={true}>
-          <Card
-            containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '100%', backgroundColor: '#F8F5F2' }}>
-            <Card.Image
-              style={{ width: 85, height: 65 }}
-              source={{ uri: 'https://files.offi.fr/evenement/79246/images/200/ad64f2fe27d2be710398ae79fc1b862b.jpg' }}
-              resizeMode="cover"
-            />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>TENET</Text>
-          </Card>
-          <Card
-            containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '100%', backgroundColor: '#F8F5F2' }}>
-            <Card.Image
-              style={{ width: 85, height: 65 }}
-              source={{ uri: 'https://files.offi.fr/evenement/79246/images/200/ad64f2fe27d2be710398ae79fc1b862b.jpg' }}
-              resizeMode="cover"
-            />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>TENET</Text>
-          </Card>
-          <Card
-            containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '100%', backgroundColor: '#F8F5F2' }}>
-            <Card.Image
-              style={{ width: 85, height: 65 }}
-              source={{ uri: 'https://files.offi.fr/evenement/79246/images/200/ad64f2fe27d2be710398ae79fc1b862b.jpg' }}
-              resizeMode="cover"
-            />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>TENET</Text>
-          </Card>
-          <Card
-            containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '100%', backgroundColor: '#F8F5F2' }}>
-            <Card.Image
-              style={{ width: 85, height: 65 }}
-              source={{ uri: 'https://files.offi.fr/evenement/79246/images/200/ad64f2fe27d2be710398ae79fc1b862b.jpg' }}
-              resizeMode="cover"
-            />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>TENET</Text>
-          </Card>
-        </ScrollView>
+      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+        <TouchableOpacity
+          style={{
+            width: '100%', height: 40, backgroundColor: '#D70026',
+            alignItems: 'center', justifyContent: 'center'
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Me déconnecter</Text>
+        </TouchableOpacity>
       </View>
 
-      <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-        <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#EFB509', width: 250, height: 2 }} />
-      </View>
-
-      {/* SORTIES PANIFIEES */}
-
-      <View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text h4 fontWeight='bold'>Sorties Planifiées</Text>
-        </View>
-        <ScrollView horizontal={true}>
-          <Card
-            containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '100%', backgroundColor: '#F8F5F2' }}>
-            <Card.Image
-              style={{ width: 85, height: 65 }}
-              source={{ uri: 'https://files.offi.fr/evenement/79246/images/200/ad64f2fe27d2be710398ae79fc1b862b.jpg' }}
-              resizeMode="cover"
-            />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>TENET</Text>
-          </Card>
-          <Card
-            containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '100%', backgroundColor: '#F8F5F2' }}>
-            <Card.Image
-              style={{ width: 85, height: 65 }}
-              source={{ uri: 'https://files.offi.fr/evenement/79246/images/200/ad64f2fe27d2be710398ae79fc1b862b.jpg' }}
-              resizeMode="cover"
-            />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>TENET</Text>
-          </Card>
-          <Card
-            containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '100%', backgroundColor: '#F8F5F2' }}>
-            <Card.Image
-              style={{ width: 85, height: 65 }}
-              source={{ uri: 'https://files.offi.fr/evenement/79246/images/200/ad64f2fe27d2be710398ae79fc1b862b.jpg' }}
-              resizeMode="cover"
-            />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>TENET</Text>
-          </Card>
-          <Card
-            containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '100%', backgroundColor: '#F8F5F2' }}>
-            <Card.Image
-              style={{ width: 85, height: 65 }}
-              source={{ uri: 'https://files.offi.fr/evenement/79246/images/200/ad64f2fe27d2be710398ae79fc1b862b.jpg' }}
-              resizeMode="cover"
-            />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>TENET</Text>
-          </Card>
-        </ScrollView>
-      </View>
     </View>
   );
 }

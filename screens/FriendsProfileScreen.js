@@ -33,7 +33,7 @@ function FriendsProfileScreen() {
       <View>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
           <Text h4 fontWeight='bold'>
-            Préférences
+            Ses préférences
           </Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop:5 }}>
@@ -51,7 +51,7 @@ function FriendsProfileScreen() {
 
       <View>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text h4 fontWeight='bold'>Favoris</Text>
+          <Text h4 fontWeight='bold'>Ses favoris</Text>
         </View>
         <ScrollView horizontal={true}>
           <Card
@@ -101,7 +101,7 @@ function FriendsProfileScreen() {
 
       <View>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text h4 fontWeight='bold'>Sorties Planifiées</Text>
+          <Text h4 fontWeight='bold'> Ses sorties planifiées</Text>
         </View>
         <ScrollView horizontal={true}>
           <Card

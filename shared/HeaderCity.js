@@ -11,7 +11,7 @@ export default function HeaderCity({ navigation }) {
     setVisible(!visible);
   };
 
-  const [ville, setVille] = useState('');
+  const [ville, setVille] = useState('Paris');
 
   return (
     <View style={styles.header}>
@@ -19,17 +19,17 @@ export default function HeaderCity({ navigation }) {
         <Text style={styles.headerCity} onPress={()=> toggleOverlay()}><FontAwesome name="map-marker" size={22} color="white" />  {ville}</Text>
       <View>
         <Overlay isVisible={visible} onBackdropPress={()=> toggleOverlay()} overlayStyle={styles.overlay}>
-          <Text style={{textAlign:'center', fontSize:18}}>VILLE</Text>
+          <Text style={{textAlign:'center', fontSize:18}}>Afficher les résultats pour la ville de</Text>
           <Input
-            placeholder="entrez votre ville"
+            placeholder="nom de la ville"
             onChangeText={(valeur)=> setVille(valeur)}
           />
           <Button
-            title="Valider"
+            title="Changer de ville"
             buttonStyle={{ backgroundColor: "#D70026"}}
             type='outline'
             titleStyle={{ color: 'white' }}
-            onPress={()=> console.log("VALIDER OK :)")}
+            onPress={()=> setVisible(!visible)}
           />
         </Overlay>
       </View>

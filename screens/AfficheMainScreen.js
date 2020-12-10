@@ -11,7 +11,6 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
 
-
 const styles = StyleSheet.create({
   imageBackground: {
     flex: 1,
@@ -27,6 +26,9 @@ function AfficheMainScreen(props) {
   const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
 
   const [isVisible, setIsVisible] = useState(false);
+
+  const [currentCity, setCurrentCity] = useState('');
+
   const FilterList = [
     { title: 'CINEMA' },
     { title: 'THÉÂTRE' },
@@ -315,13 +317,16 @@ function AfficheMainScreen(props) {
 function mapDispatchToProps(dispatch) {
   return {
             onAddIdEvent: function (idEvent) {
-            dispatch({ type: 'addIdEvent', idEvent: idEvent })
+            dispatch({ type: 'addIdEvent', idEvent: idEvent });
+            // onAddCurrentCity: function async (currentCity) {
+            //   despatch({ type: 'addCurrentCity', currentCity: currentCity})
+            // }
           }
   }
 }
 
 function mapStateToProps(state) {
-  return {token: state.tokenReducer }
+  return { token: state.tokenReducer, currentCity: state.currentCityReducer }
 }
 
 export default connect(

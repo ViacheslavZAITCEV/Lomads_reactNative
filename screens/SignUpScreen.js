@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View } from 'react-native';
 import { Header, Text, Input, Button } from 'react-native-elements';
 
@@ -11,6 +11,7 @@ function SignUpScreen(props) {
     const [signUpUserLastname, setSignUpUserLastname] = useState('')
     const [signUpEmail, setSignUpEmail] = useState('')
     const [signUpPassword, setSignUpPassword] = useState('')
+    const [signUpCity, setSignUpCity] = useState('')
 
     const [userExists, setUserExists] = useState(false)
 
@@ -19,7 +20,7 @@ function SignUpScreen(props) {
         const data = await fetch('/users/sign-up', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `prenom=${signUpUserFirstname}&nom=${signUpUserLastname}&email=${signUpEmail}&password=${signUpPassword}`
+            body: `prenom=${signUpUserFirstname}&nom=${signUpUserLastname}&email=${signUpEmail}&password=${signUpPassword}&ville=${signUpCity}`
         })
 
         const body = await data.json()
@@ -41,19 +42,14 @@ function SignUpScreen(props) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
-            <Header
-                backgroundColor='#16253D'
-                height={40}
-                leftComponent={{ text: 'GoWizMe', style: { color: '#F8F5F2', fontWeight: 'bold', fontSize: 15 } }}
-                centerComponent={{ text: 'Paris', style: { color: '#F8F5F2', fontWeight: 'bold', fontSize: 25 } }}
-            />
-
             <Text>Inscription à GoWizMe</Text>
 
             <Input label="prénom" placeholder="entrer mon prénom"
                 onChangeText={(val) => setSignUpUserFirstname(val)} />
             <Input label="nom" placeholder="entrer mon nom"
                 onChangeText={(val) => setSignUpUserLastname(val)} />
+            <Input label="ville de résidence" placeholder="entrer ma ville"
+                onChangeText={(val) => setSignUpCity(val)} />
             <Input label="e-mail" placeholder="entrer mon adresse e-mail"
                 onChangeText={(val) => setSignUpEmail(val)} />
             <Input label="mot de passe" placeholder="entrer mon mot de passe" secureTextEntry={true}
@@ -80,8 +76,12 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
+// function mapStateToProps(state) {
+//   return { SignUpScreen: state.city }
+// }
+
 //export modifié pour l’appliquer au composant conteneur
 export default connect(
-    null,
-    mapDispatchToProps
+  null,
+  mapDispatchToProps
 )(SignUpScreen);

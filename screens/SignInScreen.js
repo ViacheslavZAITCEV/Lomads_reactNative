@@ -5,7 +5,7 @@ import { Header, Input, Button } from 'react-native-elements';
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
-function SignInScreen({ navigation, addToken }) {
+function SignInScreen(props, { navigation, addToken }) {
 
     const [signInEmail, setSignInEmail] = useState('')
     const [signInPassword, setSignInPassword] = useState('')
@@ -16,7 +16,8 @@ function SignInScreen({ navigation, addToken }) {
 
     var handleSubmitSignin = async () => {
 
-        const data = await fetch('/users/sign-in', {
+        console.log ('function handleSubmitSignin');
+        const data = await fetch('http://172.17.1.111:3000/users/sign-in', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `email=${signInEmail}&password=${signInPassword}`
@@ -24,6 +25,7 @@ function SignInScreen({ navigation, addToken }) {
 
         const body = await data.json()
 
+        console.log(body);
         if (body.result === true) {
             setUserExists(true)
             //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
@@ -33,6 +35,7 @@ function SignInScreen({ navigation, addToken }) {
         }
     }
 
+    
     if (userExists) {
         return <Redirect to='/AfficheMainScreen' />
     }
@@ -43,13 +46,6 @@ function SignInScreen({ navigation, addToken }) {
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-
-            <Header
-                backgroundColor='#16253D'
-                height={40}
-                leftComponent={{ text: 'GoWizMe', style: { color: '#F8F5F2', fontWeight: 'bold', fontSize: 15 } }}
-                centerComponent={{ text: 'Paris', style: { color: '#F8F5F2', fontWeight: 'bold', fontSize: 25 } }}
-            />
 
             <Input label="e-mail" placeholder="entrer mon adresse e-mail"
                 onChangeText={(val) => setSignInEmail(val)} />
@@ -72,7 +68,7 @@ function SignInScreen({ navigation, addToken }) {
                     color: '#FFFFFF',
                     backgroundColor: 'D70026'
                 }}
-                onPress={() => navigation.navigate('SignUpScreen')}
+                onPress={() => props.navigation.navigate('SignUpScreen')}
             />
 
         </View>

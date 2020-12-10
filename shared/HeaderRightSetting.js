@@ -8,8 +8,12 @@ export default function HeaderRightSetting({ navigation }) {
     navigation.navigate('ProfileSettingScreen')
   }
 
+  const goToProfilePreferenceScreen = () => {
+    navigation.navigate('ProfilePreferenceScreen')
+  }
+
   return (
-      <AntDesign name='setting' size={25} onPress={goToProfileSettings} style={styles.icon} />      
+      <AntDesign name='setting' size={25} onPress={goToProfilePreferenceScreen} style={styles.icon} />      
   )
 }
 

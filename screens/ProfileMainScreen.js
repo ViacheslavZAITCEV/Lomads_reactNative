@@ -6,8 +6,7 @@ import { Avatar, Text, Divider, Badge } from 'react-native-elements';
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
-// import SignInScreen from 'SignInScreen';
-
+import urlLocal from '../urlDevsGoWizMe'
 
 
 
@@ -25,7 +24,7 @@ function ProfileMainScreen(props) {
   useEffect(() => {
     const updateUser = async () => {
         if(props.token){
-          const userBD = await fetch('http://172.17.1.111:3000/users/getUser', {
+          const userBD = await fetch(`${urlLocal}/users/getUser`, {
           // const userBD = await fetch('http://192.168.1.98:3000/users/getUser', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

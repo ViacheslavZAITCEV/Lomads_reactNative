@@ -15,12 +15,14 @@ import {
   BottomSheet,
   ListItem,
 } from 'react-native-elements';
+
 import { AntDesign } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
+import urlLocal from '../urlDevsGoWizMe'
 
 const styles = StyleSheet.create({
   imageBackground: {
@@ -74,7 +76,8 @@ function AfficheMainScreen(props) {
 
   useEffect(() => {
     const getEvents = async () => {
-      const data = await fetch(`http://172.17.1.111:3000/pullEvents`)
+      const data = await fetch(`${urlLocal}/pullEvents`)
+      // const data = await fetch(`http://172.17.1.111:3000/pullEvents`)
     //   const data = await fetch(`http://192.168.1.17:3000/pullEvents`)
       const body = await data.json()
       setEventsList(body)
@@ -103,7 +106,8 @@ function AfficheMainScreen(props) {
     const updateUser = async () => {
         if(props.token){
 
-        const userBD = await fetch('http://172.17.1.111:3000/users/getUser', {
+        const userBD = await fetch(`${urlLocal}/users/getUser`, {
+        // const userBD = await fetch('http://172.17.1.111:3000/users/getUser', {
         // const userBD = await fetch('http://192.168.1.98:3000/users/getUser', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -112,6 +116,7 @@ function AfficheMainScreen(props) {
         const body = await userBD.json();
         console.log('AfficheMainScreen, updateUser(), user = ', body);
         setUser(body);
+        setCurrentCity(body.ville);
         }
     }
     updateUser ();
@@ -121,6 +126,7 @@ function AfficheMainScreen(props) {
 
 
   console.log('AfficheMainScreen, token = ', props.token);
+  console.log('AfficheMainScreen, props.id = ', props.idUser);
   console.log('AfficheMainScreen, user = ', user);
 
 
@@ -134,11 +140,51 @@ function AfficheMainScreen(props) {
     }
   }
 
-  function like(event){
-      
+  //likes
+  async function likeEvent(event){
+    if (user  === null){
+      props.navigation.navigate('SignInScreen');
+    }
+    console.log("LIKÉ event", event._id);
+    // console.log("user", user);
+    console.log("user.id", user._id);
+
+    var responseBE;
+    if ( isUserLikedEvent(user._id, event.popularite)){
+      event.popularite.splice(user._id, 1);
+      responseBE = await fetch(`${urlLocal}/unlikeEvent?idEvent=${event._id}&idUser=${user._id}`);
+    }else{
+      event.popularite.unshift(user._id);
+      responseBE = await fetch(`${urlLocal}/likeEvent?idEvent=${event._id}&idUser=${user._id}`);
+    }
+    console.log(responseBE);
   }
 
+
+  function isUserLikedEvent (u, popularite){
+    var i=0;
+    var result = false;
+
+    while ( !result && i<popularite.length){
+      if (u == popularite[i]){
+        result = true;
+      }
+      i++;
+    }
+    return result;
+  }
+
+
+
+
   var cine = eventsList.map((x,i) => {
+    
+    // const [likeEventState,setLikeEventState ] = useState ((user && isUserLikedEvent(user._id, x.popularite) ) ? '#D70026' : '#FFFFFF');
+    function likeEventComponent(x){
+      // setLikeEventState( ! likeEventState );
+      likeEvent(x);
+    }
+    
     if (x.type === 'film') {
       console.log("CINE>>>>>",x._id)
       return (
@@ -156,11 +202,13 @@ function AfficheMainScreen(props) {
             }}
           />
           <AntDesign
+            
             name="heart"
             size={25}
-            color='#D70026'
             style={{ position: 'absolute', top: 5, left: 140 }}
-            onPress={() => console.log("LIKÉ")}
+            // color={ likeEventState } 
+            color={ (user && isUserLikedEvent(user._id, x.popularite) ) ? '#D70026' : '#FFFFFF' } 
+            onPress={() => likeEventComponent(x)}
           />
           <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
@@ -191,9 +239,9 @@ function AfficheMainScreen(props) {
           <AntDesign
             name="heart"
             size={25}
-            color='#D70026'
             style={{ position: 'absolute', top: 5, left: 140 }}
-            onPress={() => console.log("LIKÉ")}
+            color={ (user && isUserLikedEvent(user._id, x.popularite) ) ? '#D70026' : '#FFFFFF' } 
+            onPress={() => likeEvent(x)}
           />
           <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
@@ -224,9 +272,9 @@ function AfficheMainScreen(props) {
           <AntDesign
             name="heart"
             size={25}
-            color='#D70026'
             style={{ position: 'absolute', top: 5, left: 140 }}
-            onPress={() => console.log("LIKÉ")}
+            color={ (user && isUserLikedEvent(user._id, x.popularite) ) ? '#D70026' : '#FFFFFF' } 
+            onPress={() => likeEvent(x)}
           />
           <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
@@ -257,9 +305,9 @@ function AfficheMainScreen(props) {
           <AntDesign
             name="heart"
             size={25}
-            color='#D70026'
             style={{ position: 'absolute', top: 5, left: 140 }}
-            onPress={() => console.log("LIKÉ")}
+            color={ (user && isUserLikedEvent(user._id, x.popularite) ) ? '#D70026' : '#FFFFFF' } 
+            onPress={() => likeEvent(x)}
           />
           <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>

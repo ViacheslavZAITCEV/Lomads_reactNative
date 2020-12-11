@@ -64,7 +64,8 @@ function AfficheMainScreen(props) {
 
   useEffect(() => {
     const getEvents = async () => {
-      const data = await fetch(`http://172.17.1.111:3000/pullEvents`);
+      // const data = await fetch(`http://172.17.1.111:3000/pullEvents`);
+      const data = await fetch(`http://192.168.1.98:3000/pullEvents`);
       const body = await data.json()
       setEventsList(body)
     }
@@ -74,7 +75,8 @@ function AfficheMainScreen(props) {
         console.log('Read from Storage: user=', data);
         console.log('Read from Storage: error=', error);
         setToken(data);
-        const userBD = await fetch(`http:/172.17.1.111:3000/pullEvents`);
+        // const userBD = await fetch(`http:/172.17.1.111:3000/pullEvents`);
+        const userBD = await fetch(`http:/192.168.1.98:3000/pullEvents`);
         const body = await userBD.json()
         setUser(body)
 

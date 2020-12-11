@@ -13,11 +13,17 @@ function SignUpScreen(props) {
     const [signUpPassword, setSignUpPassword] = useState('')
     const [signUpCity, setSignUpCity] = useState('')
 
+    const [isVisible, setVisible] = useState(false);
+    const [textModal, setTextModal] = useState('');
+
     const [userExists, setUserExists] = useState(false)
 
     var handleSubmitSignup = async () => {
 
-        const data = await fetch('http://172.17.1.111:3000/users/sign-up', {
+
+
+        // const data = await fetch('http://172.17.1.111:3000/users/sign-up', {
+        const data = await fetch('http://192.168.1.98:3000/users/sign-up', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `prenom=${signUpUserFirstname}&nom=${signUpUserLastname}&email=${signUpEmail}&password=${signUpPassword}&ville=${signUpCity}`

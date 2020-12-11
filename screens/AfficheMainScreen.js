@@ -22,6 +22,8 @@ import { connect } from 'react-redux';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
+import {CinemaCard} from './component/cardEvenement'
+
 import urlLocal from '../urlDevsGoWizMe'
 
 const styles = StyleSheet.create({

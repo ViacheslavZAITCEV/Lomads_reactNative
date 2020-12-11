@@ -4,6 +4,9 @@ import { Text, CheckBox } from 'react-native-elements';
 
 import { connect } from 'react-redux';
 
+import urlLocal from '../urlDevsGoWizMe'
+
+
 function ProfilePreferenceScreen(props) {
 
   // =========================================================================
@@ -44,7 +47,7 @@ function ProfilePreferenceScreen(props) {
   useEffect(() => {
     const updateUser = async () => {
         if(props.token){
-          const userBD = await fetch('http://172.17.1.111:3000/users/getUser', {
+          const userBD = await fetch(`${urlLocal}/users/getUser`, {
           // const userBD = await fetch('http://192.168.1.98:3000/users/getUser', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -60,7 +63,7 @@ function ProfilePreferenceScreen(props) {
 
   useEffect(() => {
     const updateUserBD = async () => {
-      const data = await fetch('http://172.17.1.111:3000/users/sign-up', {
+      const data = await fetch(`${urlLocal}/users/sign-up`, {
         // const data = await fetch('http://192.168.1.98:3000/users/sign-up', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

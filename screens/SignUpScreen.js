@@ -6,6 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
+import urlLocal from '../urlDevsGoWizMe'
+
 function SignUpScreen(props) {
 
     const [signUpUserFirstname, setSignUpUserFirstname] = useState('')
@@ -21,7 +23,7 @@ function SignUpScreen(props) {
 
     var handleSubmitSignup = async () => {
 
-        const data = await fetch('http://172.17.1.111:3000/users/sign-up', {
+        const data = await fetch(`${urlLocal}/users/sign-up`, {
         // const data = await fetch('http://192.168.1.98:3000/users/sign-up', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

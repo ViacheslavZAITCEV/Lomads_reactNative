@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, CheckBox } from 'react-native-elements';
 
-export default function ProfilePreferenceScreen({ navigation }) {
+import { connect } from 'react-redux';
+
+function ProfilePreferenceScreen(props) {
 
   // =========================================================================
   //                         TYPE D'EVENEMENTS
@@ -34,6 +36,45 @@ export default function ProfilePreferenceScreen({ navigation }) {
   const [categoriePop, setCategoriePop] = useState(true)
   const [categorieRock, setCategorieRock] = useState(true)
 
+
+    
+  const [token, setToken] = useState(props.token);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const updateUser = async () => {
+        if(props.token){
+          const userBD = await fetch('http://172.17.1.111:3000/users/getUser', {
+          // const userBD = await fetch('http://192.168.1.98:3000/users/getUser', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: `token=${props.token}`
+          })
+          const body = await userBD.json();
+          console.log('ProfilePreferencesScreen, updateUser(), user = ', body);
+          setUser(body);
+        }
+    }
+    updateUser ();
+  },[props.token])
+
+  useEffect(() => {
+    const updateUserBD = async () => {
+      const data = await fetch('http://172.17.1.111:3000/users/sign-up', {
+        // const data = await fetch('http://192.168.1.98:3000/users/sign-up', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            // body: `prenom=${signUpUserFirstname}&nom=${signUpUserLastname}&email=${signUpEmail}&password=${signUpPassword}&ville=${signUpCity}`
+        })
+        const body = await data.json()
+        if (body.response){
+          console.log('ProfilPreferenceScreen, update est enregistré dans BD');
+        }else {
+          console.log('ProfilPreferenceScreen, enregistrement dans BD est refusé, error=', body.error);
+        }        
+    }
+    updateUserBD ();
+  },[typeFilms, typeConcerts, typeExpositions, typeTheatre])
 
   return (
     <View style={{ flex: 1 }}>
@@ -244,7 +285,7 @@ export default function ProfilePreferenceScreen({ navigation }) {
             width: '100%', height: 40, backgroundColor: '#D70026',
             alignItems: 'center', justifyContent: 'center'
           }}
-          onPress={() => navigation.navigate('ProfileMainScreen')}
+          onPress={() => props.navigation.navigate('ProfileMainScreen')}
         >
           <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Valider les changements</Text>
         </TouchableOpacity>
@@ -253,3 +294,15 @@ export default function ProfilePreferenceScreen({ navigation }) {
     </View>
   );
 }
+
+
+function mapStateToProps(state){
+  return {
+    token: state.tokenReducer
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(ProfilePreferenceScreen);

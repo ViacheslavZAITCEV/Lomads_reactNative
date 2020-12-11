@@ -29,27 +29,27 @@ function SignInScreen(props, { navigation, addToken }) {
         const body = await data.json()
 
         console.log('reponse Backend:', body);
-        if (body.response) {
-            var userBE = {
-                nom : body.nom,
-                prenom : body.prenom,
-                avatar : body.avatar,
-                ville  : body.ville,
-                preferences  : body.preferences,
-                groupes  : body.groupes,
-                eventsFavoris  : body.eventsFavoris,
-                sorties  : body.sorties,
-                amis  : body.amis,
-                confidentialite  : body.confidentialite,
-                age : body.age,
-            };
-            AsyncStorage.setItem('user', JSON.stringify(userBE));
+        if (body.response === true) {
+            // var userBE = {
+            //     nom : body.nom,
+            //     prenom : body.prenom,
+            //     avatar : body.avatar,
+            //     ville  : body.ville,
+            //     preferences  : body.preferences,
+            //     groupes  : body.groupes,
+            //     eventsFavoris  : body.eventsFavoris,
+            //     sorties  : body.sorties,
+            //     amis  : body.amis,
+            //     confidentialite  : body.confidentialite,
+            //     age : body.age,
+            // };
+            AsyncStorage.setItem('user', JSON.stringify(body.token));
             setUserExists(true);
             //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
             props.addToken(body.token);
-            props.addUser(userBE);
+            // props.addUser(userBE);
             console.log('user est connecté');
-            props.navigation.navigate('AfficheMainScreen');
+            props.navigation.goBack();
         } else {
             setErrorsSignin(body.error)
         }
@@ -102,9 +102,6 @@ function mapDispatchToProps(dispatch) {
         // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
         addToken: function (token) {
             dispatch({ type: 'saveToken', token })
-        },
-        addUser : function (user) {
-            dispatch({ type: 'user', user});
         }
     }
 }

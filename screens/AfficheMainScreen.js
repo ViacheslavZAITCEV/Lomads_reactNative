@@ -77,7 +77,8 @@ function AfficheMainScreen(props) {
 
   useEffect(() => {
     const getEvents = async () => {
-      const data = await fetch(`http://192.168.1.17:3000/pullEvents`)
+      const data = await fetch(`http://172.17.1.111:3000/pullEvents`)
+    //   const data = await fetch(`http://192.168.1.17:3000/pullEvents`)
       const body = await data.json()
       setEventsList(body)
     }
@@ -86,20 +87,44 @@ function AfficheMainScreen(props) {
 
   useEffect(() => {
     const getUserfromStorage = async () => {
-      await AsyncStorage.getItem('user', async function (error, data){
-        
-        console.log('Read from Storage: user=', data);
-        console.log('Read from Storage: error=', error);
-        setToken(data);
-        // const userBD = await fetch(`http:/172.17.1.111:3000/pullEvents`);
-        const userBD = await fetch(`http:/192.168.1.98:3000/pullEvents`);
-        const body = await userBD.json()
-        setUser(body)
 
-      });
+        var tokenStorageRAW;
+        await AsyncStorage.getItem('user', async function (error, data){
+            console.log('Read from Storage: user=', data);
+            console.log('Read from Storage: error=', error);
+            if (data){
+                tokenStorageRAW = data.json();
+            }
+        });
+
+        setToken(tokenStorageRAW);
     }
     getUserfromStorage ();
   },[])
+
+  useEffect(() => {
+    const updateUser = async () => {
+        if(props.token){
+
+        const userBD = await fetch('http://172.17.1.111:3000/users/getUser', {
+        // const userBD = await fetch('http://192.168.1.98:3000/users/getUser', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `token=${props.token}`
+        })
+        const body = await userBD.json();
+        console.log('AfficheMainScreen, updateUser(), user = ', body);
+        setUser(body);
+        }
+    }
+    updateUser ();
+  },[props.token])
+
+
+
+
+  console.log('AfficheMainScreen, token = ', props.token);
+  console.log('AfficheMainScreen, user = ', user);
 
 
   let tokenOK = () => {
@@ -111,6 +136,7 @@ function AfficheMainScreen(props) {
       props.navigation.navigate('AfficheSpecialScreen')
     }
   }
+
 
   var cine = eventsList.map((x,i) => {
     if (x.type === 'film') {
@@ -366,7 +392,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return { 
     token: state.tokenReducer,
-    user : state.user,
+    user : state.userReduceur,
     currentCity: state.currentCityReducer
   }
 }

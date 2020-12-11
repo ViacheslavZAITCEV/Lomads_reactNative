@@ -40,9 +40,8 @@ import {Provider} from 'react-redux';
 
 import tokenReducer from './reducers/token.reducer';
 import idEventReducer from './reducers/idevent.reducer';
-import userReduceur from './reducers/user.reduceur';
 
-const store = createStore(combineReducers({tokenReducer, userReduceur,idEventReducer}));
+const store = createStore(combineReducers({tokenReducer,idEventReducer}));
 console.log('store.getState=', store.getState.userReduceur)
 
 // ===============================================================================

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import { Header, Text, Input, Button } from 'react-native-elements';
 
 //Initialisation de Redux
@@ -20,8 +20,6 @@ function SignUpScreen(props) {
 
     var handleSubmitSignup = async () => {
 
-
-
         const data = await fetch('http://172.17.1.111:3000/users/sign-up', {
         // const data = await fetch('http://192.168.1.98:3000/users/sign-up', {
             method: 'POST',
@@ -31,25 +29,25 @@ function SignUpScreen(props) {
 
         const body = await data.json()
 
-        if (body.response === true) {
-            var userBE = {
-                nom : body.nom,
-                prenom : body.prenom,
-                avatar : body.avatar,
-                ville  : body.ville,
-                preferences  : body.preferences,
-                groupes  : body.groupes,
-                eventsFavoris  : body.eventsFavoris,
-                sorties  : body.sorties,
-                amis  : body.amis,
-                confidentialite  : body.confidentialite,
-                age : body.age,
-            }
-            AsyncStorage.setItem('user', JSON.stringify(userBE));
+        if (body.response) {
+            // var userBE = {
+            //     nom : body.nom,
+            //     prenom : body.prenom,
+            //     avatar : body.avatar,
+            //     ville  : body.ville,
+            //     preferences  : body.preferences,
+            //     groupes  : body.groupes,
+            //     eventsFavoris  : body.eventsFavoris,
+            //     sorties  : body.sorties,
+            //     amis  : body.amis,
+            //     confidentialite  : body.confidentialite,
+            //     age : body.age,
+            // }
+            AsyncStorage.setItem('user', JSON.stringify(body.token));
             setUserExists(true)
             //si l'utilisateur a bien été enregistré en BDD (le sign-up a fonctionné), on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
             props.addToken(body.token);
-            props.addUser(userBE);
+            // props.addUser(userBE);
             console.log('user est enregistré');
             props.navigation.navigate('AfficheMainScreen');
         } else {
@@ -95,9 +93,6 @@ function mapDispatchToProps(dispatch) {
         // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
         addToken: function (token) {
             dispatch({ type: 'saveToken', token })
-        },
-        addUser : function (user) {
-            dispatch({ type: 'user', user});
         }
     }
 }

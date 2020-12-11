@@ -8,12 +8,24 @@ export default function HeaderRightSetting({ navigation }) {
     navigation.navigate('ProfileSettingScreen')
   }
 
+  const goToProfilePreferenceScreen = () => {
+    navigation.navigate('ProfilePreferenceScreen')
+  }
+
   return (
-      <AntDesign name='setting' size={25} onPress={goToProfileSettings} style={styles.icon} />      
+      <AntDesign name='setting' size={25} onPress={goToProfilePreferenceScreen} style={styles.icon} />      
   )
 }
 
 const styles = StyleSheet.create({
+  header: {
+    width: '100%',
+    height: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#16253D'
+  },
   icon: {
     color: '#F8F5F2',
     right: 10

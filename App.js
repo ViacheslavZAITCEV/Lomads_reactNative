@@ -40,8 +40,10 @@ import {Provider} from 'react-redux';
 
 import tokenReducer from './reducers/token.reducer';
 import idEventReducer from './reducers/idevent.reducer';
+import userReduceur from './reducers/user.reduceur';
 
-const store = createStore(combineReducers({tokenReducer,idEventReducer}));
+const store = createStore(combineReducers({tokenReducer, userReduceur,idEventReducer}));
+console.log('store.getState=', store.getState.userReduceur)
 
 // ===============================================================================
 //                        NAVIGATION SCREENS A L'AFFICHE
@@ -233,7 +235,7 @@ var ProfileScreens = {
       return {
       headerLeft: () => <HeaderLeft navigation={navigation}/>,
       headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightSetting navigation={navigation}/>
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
       }
     }
   },

@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
-import { View, ScrollView } from 'react-native';
-import { Header, Text, Input, Button } from 'react-native-elements';
+import React, { useState } from 'react';
+import { View, ScrollView, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { Text, Input } from 'react-native-elements';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
@@ -27,17 +28,17 @@ function SignUpScreen(props) {
 
         if (body.result === true) {
             var userBE = {
-                nom : body.nom,
-                prenom : body.prenom,
-                avatar : body.avatar,
-                ville  : body.ville,
-                preferences  : body.preferences,
-                groupes  : body.groupes,
-                eventsFavoris  : body.eventsFavoris,
-                sorties  : body.sorties,
-                amis  : body.amis,
-                confidentialite  : body.confidentialite,
-                age : body.age,
+                nom: body.nom,
+                prenom: body.prenom,
+                avatar: body.avatar,
+                ville: body.ville,
+                preferences: body.preferences,
+                groupes: body.groupes,
+                eventsFavoris: body.eventsFavoris,
+                sorties: body.sorties,
+                amis: body.amis,
+                confidentialite: body.confidentialite,
+                age: body.age,
             }
             AsyncStorage.setItem('user', JSON.stringify(userBE));
             setUserExists(true)
@@ -57,28 +58,42 @@ function SignUpScreen(props) {
     // }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ flex: 1 }}>
 
-            <Text>Inscription à GoWizMe</Text>
-                <Input label="prénom" placeholder="entrer mon prénom"
-                    onChangeText={(val) => setSignUpUserFirstname(val)} />
-                <Input label="nom" placeholder="entrer mon nom"
-                    onChangeText={(val) => setSignUpUserLastname(val)} />
-                <Input label="ville de résidence" placeholder="entrer ma ville"
-                    onChangeText={(val) => setSignUpCity(val)} />
-                <Input label="e-mail" placeholder="entrer mon adresse e-mail"
-                    onChangeText={(val) => setSignUpEmail(val)} />
-                <Input label="mot de passe" placeholder="entrer mon mot de passe" secureTextEntry={true}
-                    onChangeText={(val) => setSignUpPassword(val)} />
+            <View style={{ backgroundColor: '#E55039' }}>
+                <Text style={{ color: 'white', textAlign: 'center', fontSize: 18, fontWeight: 'bold', maxWidth: "100%", marginTop: 10, marginBottom: 10 }}>
+                    CREER MON PROFIL
+                </Text>
+            </View>
 
-                <Button
-                title="Inscription"
-                buttonStyle={{
-                    color: '#FFFFFF',
-                    backgroundColor: '#16253D'
-                }}
-                    onPress={ ()=> handleSubmitSignup()}
-                />
+            <ScrollView contentContainerStyle={{ flexDirection: 'row', alignItems: 'flex-start'}}>
+                <KeyboardAvoidingView behavior="padding" style={{ flex: 1, justifyContent: 'center' }}>
+                    <SafeAreaView>
+                        <Input label="prénom" placeholder="entrer mon prénom"
+                            onChangeText={(val) => setSignUpUserFirstname(val)} />
+                        <Input label="nom" placeholder="entrer mon nom"
+                            onChangeText={(val) => setSignUpUserLastname(val)} />
+                        <Input label="ville de résidence" placeholder="entrer ma ville"
+                            onChangeText={(val) => setSignUpCity(val)} />
+                        <Input label="e-mail" placeholder="entrer mon adresse e-mail"
+                            onChangeText={(val) => setSignUpEmail(val)} />
+                        <Input label="mot de passe" placeholder="entrer mon mot de passe" secureTextEntry={true}
+                            onChangeText={(val) => setSignUpPassword(val)} />
+                    </SafeAreaView>
+                </KeyboardAvoidingView>
+            </ScrollView>
+
+            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+                <TouchableOpacity
+                    onPress={() => handleSubmitSignup()}
+                    style={{
+                        width: '100%', height: 40, backgroundColor: '#D70026',
+                        alignItems: 'center', justifyContent: 'center'
+                    }}
+                >
+                    <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Inscription</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
@@ -90,8 +105,8 @@ function mapDispatchToProps(dispatch) {
         addToken: function (token) {
             dispatch({ type: 'saveToken', token })
         },
-        addUser : function (user) {
-            dispatch({ type: 'user', user});
+        addUser: function (user) {
+            dispatch({ type: 'user', user });
         }
     }
 }
@@ -102,6 +117,6 @@ function mapDispatchToProps(dispatch) {
 
 //export modifié pour l’appliquer au composant conteneur
 export default connect(
-  null,
-  mapDispatchToProps
+    null,
+    mapDispatchToProps
 )(SignUpScreen);

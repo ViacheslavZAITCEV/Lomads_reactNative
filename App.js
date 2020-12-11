@@ -4,7 +4,7 @@ import React from 'react';
 
 import AfficheMainScreen from './screens/AfficheMainScreen';
 import AfficheSpecialScreen from './screens/AfficheSpecialScreen';
-import AfficheByTypeScreen from './screens/AfficheByTypeScreen';
+// import AfficheByTypeScreen from './screens/AfficheByTypeScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 
@@ -20,9 +20,9 @@ import PlanDetailScreen from './screens/PlanDetailScreen';
 import PlanOrgaScreen from './screens/PlanOrgaScreen';
 
 import ProfileMainScreen from './screens/ProfileMainScreen';
-import ProfileSettingScreen from './screens/ProfileSettingScreen';
+// import ProfileSettingScreen from './screens/ProfileSettingScreen';
 import ProfilePreferenceScreen from './screens/ProfilePreferenceScreen';
-import ProfileAvatarModifScreen from './screens/ProfileAvatarModifScreen';
+// import ProfileAvatarModifScreen from './screens/ProfileAvatarModifScreen';
 
 import {createAppContainer } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -70,16 +70,16 @@ var AfficheScreens = {
       }
     }
   },
-  AfficheByTypeScreen: {
-    screen: AfficheByTypeScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      headerLeft: () => <HeaderLeft navigation={navigation}/>,
-      headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-      }
-    }
-  },
+  // AfficheByTypeScreen: {
+  //   screen: AfficheByTypeScreen,
+  //   navigationOptions: ({ navigation }) => {
+  //     return {
+  //     headerLeft: () => <HeaderLeft navigation={navigation}/>,
+  //     headerTitle: () => <HeaderCity navigation={navigation}/>,
+  //     headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+  //     }
+  //   }
+  // },
   SignInScreen: {
     screen: SignInScreen,
     navigationOptions: ({ navigation }) => {
@@ -219,16 +219,16 @@ var ProfileScreens = {
       }
     }
   },
-  ProfileSettingScreen: {
-    screen: ProfileSettingScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      headerLeft: () => <HeaderLeft navigation={navigation}/>,
-      headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightSetting navigation={navigation}/>
-      }
-    }
-  },
+  // ProfileSettingScreen: {
+  //   screen: ProfileSettingScreen,
+  //   navigationOptions: ({ navigation }) => {
+  //     return {
+  //     headerLeft: () => <HeaderLeft navigation={navigation}/>,
+  //     headerTitle: () => <HeaderCity navigation={navigation}/>,
+  //     headerRight: () => <HeaderRightSetting navigation={navigation}/>
+  //     }
+  //   }
+  // },
   ProfilePreferenceScreen: {
     screen: ProfilePreferenceScreen,
     navigationOptions: ({ navigation }) => {
@@ -239,16 +239,16 @@ var ProfileScreens = {
       }
     }
   },
-  ProfileAvatarModifScreen: {
-    screen: ProfileAvatarModifScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      headerLeft: () => <HeaderLeft navigation={navigation}/>,
-      headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightSetting navigation={navigation}/>
-      }
-    }
-  }
+  // ProfileAvatarModifScreen: {
+  //   screen: ProfileAvatarModifScreen,
+  //   navigationOptions: ({ navigation }) => {
+  //     return {
+  //     headerLeft: () => <HeaderLeft navigation={navigation}/>,
+  //     headerTitle: () => <HeaderCity navigation={navigation}/>,
+  //     headerRight: () => <HeaderRightSetting navigation={navigation}/>
+  //     }
+  //   }
+  // }
 }
 
 var ProfileStack = createStackNavigator (ProfileScreens, {

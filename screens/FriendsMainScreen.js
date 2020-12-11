@@ -242,6 +242,7 @@ export default function FriendsMainScreen(props, { navigation }) {
           <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Rechercher mes amis sur GoWizMe</Text>
         </TouchableOpacity>
       </View>
+      
     </View>
   );
 }

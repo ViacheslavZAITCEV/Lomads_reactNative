@@ -16,6 +16,14 @@ export default function HeaderLeft({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    width: '100%',
+    height: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#16253D'
+  },
   headerText: {
     fontWeight: 'bold',
     fontSize: 20,

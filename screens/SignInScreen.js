@@ -17,8 +17,9 @@ function SignInScreen(props, { navigation, addToken }) {
 
     var handleSubmitSignin = async () => {
 
-        console.log('function handleSubmitSignin');
-        const data = await fetch('http://192.168.0.14:3000/users/sign-in', {
+        console.log ('function handleSubmitSignin');
+        const data = await fetch('http://172.17.1.111:3000/users/sign-in', {
+        // const data = await fetch('http://192.168.1.98:3000/users/sign-in', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `email=${signInEmail}&password=${signInPassword}`

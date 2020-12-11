@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
-import { View, TouchableOpacity } from 'react-native';
+
+import React, { useEffect, useState } from "react";
+import { View, TouchableOpacity, ScrollView  } from 'react-native';
 import { Avatar, Text, Divider, Badge } from 'react-native-elements';
 
 //Initialisation de Redux
@@ -7,6 +8,7 @@ import { connect } from 'react-redux';
 
 function ProfileMainScreen(props, { navigation }) {
 
+  
   const [token, setToken] = useState(props.token);
   const [user, setUser] = useState(props.user);
 
@@ -19,11 +21,9 @@ function ProfileMainScreen(props, { navigation }) {
   // },[])
 
   console.log ('ProfilScreen, user=', user);
-
   if (user === undefined){
     props.navigation.navigate('SignInScreen');
   }
-
   return (
     <View style={{ flex: 1 }}>
 
@@ -37,6 +37,7 @@ function ProfileMainScreen(props, { navigation }) {
           rounded
           // onPress={() => navigation.navigate('ProfileAvatarModifScreen')}          
           source={{
+            // uri : user.avatar
             uri:
               'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
           }}

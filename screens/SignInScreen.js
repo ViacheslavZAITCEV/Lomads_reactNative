@@ -18,7 +18,7 @@ function SignInScreen(props, { navigation, addToken }) {
     var handleSubmitSignin = async () => {
 
         console.log ('function handleSubmitSignin');
-        const data = await fetch('http://172.17.1.111:3000/users/sign-in', {
+        const data = await fetch('http://172.20.10.9:3000/users/sign-in', {
         // const data = await fetch('http://192.168.1.98:3000/users/sign-in', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -44,7 +44,7 @@ function SignInScreen(props, { navigation, addToken }) {
                 age: body.age,
             };
 
-            AsyncStorage.setItem('user', JSON.stringify(userBE));
+            // AsyncStorage.setItem('user', JSON.stringify(userBE));
 
             setUserExists(true);
 

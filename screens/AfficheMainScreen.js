@@ -74,29 +74,29 @@ function AfficheMainScreen(props) {
 
   useEffect(() => {
     const getEvents = async () => {
-      const data = await fetch(`http://192.168.1.17:3000/pullEvents`)
+      const data = await fetch(`http://172.20.10.9:3000/pullEvents`)
       const body = await data.json()
       setEventsList(body)
     }
     getEvents()
   }, [])
 
-  useEffect(() => {
-    const getUserfromStorage = async () => {
-      await AsyncStorage.getItem('user', async function (error, data){
+  // useEffect(() => {
+  //   const getUserfromStorage = async () => {
+  //     await AsyncStorage.getItem('user', async function (error, data){
         
-        console.log('Read from Storage: user=', data);
-        console.log('Read from Storage: error=', error);
-        setToken(data);
-        // const userBD = await fetch(`http:/172.17.1.111:3000/pullEvents`);
-        const userBD = await fetch(`http:/192.168.1.98:3000/pullEvents`);
-        const body = await userBD.json()
-        setUser(body)
+  //       console.log('Read from Storage: user=', data);
+  //       console.log('Read from Storage: error=', error);
+  //       setToken(data);
+  //       // const userBD = await fetch(`http:/172.17.1.111:3000/pullEvents`);
+  //       const userBD = await fetch(`http:/192.168.1.98:3000/pullEvents`);
+  //       const body = await userBD.json()
+  //       setUser(body)
 
-      });
-    }
-    getUserfromStorage ();
-  },[])
+  //     });
+  //   }
+  //   getUserfromStorage ();
+  // },[])
 
 
   let tokenOK = () => {

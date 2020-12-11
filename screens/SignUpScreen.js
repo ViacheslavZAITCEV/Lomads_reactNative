@@ -21,7 +21,7 @@ function SignUpScreen(props) {
 
     var handleSubmitSignup = async () => {
 
-        const data = await fetch('http://172.17.1.111:3000/users/sign-up', {
+        const data = await fetch('http://172.20.10.9:3000/users/sign-up', {
         // const data = await fetch('http://192.168.1.98:3000/users/sign-up', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

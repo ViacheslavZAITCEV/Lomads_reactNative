@@ -134,6 +134,9 @@ function AfficheMainScreen(props) {
     }
   }
 
+  function like(event){
+      
+  }
 
   var cine = eventsList.map((x,i) => {
     if (x.type === 'film') {

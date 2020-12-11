@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity, ScrollView  } from 'react-native';
 import { Avatar, Text, Divider, Badge } from 'react-native-elements';
-import { Text, Avatar, Divider, Button } from 'react-native-elements';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';

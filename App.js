@@ -10,6 +10,7 @@ import SignUpScreen from './screens/SignUpScreen';
 
 import FriendsMainScreen from './screens/FriendsMainScreen';
 import FriendsProfileScreen from './screens/FriendsProfileScreen';
+import FriendsResearchScreen from './screens/FriendsResearchScreen';
 import FriendsAddScreen from './screens/FriendsAddScreen';
 
 // import MessagesMainScreen from './screens/MessagesMainScreen';
@@ -168,6 +169,16 @@ var PlanStack = createStackNavigator (PlanScreens, {
 var FriendsScreens = {
   FriendsMainScreen: {
     screen: FriendsMainScreen,
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
+  },
+  FriendsResearchScreen: {
+    screen: FriendsResearchScreen,
     navigationOptions: ({ navigation }) => {
       return {
       headerLeft: () => <HeaderLeft navigation={navigation}/>,

@@ -1,83 +1,58 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, KeyboardAvoidingView } from 'react-native';
-import { Input, Text, Button } from 'react-native-elements';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-const styles = StyleSheet.create({
-  text: {
-    paddingBottom: 10,
-    fontSize: 20,
-    marginTop: 10,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: 'grey',
-    backgroundColor: 'white',
-    marginBottom: 0,
-    paddingLeft: 10,
-  },
-  button: {
-    backgroundColor: "#D70026",
-    marginBottom: 20,
-    marginTop: 0,
-    marginRight: 'auto',
-    marginLeft: 'auto'
-  }
-})
+import { View, ScrollView } from 'react-native';
+import { Text, Avatar, Icon, Button } from 'react-native-elements';
 
 export default function FriendsAddScreen({ navigation }) {
+
+
   return (
     <View style={{ flex: 1 }}>
 
       <View style={{ backgroundColor: '#E55039' }}>
         <Text style={{ color: 'white', textAlign: 'center', fontSize: 18, fontWeight: 'bold', maxWidth: "100%", marginTop: 10, marginBottom: 10 }}>
-          AJOUTER DES AMIS
+          AJOUTER MES AMIS
         </Text>
       </View>
 
-      <ScrollView contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <KeyboardAvoidingView behavior="padding" style={{ flex: 1, justifyContent: 'center' }}>
-          <SafeAreaView>
+      <Text style={{ fontSize: 22, margin: 7, fontWeight: 'bold' }} >
+        RESULTATS DE LA RECHERCHE :
+        </Text>
 
-            <View style={{ marginBottom: 30 }}>
-              <Text style={styles.text}>
-                Recherche par nom de famille
-          </Text>
-              <Input
-                placeholder='nom de famille'
-                inputStyle={styles.input}
-                inputContainerStyle={{ width: '100%', marginBottom: 0 }}
-              />
-              <Button
-                title='Chercher'
-                type='outline'
-                buttonStyle={styles.button}
-                titleStyle={{ color: 'white' }}
-                onPress={() => console.log("CHERCHER")}
-              />
-            </View>
+      <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
 
-            {/* <View style={{ marginBottom: 70 }}>
-              <Text style={styles.text}>
-                Inviter des amis par email
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
+
+          <View style={{ marginHorizontal: 20 }}>
+            <Avatar
+              size='medium'
+              rounded
+              source={{
+                uri:
+                  'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
+              }}
+            />
+          </View>
+
+          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+              Cédric Alinc
               </Text>
-              <Input
-                placeholder='email'
-                inputStyle={styles.input}
-                inputContainerStyle={{ width: '100%', marginBottom: 0 }}
-              />
-              <Button
-                title='Inviter'
-                type='outline'
-                buttonStyle={styles.button}
-                titleStyle={{ color: 'white' }}
-                onPress={() => console.log("INVITER")}
-              />
-            </View> */}
+          </View>
 
-          </SafeAreaView>
-        </KeyboardAvoidingView>
+          <View style={{ justifyContent: 'flex-end', marginHorizontal: 20 }}>
+            <Icon
+              name="add-circle"
+              type='materialicons'
+              size={35}
+              color="#D70026"
+              onPress={() => console.log('demande acceptée')}
+            />
+          </View>
+
+        </View>
+
       </ScrollView>
+
     </View>
   );
 }

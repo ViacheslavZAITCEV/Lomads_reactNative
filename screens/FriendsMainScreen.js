@@ -12,7 +12,7 @@ export default function FriendsMainScreen(props, { navigation }) {
   //   }
   // }
 
-  
+
 
 
 
@@ -54,6 +54,7 @@ export default function FriendsMainScreen(props, { navigation }) {
             type='antdesign'
             size={30}
             color="#D70026"
+            onPress={() => console.log('demande acceptée')}
           />
 
           <Icon
@@ -61,6 +62,7 @@ export default function FriendsMainScreen(props, { navigation }) {
             type='antdesign'
             size={30}
             color="#D70026"
+            onPress={() => console.log('demande refusée')}
           />
 
         </View>
@@ -88,6 +90,7 @@ export default function FriendsMainScreen(props, { navigation }) {
             type='antdesign'
             size={30}
             color="#D70026"
+            onPress={() => console.log('demande acceptée')}
           />
 
           <Icon
@@ -95,6 +98,7 @@ export default function FriendsMainScreen(props, { navigation }) {
             type='antdesign'
             size={30}
             color="#D70026"
+            onPress={() => console.log('demande refusée')}
           />
 
         </View>
@@ -106,6 +110,7 @@ export default function FriendsMainScreen(props, { navigation }) {
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginVertical: 5, marginLeft: 15 }}>
 
           <Avatar
+            onPress={() => props.navigation.navigate('FriendsProfileScreen')}
             size='medium'
             rounded
             source={{
@@ -131,6 +136,7 @@ export default function FriendsMainScreen(props, { navigation }) {
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginVertical: 5, marginLeft: 15 }}>
 
           <Avatar
+            onPress={() => props.navigation.navigate('FriendsProfileScreen')}
             size='medium'
             rounded
             source={{
@@ -158,6 +164,7 @@ export default function FriendsMainScreen(props, { navigation }) {
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginVertical: 5, marginLeft: 15 }}>
 
           <Avatar
+            onPress={() => props.navigation.navigate('FriendsProfileScreen')}
             size='medium'
             rounded
             source={{
@@ -185,6 +192,7 @@ export default function FriendsMainScreen(props, { navigation }) {
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginVertical: 5, marginLeft: 15 }}>
 
           <Avatar
+            onPress={() => props.navigation.navigate('FriendsProfileScreen')}
             size='medium'
             rounded
             source={{
@@ -225,7 +233,7 @@ export default function FriendsMainScreen(props, { navigation }) {
 
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('FriendsAddScreen')}
+          onPress={() => props.navigation.navigate('FriendsResearchScreen')}
           style={{
             width: '100%', height: 40, backgroundColor: '#D70026',
             alignItems: 'center', justifyContent: 'center'

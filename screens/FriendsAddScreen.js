@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet, KeyboardAvoidingView } from 'react-native';
-import { Input, Text, Button, Divider } from 'react-native-elements';
+import { Input, Text, Button } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({

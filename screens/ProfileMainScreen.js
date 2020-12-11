@@ -139,7 +139,6 @@ function ProfileMainScreen(props) {
   )
 };
 
-
 function mapStateToProps(state){
   return {
     token: state.tokenReducer

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, AsyncStorage } from 'react-native';
-import { Header, Input, Button } from 'react-native-elements';
+import { View, AsyncStorage, ScrollView, Button, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { Text, Input } from 'react-native-elements';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
@@ -14,7 +15,6 @@ function SignInScreen(props, { navigation, addToken }) {
 
     const [listErrorsSignin, setErrorsSignin] = useState('')
 
-
     var handleSubmitSignin = async () => {
 
         console.log ('function handleSubmitSignin');
@@ -24,7 +24,6 @@ function SignInScreen(props, { navigation, addToken }) {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `email=${signInEmail}&password=${signInPassword}`
         })
-
 
         const body = await data.json()
 
@@ -45,6 +44,7 @@ function SignInScreen(props, { navigation, addToken }) {
             // };
             AsyncStorage.setItem('user', JSON.stringify(body.token));
             setUserExists(true);
+
             //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
             props.addToken(body.token);
             // props.addUser(userBE);
@@ -55,42 +55,51 @@ function SignInScreen(props, { navigation, addToken }) {
         }
     }
 
-    
     // if (userExists) {
     //     return <Redirect to='/AfficheMainScreen' />
     // }
 
-    
+
     // var tabErrorsSignin = listErrorsSignin.map((error, i) => {
     //     return (<p>{error}</p>)
     // })
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ flex: 1 }}>
 
-            <Input label="e-mail" placeholder="entrer mon adresse e-mail"
-                onChangeText={(val) => setSignInEmail(val)} />
+            <View style={{ backgroundColor: '#E55039' }}>
+                <Text style={{ color: 'white', textAlign: 'center', fontSize: 18, fontWeight: 'bold', maxWidth: "100%", marginTop: 10, marginBottom: 10 }}>
+                    SE CONNECTER
+                </Text>
+            </View>
 
-            <Input label="mot de passe" placeholder="entrer mon mot de passe" secureTextEntry={true}
-                onChangeText={(val) => setSignInPassword(val)} />
+            <ScrollView contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <KeyboardAvoidingView behavior="padding" style={{ flex: 1, justifyContent: 'center' }}>
+                    <SafeAreaView>
+                        <Input label="e-mail" placeholder="entrer mon adresse e-mail"
+                            onChangeText={(val) => setSignInEmail(val)} />
 
-            <Button
-                title="Connexion"
-                buttonStyle={{
-                    color: '#FFFFFF',
-                    backgroundColor: '#D70026'
-                }}
-                onPress={() => handleSubmitSignin()}
-            />
+                        <Input label="mot de passe" placeholder="entrer mon mot de passe" secureTextEntry={true}
+                            onChangeText={(val) => setSignInPassword(val)} />
+                        <Button
+                            title="Pas encore de profil? Créer mon profil"
+                            onPress={() => props.navigation.navigate('SignUpScreen')}
+                        />
+                    </SafeAreaView>
+                </KeyboardAvoidingView>
+            </ScrollView>
 
-            <Button
-                title="Inscription"
-                buttonStyle={{
-                    color: '#FFFFFF',
-                    backgroundColor: '#16253D'
-                }}
-                onPress={() => props.navigation.navigate('SignUpScreen')}
-            />
+            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+                <TouchableOpacity
+                    onPress={() => handleSubmitSignin()}
+                    style={{
+                        width: '100%', height: 40, backgroundColor: '#D70026',
+                        alignItems: 'center', justifyContent: 'center'
+                    }}
+                >
+                    <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Connexion</Text>
+                </TouchableOpacity>
+            </View>
 
         </View>
     );

@@ -1,24 +1,23 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView} from 'react-native';
 import { Text, Button, Avatar, Icon, CheckBox, Badge } from 'react-native-elements';
 
 export default function FriendsMainScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', flexDirection: 'column', width: 300, cover: 'width', marginTop: 5}}>
+    <View style={{ flex: 1, flexDirection: 'column', width: 450 , cover: 'fullScreen', marginTop: 5}}>
       <ScrollView>
         <View >
           <Button
               type='outline'
               title="Ajouter des amis"
-              buttonStyle={{ backgroundColor: "red" }}
-            
-              titleStyle={{ color: '#F8F5F2' }}
+              buttonStyle={{ backgroundColor: "#E55039", color: 'white', textAlign: 'center', fontSize: 18, fontWeight: 'bold', maxWidth: "100%", marginTop: 10, marginBottom: 10 }}
+              titleStyle={{ color: 'white' }}
               onPress={() => navigation.navigate('FriendsAddScreen')}
           />
         </View>
         
         <Text h1> Mes invitations </Text>
-        <View style={{ flexDirection: 'row', width: 300, cover: 'width', marginTop: 5, }}>
+        <View style={{ flexDirection: 'row', width: 450, alignItems: 'center', cover: 'width', marginTop: 5, }}>
           
           <Avatar
           size='small'
@@ -32,20 +31,21 @@ export default function FriendsMainScreen({ navigation }) {
             <Button
             type='outline'
             title="ADD"
-            size={5}
-            buttonStyle={{ backgroundColor: "#D70026", marginBottom:0,  width: 150, margin: 5 }}
+            size={0,2}
+            margin= {5}
+            buttonStyle={{ backgroundColor: "#F8F5F2" }}
             titleStyle={{ color: 'red' }}
             />
             <Button
             type='outline'
             title="NO"
-            size={5}
+            size={1}
             buttonStyle={{ backgroundColor: "#F8F5F2" }}
             titleStyle={{ color: 'red' }}
             />
         </View>
           
-        <View style={{ flexDirection: 'row', width: 300, cover: 'width', marginTop: 5, }}>
+        <View style={{ flexDirection: 'row', width: 450, alignItems: 'center', cover: 'width', marginTop: 5, }}>
             <Avatar
           size='small'
           rounded
@@ -58,14 +58,14 @@ export default function FriendsMainScreen({ navigation }) {
             <Button
             type='outline'
             title="ADD"
-            size={5}
+            size={1}
             buttonStyle={{ backgroundColor: "#F8F5F2" }}
             titleStyle={{ color: 'red' }}
             />
             <Button
             type='outline'
             title="NO"
-            size={5}
+            size={1}
             buttonStyle={{ backgroundColor: "#F8F5F2" }}
             titleStyle={{ color: 'red' }}
             />
@@ -128,7 +128,7 @@ export default function FriendsMainScreen({ navigation }) {
         
       </View>
 
-      <View style={{flexDirection: 'row', width: 300, cover: 'width', marginTop: 5, }}>
+      <View style={{flexDirection: 'row', width: 300, alignItems: 'center', cover: 'width', marginTop: 5, }}>
         
         <Avatar
         size='medium'
@@ -142,7 +142,7 @@ export default function FriendsMainScreen({ navigation }) {
             onPress={() => navigation.navigate('FriendsProfileScreen')}
           />
       </View>
-      <View style={{flexDirection: 'row', width: 300, cover: 'width', marginTop: 5, }}>    
+      <View style={{flexDirection: 'row', width: 300, cover: 'width', alignItems: 'center', marginTop: 5, }}>    
           <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
           <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Théatre' />
           <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Concerts' />

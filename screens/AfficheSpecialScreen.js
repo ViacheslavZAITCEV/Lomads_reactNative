@@ -42,28 +42,29 @@ function AfficheSpecialScreen(props) {
   useEffect(() => {
     const findEvent = async() => {
       console.log("PROPS RECU", props.idEvent)
-      const data = await fetch(`http://192.168.1.17:3000/pullEventDetaille`, {
+      const data = await fetch(`http://192.168.1.142:3000/pullEventDetaille`, {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'id='+props.idEvent});
 
       const body = await data.json()
       
-      setEvenement (body) 
+      setEvenement(body) 
     };
-    async function representations () {
+    async function representations() {
       recupLieu();
+      console.log("evene,ent", evenement)
         console.log("LIEU", lieuTransit)
         console.log("LIEU nombre", lieuTransit.length)
         console.log("backarray ", backarray)
         console.log("lieux", lieux)
        };
-    findEvent () ;
+    findEvent() ;
     representations();   
   },[])
 
    useEffect(() => {
-        async function horairesEvent () {
+        async function horairesEvent() {
         horaires()
       };
      horairesEvent();
@@ -140,12 +141,12 @@ function AfficheSpecialScreen(props) {
         </View>
 
         <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>Catégorie(s) : {evenement.categories[0]}</Text>
+          <Text style={{ textAlign: 'center', marginTop: 3 }}>Catégories : </Text>
 
         </View>
 
         <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>Durée : {evenement.lieux_dates[0].duree} minutes</Text>
+          <Text style={{ textAlign: 'center', marginTop: 3 }}>Durée :  minutes</Text>
 
         </View>
 

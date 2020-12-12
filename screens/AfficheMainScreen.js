@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
-import {CinemaCard} from './component/cardEvenement'
+import CinemaCard from './component/cardEvenement'
 
 import urlLocal from '../urlDevsGoWizMe'
 
@@ -190,34 +190,46 @@ function AfficheMainScreen(props) {
     if (x.type === 'film') {
       console.log("CINE>>>>>",x._id)
       return (
+        // <View
+        <CinemaCard key={i}
+        i={i}
+        x={x}
+        user={user}
+        onPress={() => {
+          console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA", props.x._id);
+          props.onAddIdEvent(props.x._id);
+          tokenOK();
+        }}    
+        />
 
-        <Card key={i}
-          containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }}>
-          <Card.Image
-            style={{ width: 170, height: 230 }}
-            source={{ uri: x.image }}
-            resizeMode="cover"
-            onPress={() => {
-              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA", x._id);
-              props.onAddIdEvent(x._id);
-              tokenOK();
-            }}
-          />
-          <AntDesign
+        // <Card key={i}
+        //   containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }}>
+        //   <Card.Image
+        //     style={{ width: 170, height: 230 }}
+        //     source={{ uri: x.image }}
+        //     resizeMode="cover"
+        //     onPress={() => {
+        //       console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA", x._id);
+        //       props.onAddIdEvent(x._id);
+        //       tokenOK();
+        //     }}
+        //   />
+        //   <AntDesign
+          
             
-            name="heart"
-            size={25}
-            style={{ position: 'absolute', top: 5, left: 140 }}
-            // color={ likeEventState } 
-            color={ (user && isUserLikedEvent(user._id, x.popularite) ) ? '#D70026' : '#FFFFFF' } 
-            onPress={() => likeEventComponent(x)}
-          />
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>{x.nom}</Text>
-          <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
-          <View style={{ alignItems: 'center', margin: 2 }}>
-            <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
-          </View>
-        </Card>
+        //     name="heart"
+        //     size={25}
+        //     style={{ position: 'absolute', top: 5, left: 140 }}
+        //     // color={ likeEventState } 
+        //     color={ (user && isUserLikedEvent(user._id, x.popularite) ) ? '#D70026' : '#FFFFFF' } 
+        //     onPress={() => likeEventComponent(x)}
+        //   />
+        //   <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>{x.nom}</Text>
+        //   <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
+        //   <View style={{ alignItems: 'center', margin: 2 }}>
+        //     <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
+        //   </View>
+        // </Card>
       )
     }
   })

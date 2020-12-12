@@ -142,40 +142,6 @@ function AfficheMainScreen(props) {
     }
   }
 
-  //likes
-  async function likeEvent(event){
-    if (user  === null){
-      props.navigation.navigate('SignInScreen');
-    }
-    console.log("LIKÉ event", event._id);
-    // console.log("user", user);
-    console.log("user.id", user._id);
-
-    var responseBE;
-    if ( isUserLikedEvent(user._id, event.popularite)){
-      event.popularite.splice(user._id, 1);
-      responseBE = await fetch(`${urlLocal}/unlikeEvent?idEvent=${event._id}&idUser=${user._id}`);
-    }else{
-      event.popularite.unshift(user._id);
-      responseBE = await fetch(`${urlLocal}/likeEvent?idEvent=${event._id}&idUser=${user._id}`);
-    }
-    console.log(responseBE);
-  }
-
-
-  function isUserLikedEvent (u, popularite){
-    var i=0;
-    var result = false;
-
-    while ( !result && i<popularite.length){
-      if (u == popularite[i]){
-        result = true;
-      }
-      i++;
-    }
-    return result;
-  }
-
 
 
 
@@ -201,17 +167,16 @@ function AfficheMainScreen(props) {
               props.onAddIdEvent(x._id);
               tokenOK();
             }}
-          
           />
+          
           <Heart
             size={25}
             style={{ position: 'absolute', top: 5, left: 140 }}
-                  
+            token={props.token}      
             i={i}
             x={x}
             user={user}
             navigation={props.navigation}
-
           />
 
           <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>{x.nom}</Text>
@@ -240,12 +205,14 @@ function AfficheMainScreen(props) {
               tokenOK();
             }}          
           />
-          <AntDesign
-            name="heart"
+          <Heart
             size={25}
             style={{ position: 'absolute', top: 5, left: 140 }}
-            color={ (user && isUserLikedEvent(user._id, x.popularite) ) ? '#D70026' : '#FFFFFF' } 
-            onPress={() => likeEvent(x)}
+            token={props.token}      
+            i={i}
+            x={x}
+            user={user}
+            navigation={props.navigation}
           />
           <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
@@ -273,12 +240,14 @@ function AfficheMainScreen(props) {
               tokenOK();
             }}          
           />
-          <AntDesign
-            name="heart"
+          <Heart
             size={25}
             style={{ position: 'absolute', top: 5, left: 140 }}
-            color={ (user && isUserLikedEvent(user._id, x.popularite) ) ? '#D70026' : '#FFFFFF' } 
-            onPress={() => likeEvent(x)}
+            token={props.token}
+            i={i}
+            x={x}
+            user={user}
+            navigation={props.navigation}
           />
           <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
@@ -306,12 +275,14 @@ function AfficheMainScreen(props) {
               tokenOK();
             }}          
           />
-          <AntDesign
-            name="heart"
+          <Heart
             size={25}
             style={{ position: 'absolute', top: 5, left: 140 }}
-            color={ (user && isUserLikedEvent(user._id, x.popularite) ) ? '#D70026' : '#FFFFFF' } 
-            onPress={() => likeEvent(x)}
+            token={props.token}   
+            i={i}
+            x={x}
+            user={user}
+            navigation={props.navigation}
           />
           <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>

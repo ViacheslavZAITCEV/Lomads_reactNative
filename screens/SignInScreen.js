@@ -26,30 +26,16 @@ function SignInScreen(props, { navigation, addToken }) {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `email=${signInEmail}&password=${signInPassword}`
         })
-
         const body = await data.json()
 
         console.log('reponse Backend:', body);
         if (body.response === true) {
-            // var userBE = {
-            //     nom : body.nom,
-            //     prenom : body.prenom,
-            //     avatar : body.avatar,
-            //     ville  : body.ville,
-            //     preferences  : body.preferences,
-            //     groupes  : body.groupes,
-            //     eventsFavoris  : body.eventsFavoris,
-            //     sorties  : body.sorties,
-            //     amis  : body.amis,
-            //     confidentialite  : body.confidentialite,
-            //     age : body.age,
-            // };
+
             AsyncStorage.setItem('user', JSON.stringify(body.token));
             setUserExists(true);
 
             //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
             props.addToken(body.token);
-            // props.addUser(userBE);
             console.log('user est connecté');
             props.navigation.goBack();
         } else {

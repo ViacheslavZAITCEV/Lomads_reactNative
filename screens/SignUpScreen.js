@@ -33,19 +33,6 @@ function SignUpScreen(props) {
         const body = await data.json()
 
         if (body.response) {
-            // var userBE = {
-            //     nom : body.nom,
-            //     prenom : body.prenom,
-            //     avatar : body.avatar,
-            //     ville  : body.ville,
-            //     preferences  : body.preferences,
-            //     groupes  : body.groupes,
-            //     eventsFavoris  : body.eventsFavoris,
-            //     sorties  : body.sorties,
-            //     amis  : body.amis,
-            //     confidentialite  : body.confidentialite,
-            //     age : body.age,
-            // }
             AsyncStorage.setItem('user', JSON.stringify(body.token));
             setUserExists(true)
             //si l'utilisateur a bien été enregistré en BDD (le sign-up a fonctionné), on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend

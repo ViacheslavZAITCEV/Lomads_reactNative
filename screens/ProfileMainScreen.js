@@ -19,13 +19,13 @@ function ProfileMainScreen(props) {
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
   const [ville, setVille] = useState('');
+  const [avatar, setAvatar] = useState('https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png');
   
 
   useEffect(() => {
-    const updateUser = async () => {
+    const takeUserBD = async () => {
         if(props.token){
           const userBD = await fetch(`${urlLocal}/users/getUser`, {
-          // const userBD = await fetch('http://192.168.1.98:3000/users/getUser', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               body: `token=${props.token}`
@@ -35,7 +35,7 @@ function ProfileMainScreen(props) {
           setUser(body);
         }
     }
-    updateUser ();
+    takeUserBD ();
   },[props.token])
 
   useEffect(()=>{
@@ -44,6 +44,7 @@ function ProfileMainScreen(props) {
         setPrenom(user.prenom);
         setNom(user.nom);
         setVille(user.ville);
+        setAvatar(user.avatar);
 
       }
     }
@@ -52,7 +53,7 @@ function ProfileMainScreen(props) {
 
   console.log('ProfileMainScreen, user=', user)
 
-  if (props.token === null){
+  if (token === null){
     props.navigation.navigate('SignInScreen');
     // return props.navigation.navigate('SignInScreen');
   }

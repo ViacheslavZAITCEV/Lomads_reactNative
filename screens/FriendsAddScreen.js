@@ -27,7 +27,7 @@ export default function FriendsAddScreen(props, { navigation }) {
               type='materialicons'
               size={35}
               color="#D70026"
-              onPress={() => console.log('demande acceptée')}
+              onPress={() => console.log("envoi de demande d'amis")}
             />
           </View>
           <View style={{ marginHorizontal: 15 }}>
@@ -54,7 +54,7 @@ export default function FriendsAddScreen(props, { navigation }) {
               type='materialicons'
               size={35}
               color="#D70026"
-              onPress={() => console.log('demande acceptée')}
+              onPress={() => console.log("envoi de demande d'amis")}
             />
           </View>
           <View style={{ marginHorizontal: 15 }}>
@@ -81,7 +81,7 @@ export default function FriendsAddScreen(props, { navigation }) {
               type='materialicons'
               size={35}
               color="#D70026"
-              onPress={() => console.log('demande acceptée')}
+              onPress={() => console.log("envoi de demande d'amis")}
             />
           </View>
           <View style={{ marginHorizontal: 15 }}>
@@ -108,7 +108,7 @@ export default function FriendsAddScreen(props, { navigation }) {
               type='materialicons'
               size={35}
               color="#D70026"
-              onPress={() => console.log('demande acceptée')}
+              onPress={() => console.log("envoi de demande d'amis")}
             />
           </View>
           <View style={{ marginHorizontal: 15 }}>
@@ -135,7 +135,7 @@ export default function FriendsAddScreen(props, { navigation }) {
               type='materialicons'
               size={35}
               color="#D70026"
-              onPress={() => console.log('demande acceptée')}
+              onPress={() => console.log("envoi de demande d'amis")}
             />
           </View>
           <View style={{ marginHorizontal: 15 }}>

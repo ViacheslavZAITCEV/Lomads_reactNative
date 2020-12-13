@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, ScrollView, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, KeyboardAvoidingView, TouchableOpacity, AsyncStorage  } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
+
+import urlLocal from '../urlDevsGoWizMe'
 
 function SignUpScreen(props) {
 
@@ -21,8 +23,9 @@ function SignUpScreen(props) {
 
     var handleSubmitSignup = async () => {
 
-        const data = await fetch('http://172.20.10.9:3000/users/sign-up', {
+        const data = await fetch(`${urlLocal}/users/sign-up`, {
         // const data = await fetch('http://192.168.1.98:3000/users/sign-up', {
+        // const data = await fetch('http://172.20.10.9:3000/users/sign-up', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `prenom=${signUpUserFirstname}&nom=${signUpUserLastname}&email=${signUpEmail}&password=${signUpPassword}&ville=${signUpCity}`
@@ -30,25 +33,12 @@ function SignUpScreen(props) {
 
         const body = await data.json()
 
-        if (body.response === true) {
-            var userBE = {
-                nom: body.nom,
-                prenom: body.prenom,
-                avatar: body.avatar,
-                ville: body.ville,
-                preferences: body.preferences,
-                groupes: body.groupes,
-                eventsFavoris: body.eventsFavoris,
-                sorties: body.sorties,
-                amis: body.amis,
-                confidentialite: body.confidentialite,
-                age: body.age,
-            }
-            AsyncStorage.setItem('user', JSON.stringify(userBE));
+        if (body.response) {
+            AsyncStorage.setItem('user', JSON.stringify(body.token));
             setUserExists(true)
             //si l'utilisateur a bien été enregistré en BDD (le sign-up a fonctionné), on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
             props.addToken(body.token);
-            props.addUser(userBE);
+            // props.addUser(userBE);
             console.log('user est enregistré');
             props.navigation.navigate('AfficheMainScreen');
         } else {
@@ -108,9 +98,6 @@ function mapDispatchToProps(dispatch) {
         // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
         addToken: function (token) {
             dispatch({ type: 'saveToken', token })
-        },
-        addUser: function (user) {
-            dispatch({ type: 'user', user });
         }
     }
 }

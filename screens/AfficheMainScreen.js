@@ -15,12 +15,16 @@ import {
   BottomSheet,
   ListItem,
 } from 'react-native-elements';
+
 import { AntDesign } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
+import Heart from './components/cardEvenement'
+
+import urlLocal from '../urlDevsGoWizMe'
 
 const styles = StyleSheet.create({
   imageBackground: {
@@ -73,29 +77,59 @@ function AfficheMainScreen(props) {
 
   useEffect(() => {
     const getEvents = async () => {
-      const data = await fetch(`http://172.20.10.9:3000/pullEvents`)
+      const data = await fetch(`${urlLocal}/pullEvents`)
+      // const data = await fetch(`http://172.20.10.9:3000/pullEvents`)
+      // const data = await fetch(`http://172.17.1.111:3000/pullEvents`)
+      // const data = await fetch(`http://192.168.1.17:3000/pullEvents`)
       const body = await data.json()
       setEventsList(body)
     }
     getEvents()
   }, [])
 
-  // useEffect(() => {
-  //   const getUserfromStorage = async () => {
-  //     await AsyncStorage.getItem('user', async function (error, data){
+  useEffect(() => {
+    const getUserfromStorage = async () => {
 
-  //       console.log('Read from Storage: user=', data);
-  //       console.log('Read from Storage: error=', error);
-  //       setToken(data);
-  //       // const userBD = await fetch(`http:/172.17.1.111:3000/pullEvents`);
-  //       const userBD = await fetch(`http:/192.168.1.98:3000/pullEvents`);
-  //       const body = await userBD.json()
-  //       setUser(body)
+        var tokenStorageRAW;
+        await AsyncStorage.getItem('user', async function (error, data){
+            console.log('Read from Storage: user=', data);
+            console.log('Read from Storage: error=', error);
+            if (data){
+                tokenStorageRAW = data.json();
+            }
+        });
 
-  //     });
-  //   }
-  //   getUserfromStorage ();
-  // },[])
+        setToken(tokenStorageRAW);
+    }
+    getUserfromStorage ();
+  },[])
+
+  useEffect(() => {
+    const updateUser = async () => {
+        if(props.token){
+
+        const userBD = await fetch(`${urlLocal}/users/getUser`, {
+        // const userBD = await fetch('http://172.17.1.111:3000/users/getUser', {
+        // const userBD = await fetch('http://192.168.1.98:3000/users/getUser', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `token=${props.token}`
+        })
+        const body = await userBD.json();
+        console.log('AfficheMainScreen, updateUser(), user = ', body);
+        setUser(body);
+        setCurrentCity(body.ville);
+        }
+    }
+    updateUser ();
+  },[props.token])
+
+
+
+
+  console.log('AfficheMainScreen, token = ', props.token);
+  console.log('AfficheMainScreen, props.id = ', props.idUser);
+  console.log('AfficheMainScreen, user = ', user);
 
 
   let tokenOK = () => {
@@ -108,11 +142,20 @@ function AfficheMainScreen(props) {
     }
   }
 
-  var cine = eventsList.map((x, i) => {
+
+
+
+  var cine = eventsList.map((x,i) => {
+    
+    // const [likeEventState,setLikeEventState ] = useState ((user && isUserLikedEvent(user._id, x.popularite) ) ? '#D70026' : '#FFFFFF');
+    function likeEventComponent(x){
+      // setLikeEventState( ! likeEventState );
+      likeEvent(x);
+    }
+    
     if (x.type === 'film') {
       console.log("CINE>>>>>", x._id)
       return (
-
         <Card key={i}
           containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }}>
           <Card.Image
@@ -125,13 +168,17 @@ function AfficheMainScreen(props) {
               tokenOK();
             }}
           />
-          <AntDesign
-            name="heart"
+          
+          <Heart
             size={25}
-            color='#D70026'
             style={{ position: 'absolute', top: 5, left: 140 }}
-            onPress={() => console.log("LIKÉ")}
+            token={props.token}      
+            i={i}
+            x={x}
+            user={user}
+            navigation={props.navigation}
           />
+
           <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
           <View style={{ alignItems: 'center', margin: 2 }}>
@@ -158,12 +205,14 @@ function AfficheMainScreen(props) {
               tokenOK();
             }}
           />
-          <AntDesign
-            name="heart"
+          <Heart
             size={25}
-            color='#D70026'
             style={{ position: 'absolute', top: 5, left: 140 }}
-            onPress={() => console.log("LIKÉ")}
+            token={props.token}      
+            i={i}
+            x={x}
+            user={user}
+            navigation={props.navigation}
           />
           <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
@@ -191,12 +240,14 @@ function AfficheMainScreen(props) {
               tokenOK();
             }}
           />
-          <AntDesign
-            name="heart"
+          <Heart
             size={25}
-            color='#D70026'
             style={{ position: 'absolute', top: 5, left: 140 }}
-            onPress={() => console.log("LIKÉ")}
+            token={props.token}
+            i={i}
+            x={x}
+            user={user}
+            navigation={props.navigation}
           />
           <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
@@ -224,12 +275,14 @@ function AfficheMainScreen(props) {
               tokenOK();
             }}
           />
-          <AntDesign
-            name="heart"
+          <Heart
             size={25}
-            color='#D70026'
             style={{ position: 'absolute', top: 5, left: 140 }}
-            onPress={() => console.log("LIKÉ")}
+            token={props.token}   
+            i={i}
+            x={x}
+            user={user}
+            navigation={props.navigation}
           />
           <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
@@ -362,7 +415,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     token: state.tokenReducer,
-    user: state.user,
+    user : state.userReduceur,
     currentCity: state.currentCityReducer
   }
 }

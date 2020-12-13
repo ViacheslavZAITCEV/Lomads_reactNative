@@ -6,6 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
+import urlLocal from '../urlDevsGoWizMe'
+
 function SignInScreen(props, { navigation, addToken }) {
 
     const [signInEmail, setSignInEmail] = useState('')
@@ -18,41 +20,25 @@ function SignInScreen(props, { navigation, addToken }) {
     var handleSubmitSignin = async () => {
 
         console.log ('function handleSubmitSignin');
-        const data = await fetch('http://172.20.10.9:3000/users/sign-in', {
+        const data = await fetch(`${urlLocal}/users/sign-in`, {
         // const data = await fetch('http://192.168.1.98:3000/users/sign-in', {
+        // const data = await fetch('http://172.20.10.9:3000/users/sign-in', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `email=${signInEmail}&password=${signInPassword}`
         })
-
         const body = await data.json()
 
         console.log('reponse Backend:', body);
+        if (body.response === true) {
 
-        if (body.response) {
-            var userBE = {
-                nom: body.nom,
-                prenom: body.prenom,
-                avatar: body.avatar,
-                ville: body.ville,
-                preferences: body.preferences,
-                groupes: body.groupes,
-                eventsFavoris: body.eventsFavoris,
-                sorties: body.sorties,
-                amis: body.amis,
-                confidentialite: body.confidentialite,
-                age: body.age,
-            };
-
-            // AsyncStorage.setItem('user', JSON.stringify(userBE));
-
+            AsyncStorage.setItem('user', JSON.stringify(body.token));
             setUserExists(true);
 
             //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
             props.addToken(body.token);
-            props.addUser(userBE);
             console.log('user est connecté');
-            props.navigation.navigate('AfficheMainScreen');
+            props.navigation.goBack();
         } else {
             setErrorsSignin(body.error)
         }
@@ -114,9 +100,6 @@ function mapDispatchToProps(dispatch) {
         // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
         addToken: function (token) {
             dispatch({ type: 'saveToken', token })
-        },
-        addUser: function (user) {
-            dispatch({ type: 'user', user });
         }
     }
 }

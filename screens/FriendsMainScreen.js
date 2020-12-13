@@ -27,7 +27,7 @@ export default function FriendsMainScreen(props, { navigation }) {
 
       <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
 
-        <Text style={{ fontSize: 22, margin: 7, fontWeight: 'bold' }} >
+        <Text style={{ fontSize: 18, margin: 7, fontWeight: 'bold' }} >
           DEMANDES D'AMIS
         </Text>
 
@@ -103,7 +103,7 @@ export default function FriendsMainScreen(props, { navigation }) {
 
         </View>
 
-        <Text style={{ fontSize: 22, margin: 7, fontWeight: 'bold' }} >
+        <Text style={{ fontSize: 18, margin: 7, fontWeight: 'bold' }} >
           MES AMIS
         </Text>
 

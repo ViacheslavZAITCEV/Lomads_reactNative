@@ -19,6 +19,7 @@ import PlanMainScreen from './screens/PlanMainScreen';
 import PlanInvitationScreen from './screens/PlanInvitationScreen';
 import PlanDetailScreen from './screens/PlanDetailScreen';
 import PlanOrgaScreen from './screens/PlanOrgaScreen';
+// import PlanJoinScreen from './screens/PlanJoinScreen';
 
 import ProfileMainScreen from './screens/ProfileMainScreen';
 // import ProfileSettingScreen from './screens/ProfileSettingScreen';
@@ -153,6 +154,17 @@ var PlanScreens = {
       }
     }
   }
+  // ,
+  // PlanJoinScreen: {
+  //   screen: PlanJoinScreen,
+  //   navigationOptions: ({ navigation }) => {
+  //     return {
+  //     headerLeft: () => <HeaderLeft navigation={navigation}/>,
+  //     headerTitle: () => <HeaderCity navigation={navigation}/>,
+  //     headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+  //     }
+  //   }
+  // }
 }
 
 var PlanStack = createStackNavigator (PlanScreens, {

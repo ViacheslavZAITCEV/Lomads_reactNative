@@ -34,7 +34,7 @@ export default function PlanMainScreen({ navigation }) {
 
       <View style={{ backgroundColor: '#E55039' }}>
         <Text style={{ color: 'white', textAlign: 'center', fontSize: 18, fontWeight: 'bold', maxWidth: "100%", marginTop: 10, marginBottom: 10 }}>
-          PLANIFIER MES SORTIES
+          MES OPTIONS DE SORTIES
         </Text>
       </View>
 
@@ -42,11 +42,37 @@ export default function PlanMainScreen({ navigation }) {
 
         <ScrollView style={{ flex: 2 }}>
 
+          {/* ====================================================================================
+                                        MES SORTIES PLANIFIEES
+          ==================================================================================== */}
+
+          <Text style={{ fontSize: 22, margin: 7, fontWeight: 'bold' }} >
+            MES SORTIES PLANIFIÉES
+          </Text>
+
+          <View style={{ backgroundColor: '#3C6382', paddingBottom: 15 }}>
+            <ScrollView horizontal={true}>
+              <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
+                <Card.Image
+                  style={{ width: 85, height: 115 }}
+                  source={{ uri: "https://img-4.linternaute.com/bP9KkO-A0XlmVkNuDafaeRXE4Ww=/1240x/39cc6a34b26041f9b7c79fdf4829e7bd/ccmcms-linternaute/37498.jpg" }}
+                  resizeMode="cover"
+                  onPress={() => navigation.navigate('PlanDetailScreen')}
+                />
+                <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>PYJAMA PARTY ENTRE GIRLS</Text>
+              </Card>
+            </ScrollView>
+          </View>
+
+          {/* ====================================================================================
+                                        INVITATIONS RECUES
+          ==================================================================================== */}
+
           <Text style={{ fontSize: 22, margin: 7, fontWeight: 'bold' }}>
             INVITATIONS RECUES
           </Text>
 
-          <View style={{ backgroundColor: '#3C6382', paddingBottom: 25 }}>
+          <View style={{ backgroundColor: '#F6E58D', paddingBottom: 25 }}>
             <ScrollView horizontal={true}>
 
               <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '100%', backgroundColor: '#F8F5F2' }} >
@@ -57,31 +83,35 @@ export default function PlanMainScreen({ navigation }) {
                   onPress={() => navigation.navigate('PlanInvitationScreen')
                   }
                 />
-                <Text style={{ textAlign: 'center', fontSize: 15,fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>TENET</Text>
+                <Text style={{ textAlign: 'center', fontSize: 15, fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>TENET</Text>
               </Card>
 
             </ScrollView>
           </View>
+
+
+          {/* ====================================================================================
+                                              MES FAVORIS
+          ==================================================================================== */}
 
           <Text style={{ fontSize: 22, margin: 7, fontWeight: 'bold' }} >
             MES FAVORIS
-            </Text>
-          <View style={{ backgroundColor: '#F6E58D', paddingBottom: 25 }}>
+          </Text>
+
+          <View style={{ backgroundColor: '#E55039', paddingBottom: 25 }}>
             <ScrollView horizontal={true}>
               <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
                 <Card.Image
-                  style={{ width: 170, height: 230 }}
+                  style={{ width: 85, height: 115 }}
                   source={{ uri: "https://fr.web.img2.acsta.net/medias/nmedia/18/62/89/48/18708437.jpg" }}
                   resizeMode="cover"
-                  onPress={() => {
-                    console.log(">>>>>>>>>>>>>>>>>>>>>>AFFICHE");
-                  }}
+                  onPress={() => navigation.navigate('PlanOrgaScreen')}
                 />
                 <AntDesign
                   name="heart"
                   size={25}
                   color='#D70026'
-                  style={{ position: 'absolute', top: 5, left: 140 }}
+                  style={{ position: 'absolute', top: 5, left: 60 }}
                   onPress={() => console.log("LIKÉ")}
                 />
                 <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>À LA RECHERCHE DU BONHEUR</Text>
@@ -89,98 +119,63 @@ export default function PlanMainScreen({ navigation }) {
             </ScrollView>
           </View>
 
+          {/* ====================================================================================
+                                        FAVORIS DE MES AMIS
+          ==================================================================================== */}
 
           <Text style={{ fontSize: 22, margin: 7, fontWeight: 'bold' }} >
-            MES SORTIES PLANNIFIÉES
-            </Text>
-          <View style={{ backgroundColor: '#E55039', paddingBottom: 15 }}>
-            <ScrollView horizontal={true}>
-              <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
-                <Card.Image
-                  style={{ width: 170, height: 230 }}
-                  source={{ uri: "https://img-4.linternaute.com/bP9KkO-A0XlmVkNuDafaeRXE4Ww=/1240x/39cc6a34b26041f9b7c79fdf4829e7bd/ccmcms-linternaute/37498.jpg" }}
-                  resizeMode="cover"
-                  onPress={() => {
-                    console.log(">>>>>>>>>>>>>>>>>>>>>>AFFICHE");
-                  }}
-                />
-                <AntDesign
-                  name="heart"
-                  size={25}
-                  color='#D70026'
-                  style={{ position: 'absolute', top: 5, left: 140 }}
-                  onPress={() => console.log("LIKÉ")}
-                />
-                <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>PYJAMA PARTY ENTRE GIRLS</Text>
-                <Text style={{ textAlign: 'center', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>8 participants</Text>
-              </Card>
-            </ScrollView>
-          </View>
+            FAVORIS DE MES AMIS
+          </Text>
 
-          <Text style={{ fontSize: 22, margin: 7, fontWeight: 'bold' }} >
-            FAVORIS DES MES AMIS
-            </Text>
-          <View style={{ backgroundColor: '#F6E58D', paddingBottom: 25 }}>
-            <ScrollView horizontal={true}>
-              <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
-                <Card.Image
-                  style={{ width: 170, height: 230 }}
-                  source={{ uri: "https://fr.web.img2.acsta.net/medias/nmedia/18/62/89/48/18708437.jpg" }}
-                  resizeMode="cover"
-                  onPress={() => {
-                    console.log(">>>>>>>>>>>>>>>>>>>>>>AFFICHE");
-                  }}
-                />
-                <AntDesign
-                  name="heart"
-                  size={25}
-                  color='#D70026'
-                  style={{ position: 'absolute', top: 5, left: 140 }}
-                  onPress={() => console.log("LIKÉ")}
-                />
-                <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>À LA RECHERCHE DU BONHEUR</Text>
-              </Card>
-            </ScrollView>
-          </View>
-
-          <Text style={{ fontSize: 22, margin: 7, fontWeight: 'bold' }} >
-            PLANNIFIÉES PAR MES AMIS
-            </Text>
           <View style={{ backgroundColor: '#3C6382', paddingBottom: 25 }}>
             <ScrollView horizontal={true}>
               <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
                 <Card.Image
-                  style={{ width: 170, height: 230 }}
-                  source={{ uri: "https://files.offi.fr/programmation/956706/images/200/2be53cdeef1450da1b5a9fb3e259b97c.jpg" }}
+                  style={{ width: 85, height: 115 }}
+                  source={{ uri: "https://fr.web.img2.acsta.net/medias/nmedia/18/62/89/48/18708437.jpg" }}
                   resizeMode="cover"
-                  onPress={() => {
-                    console.log(">>>>>>>>>>>>>>>>>>>>>>AFFICHE");
-                  }}
+                  onPress={() => navigation.navigate('PlanOrgaScreen')}
                 />
                 <AntDesign
                   name="heart"
                   size={25}
                   color='#D70026'
-                  style={{ position: 'absolute', top: 5, left: 140 }}
+                  style={{ position: 'absolute', top: 5, left: 60 }}
                   onPress={() => console.log("LIKÉ")}
                 />
-                <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>SORTIE au théâtre entre amis</Text>
-                <Text style={{ textAlign: 'center', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>2 participants</Text>
+                <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>À LA RECHERCHE DU BONHEUR</Text>
               </Card>
             </ScrollView>
           </View>
 
-          <View style={{ alignItems: 'center' }}>
-            <Button title="Go to PlanInvitationScreen"
-              onPress={() => navigation.navigate('PlanInvitationScreen')}
-            />
-            <Button title="Go to PlanDetailScreen"
-              onPress={() => navigation.navigate('PlanDetailScreen')}
-            />
-            <Button title="Go to PlanOrgaScreen"
-              onPress={() => navigation.navigate('PlanOrgaScreen')}
-            />
-          </View>
+          {/* ====================================================================================
+                                        ME JOINDRE A MES AMIS
+          ==================================================================================== */}
+
+          {/* <Text style={{ fontSize: 22, margin: 7, fontWeight: 'bold' }} >
+            ME JOINDRE À MES AMIS
+          </Text>
+
+          <View style={{ backgroundColor: '#F6E58D', paddingBottom: 25 }}>
+            <ScrollView horizontal={true}>
+              <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
+                <Card.Image
+                  style={{ width: 85, height: 115 }}
+                  source={{ uri: "https://files.offi.fr/programmation/956706/images/200/2be53cdeef1450da1b5a9fb3e259b97c.jpg" }}
+                  resizeMode="cover"
+                  onPress={() => navigation.navigate('PlanJoinScreen')}
+                />
+                <AntDesign
+                  name="heart"
+                  size={25}
+                  color='#D70026'
+                  style={{ position: 'absolute', top: 5, left: 60 }}
+                  onPress={() => console.log("LIKÉ")}
+                />
+                <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>LES FAUX BRITISH</Text>
+              </Card>
+            </ScrollView>
+          </View> */}
 
         </ScrollView>
       </ImageBackground>

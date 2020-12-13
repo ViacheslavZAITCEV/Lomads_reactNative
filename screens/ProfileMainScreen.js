@@ -55,7 +55,6 @@ function ProfileMainScreen(props) {
 
   if (token === null){
     props.navigation.navigate('SignInScreen');
-    // return props.navigation.navigate('SignInScreen');
   }
 
 

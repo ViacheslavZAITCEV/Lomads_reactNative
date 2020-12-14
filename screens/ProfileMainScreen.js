@@ -10,6 +10,32 @@ import urlLocal from '../urlDevsGoWizMe'
 
 
 
+
+var badgesModel = {
+  cinema : `<Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />`,
+  theatre: `<Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Théatre' />`,
+  exposition: `<Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Expositions' />`,
+  concert: `<Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Concerts' />`,
+  
+  fantastique: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />`,
+  scienceFiction:  `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Science-Fiction' />`,
+  comedie: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Comédie' />`,
+  drame: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Drame' />`,
+  spectacleMusical: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musical' />`,
+  contemporain: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Contemporain' />`,
+  oneManShow: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='One-Man Show' />`,
+  musiqueClassique: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Classique' />`,
+  musiqueFrancaise: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Française' />`,
+  musiquePop: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Pop' />`,
+  musiqueRock: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Rock' />`,
+  beauxArts : `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Beaux-Arts' />`,
+  histoireCivilisations: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Civilisations' />`,
+}
+
+
+
+
+
 function ProfileMainScreen(props) {
 
   
@@ -40,6 +66,9 @@ function ProfileMainScreen(props) {
     takeUserBD ();
   },[props.token])
 
+
+  var badges = [];
+
   useEffect(()=>{
     const updateState = ()=>{
       if (user){
@@ -47,6 +76,17 @@ function ProfileMainScreen(props) {
         setNom(user.nom);
         setVille(user.ville);
         setAvatar(user.avatar);
+        var prefs = user.preferences[0];
+        console.log('user.preferences[0]=', user.preferences[0]);
+        console.log('type of prefs=', typeof prefs);
+        var keys = Object.getOwnPropertyNames(prefs);
+        console.log('keys=', keys);
+        keys.forEach( key => {
+          console.log('user.preferences :', key, ' value=', user.preferences[0].key)
+          if (user.preferences[0].key){
+            badges.push(badgesModel.key);
+          }        
+        });
 
       }
     }
@@ -107,7 +147,9 @@ function ProfileMainScreen(props) {
           </Text>
         </View>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
-          <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
+
+          {badges}
+          {/* <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
           <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Expositions' />
           <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Théatre' />
           <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Concerts' />
@@ -125,7 +167,7 @@ function ProfileMainScreen(props) {
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Drame' />
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Histoire' />
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Française' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='One-Man Show' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='One-Man Show' /> */}
         </View>
       </View>
 

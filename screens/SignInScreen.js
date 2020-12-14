@@ -17,6 +17,17 @@ function SignInScreen(props, { navigation, addToken }) {
 
     const [listErrorsSignin, setErrorsSignin] = useState('')
 
+
+    useEffect( ()=>{
+        function goToBack(){
+            if (props.token){
+                props.navigation.goBack();
+            }
+        }
+        goToBack();
+    },[props.token])
+
+
     var handleSubmitSignin = async () => {
 
         console.log ('function handleSubmitSignin');
@@ -30,7 +41,7 @@ function SignInScreen(props, { navigation, addToken }) {
         console.log('reponse Backend:', body);
         if (body.response === true) {
 
-            AsyncStorage.setItem('user', JSON.stringify(body.token));
+            AsyncStorage.setItem('user', body.token);
             setUserExists(true);
 
             //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend

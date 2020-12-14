@@ -24,8 +24,6 @@ function SignUpScreen(props) {
     var handleSubmitSignup = async () => {
 
         const data = await fetch(`${urlLocal}/users/sign-up`, {
-        // const data = await fetch('http://192.168.1.98:3000/users/sign-up', {
-        // const data = await fetch('http://172.20.10.9:3000/users/sign-up', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `prenom=${signUpUserFirstname}&nom=${signUpUserLastname}&email=${signUpEmail}&password=${signUpPassword}&ville=${signUpCity}`
@@ -34,7 +32,7 @@ function SignUpScreen(props) {
         const body = await data.json()
 
         if (body.response) {
-            AsyncStorage.setItem('user', JSON.stringify(body.token));
+            AsyncStorage.setItem('user', body.token);
             setUserExists(true)
             //si l'utilisateur a bien été enregistré en BDD (le sign-up a fonctionné), on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
             props.addToken(body.token);

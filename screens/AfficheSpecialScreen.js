@@ -169,7 +169,6 @@ function AfficheSpecialScreen(props) {
 
           <Heart
             size={25}
-            style={{ position: 'absolute', top: 5, left: 140 }}
             token={props.token}      
             i={0}
             x={evenement}
@@ -203,13 +202,15 @@ function AfficheSpecialScreen(props) {
         <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
           <Text style={{ textAlign: 'center', marginTop: 3 }}>
             Catégories : 
-            {evenement.categories.map( (str, i)=> str)} 
+            {evenement.categories} 
           </Text>
 
         </View>
 
         <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>Durée : {evenement.lieux_dates[0].duree}  minutes</Text>
+          <Text style={{ textAlign: 'center', marginTop: 3 }}>
+            Durée : { (evenement && evenement.lieux_dates && evenement.lieux_dates.length >0) ? evenement.lieux_dates[0].duree : ''}  minutes
+          </Text>
 
         </View>
 
@@ -255,20 +256,18 @@ function AfficheSpecialScreen(props) {
                 marginBottom:0,width: 150, margin: 5 }}
               titleStyle={{ color: 'white' }}
               onPress={() => {
-                console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
-                
+                (selectLieuEvenement !== '' && selectDateEvenement !== '') ? console.log('Création une sortie') : console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
               }}            
-            />
+              />
             <Button
               type='outline'
               title="Réserver"
               buttonStyle={{ 
                 backgroundColor: (selectLieuEvenement !== '' && selectDateEvenement !== '') ? "#D70026" : "#16253D", 
                 marginBottom:0,  width: 150, margin: 5 }}
-              titleStyle={{ color: 'white' }}
-              onPress={() => {
-                console.log(">>>>>>>>>>>>>>>>>>>>>>Reserver");
-                
+                titleStyle={{ color: 'white' }}
+                onPress={() => {
+                (selectLieuEvenement !== '' && selectDateEvenement !== '') ? console.log('redirect à site de Reservation') : console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
               }}            
             />
 

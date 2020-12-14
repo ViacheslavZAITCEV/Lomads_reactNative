@@ -168,6 +168,7 @@ function AfficheMainScreen(props) {
             i={i}
             x={x}
             user={user}
+            style={{ position: 'absolute', top: 5, left: 140 }}
             navigation={props.navigation}
           />
 

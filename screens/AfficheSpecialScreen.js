@@ -45,6 +45,7 @@ function AfficheSpecialScreen(props) {
   var horaireTransit=[];
   var dates;
 
+
   useEffect(() => {
     const updateUser = async () => {
         if(props.token){
@@ -235,17 +236,27 @@ findEvent() ;
           }}            
         />
         <Button
-          type='outline'
-          title="Réserver"
-          buttonStyle={{ 
-            backgroundColor: (selectLieuEvenement !== '' && selectDateEvenement !== '') ? "#D70026" : "#16253D", 
-            marginBottom:0,  width: 150, margin: 5 }}
-          titleStyle={{ color: 'white' }}
-          onPress={() => {
-            console.log(">>>>>>>>>>>>>>>>>>>>>>Reserver");
-            
-          }}            
-        />
+              type='outline'
+              title="Créer une sortie"
+              buttonStyle={{ 
+                backgroundColor: (selectLieuEvenement !== '' && selectDateEvenement !== '') ? "#D70026" : "#16253D", 
+                marginBottom:0,width: 150, margin: 5 }}
+              titleStyle={{ color: 'white' }}
+              onPress={() => {
+                (selectLieuEvenement !== '' && selectDateEvenement !== '') ? console.log('Création une sortie') : console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
+              }}            
+              />
+            <Button
+              type='outline'
+              title="Réserver"
+              buttonStyle={{ 
+                backgroundColor: (selectLieuEvenement !== '' && selectDateEvenement !== '') ? "#D70026" : "#16253D", 
+                marginBottom:0,  width: 150, margin: 5 }}
+                titleStyle={{ color: 'white' }}
+                onPress={() => {
+                (selectLieuEvenement !== '' && selectDateEvenement !== '') ? console.log('redirect à site de Reservation') : console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
+              }}            
+            />
 
     </View>
 

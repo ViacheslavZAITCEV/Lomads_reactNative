@@ -153,7 +153,10 @@ function AfficheSpecialScreen(props) {
   }
 
   function createSortie(){
-    
+    console.log('function createSortie');
+
+
+    props.navigation.navigate('PlanOrgaScreen')
   }
 
     return (
@@ -268,7 +271,15 @@ function mapStateToProps(state){
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+      newSortie: function (obj) {
+          dispatch({ type: 'newSortie', newSortie : obj })
+      }
+  }
+}
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(AfficheSpecialScreen);

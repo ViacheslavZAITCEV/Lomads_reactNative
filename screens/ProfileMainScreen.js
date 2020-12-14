@@ -31,8 +31,10 @@ function ProfileMainScreen(props) {
               body: `token=${props.token}`
           })
           const body = await userBD.json();
-          console.log('AfficheMainScreen, updateUser(), user = ', body);
+          console.log('ProfileMainScreen, updateUser(), user = ', body);
           setUser(body);
+        }else{
+          setUser(null);
         }
     }
     takeUserBD ();
@@ -57,9 +59,14 @@ function ProfileMainScreen(props) {
     props.navigation.navigate('SignInScreen');
   }
 
-  function deconnecter(){
-    setUser(null);
+  async function deconnecter(){
+    try{
+      await AsyncStorage.setItem('user', null);
+    }catch(e){
+      console.log(e);
+    }
     setToken(null);
+    props.navigation.navigate('AfficheMainScreen');
 
   }
 
@@ -77,7 +84,7 @@ function ProfileMainScreen(props) {
           rounded
           // onPress={() => navigation.navigate('ProfileAvatarModifScreen')}          
           source={{
-            uri :  user ? user.avatar : ''
+            uri :  user ? user.avatar : ' '
             // uri:
             //   'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
           }}
@@ -124,15 +131,15 @@ function ProfileMainScreen(props) {
 
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <TouchableOpacity
+          onPress={ ()=> {
+            deconnecter()
+          }}
           style={{
             width: '100%', height: 40, backgroundColor: '#D70026',
             alignItems: 'center', justifyContent: 'center'
           }}
         >
           <Text 
-            onPress={ ()=> {
-              deconnecter()
-            }}
             style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
                 Me déconnecter
           </Text>

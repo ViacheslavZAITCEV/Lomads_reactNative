@@ -42,7 +42,7 @@ import {Provider} from 'react-redux';
 
 import tokenReducer from './reducers/token.reducer';
 import idEventReducer from './reducers/idevent.reducer';
-import idSortieReducer from './reducers/idSortie.reducer';
+import idSortieReducer from './reducers/idsortie.reducer';
 import idUserReducer from './reducers/idUser.reducer';
 
 const store = createStore(combineReducers({tokenReducer,idEventReducer,idSortieReducer,idUserReducer}));

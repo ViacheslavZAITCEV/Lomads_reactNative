@@ -24,8 +24,6 @@ function SignUpScreen(props) {
     var handleSubmitSignup = async () => {
 
         const data = await fetch(`${urlLocal}/users/sign-up`, {
-        // const data = await fetch('http://192.168.1.98:3000/users/sign-up', {
-        // const data = await fetch('http://172.20.10.9:3000/users/sign-up', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `prenom=${signUpUserFirstname}&nom=${signUpUserLastname}&email=${signUpEmail}&password=${signUpPassword}&ville=${signUpCity}`
@@ -38,6 +36,7 @@ function SignUpScreen(props) {
             setUserExists(true)
             //si l'utilisateur a bien été enregistré en BDD (le sign-up a fonctionné), on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
             props.addToken(body.token);
+            props.addIdUser(body._id);
             // props.addUser(userBE);
             console.log('user est enregistré');
             props.navigation.navigate('AfficheMainScreen');
@@ -98,6 +97,9 @@ function mapDispatchToProps(dispatch) {
         // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
         addToken: function (token) {
             dispatch({ type: 'saveToken', token })
+        },
+        addIdUser: function (idUser) {
+            dispatch({ type: 'addIdUser', idUser })
         }
     }
 }

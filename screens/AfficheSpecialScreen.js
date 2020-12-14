@@ -7,11 +7,8 @@ import {
 } from 'react-native';
 import {
   Text,
-  Input,
   Button,
   Image,  
-
-
 } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 const styles = StyleSheet.create({
@@ -160,7 +157,7 @@ findEvent() ;
          <ImageBackground source={imageBackground} style={styles.imageBackground}>
       
         <View style={{ flex:1, alignItems: 'center', width: 300, margin: 5 }}>
-          <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: evenement.image }} />
+          <Image style={{ width: 210, height: 297, margin: 5 }} source={{ uri: evenement.image }} />
 
       <Heart
         size={25}
@@ -170,17 +167,10 @@ findEvent() ;
         x={evenement}
         user={user}
         navigation={props.navigation}
+        style={{ position: 'absolute', top: 5, left: 270 }}
       />
 
-
-
-      {/* <AntDesign
-        name="heart"
-        size={25}
-        color='#D70026'
-        onPress={() => console.log("LIKÉ")}
-      /> */}
-      <Text style={{ textAlign: 'center', marginTop: 3,fontWeight:'bold' }}>{evenement.nom}</Text>
+      <Text style={{ textAlign: 'center', marginTop: 3,fontWeight:'bold', textTransform: 'uppercase' }}>{evenement.nom}</Text>
      
 
     </View>
@@ -190,24 +180,15 @@ findEvent() ;
     </View>
 
     <View style={{ alignItems: 'center', width: 500, margin: 5 }}>
-      <Text style={{ textAlign: 'center', marginTop: 3 }}>Type : {evenement.type}</Text>
-
-    </View>
-
-    <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-      <Text style={{ textAlign: 'center', marginTop: 3 }}>
-        Catégories : 
-        {evenement.categories} 
+      <Text style={{ textAlign: 'center', marginTop: 3 }}>Type: {evenement.type}</Text>
+      <Text style={{ textAlign: 'center', marginTop: 3, maxWidth:'100%' }}>
+        Catégories: {evenement.categories} 
       </Text>
+      <Text style={{ textAlign: 'center', marginTop: 3 }}>Durée: { (evenement && evenement.lieux_dates && evenement.lieux_dates.length >0) ? evenement.lieux_dates[0].duree : ''}  minutes</Text>
 
     </View>
 
-    <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-      <Text style={{ textAlign: 'center', marginTop: 3 }}>Durée : { (evenement && evenement.lieux_dates && evenement.lieux_dates.length >0) ? evenement.lieux_dates[0].duree : ''}  minutes</Text>
-
-    </View>
-
-    <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
+    <View style={{ alignItems: 'center', width: 150, margin: 5, marginBottom:70 }}>
   
     <Picker
       selectedValue={lieuTransit}
@@ -219,7 +200,7 @@ findEvent() ;
      {lieux}
     </Picker>
     </View>
-    <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
+    <View style={{ alignItems: 'center', width: 150, margin: 5, marginBottom:100 }}>
    
     <Picker
     onPress={() => {horaires()}}
@@ -233,7 +214,7 @@ findEvent() ;
     </Picker>
     </View>
     
-    <View style={{ alignItems: 'center', width: 200, margin: 5 }}>
+    <View style={{ alignItems: 'center', width: 200, margin: 5, marginTop:50 }}>
     <Text style={{ textAlign: 'center', marginTop: 3 }}>Votre choix de lieu : </Text>
     <Text style={{ textAlign: 'center', marginTop: 3,fontWeight:'bold',color: "#16253D"  }}>{selectLieuEvenement.itemValue}</Text>
     <Text style={{ textAlign: 'center', marginTop: 8 }}>Votre choix de séance : </Text>

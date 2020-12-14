@@ -171,7 +171,7 @@ function AfficheMainScreen(props) {
             navigation={props.navigation}
           />
 
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>{x.nom}</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5, textTransform: 'uppercase' }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
           <View style={{ alignItems: 'center', margin: 2 }}>
             <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
@@ -204,7 +204,7 @@ function AfficheMainScreen(props) {
             user={user}
             navigation={props.navigation}
           />
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, textTransform: 'uppercase' }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
           <View style={{ alignItems: 'center', margin: 2 }}>
             <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
@@ -237,7 +237,7 @@ function AfficheMainScreen(props) {
             user={user}
             navigation={props.navigation}
           />
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, textTransform: 'uppercase' }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
           <View style={{ alignItems: 'center', margin: 2 }}>
             <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
@@ -270,7 +270,7 @@ function AfficheMainScreen(props) {
             user={user}
             navigation={props.navigation}
           />
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, textTransform: 'uppercase' }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
           <View style={{ alignItems: 'center', margin: 2 }}>
             <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />

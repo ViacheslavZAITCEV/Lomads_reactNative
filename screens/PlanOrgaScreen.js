@@ -1,18 +1,22 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, ScrollView, StyleSheet, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import { Text, Image, Input, Avatar, Icon, Button } from 'react-native-elements';
+import { Text, Input, Avatar, Icon } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+//Initialisation de Redux
+import { connect } from 'react-redux';
+
+import urlLocal from '../urlDevsGoWizMe'
 
 const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: 'grey',
     backgroundColor: 'white',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   inputContainer: {
     borderWidth: 1,
@@ -25,7 +29,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#D70026",
   }
 })
-export default function PlanOrgaScreen(props, { navigation }) {
+
+function PlanOrgaScreen(props, { navigation }) {
+
+ const [FriendsList, setFriendsList] = useState([])
+ const [invitedFriendsList, setInvitedFriendsList] = useState([])
+
+ useEffect(() => {
+  const getFriends = async () => {
+    const data = await fetch(`${urlLocal}/getUser`)
+    const body = await data.json()
+    console.log(body)
+    // setFriendsList(body)
+  }
+  getFriends()
+}, [])
+
+
   return (
     <View style={{ flex: 1 }}>
 
@@ -43,22 +63,21 @@ export default function PlanOrgaScreen(props, { navigation }) {
               INFORMATIONS SUR LA SORTIE
             </Text>
 
-            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-
+            <View>
               <Text>Inclure la card de l'événement ici</Text>
+            </View>
 
-              <Image
-                source={{ uri: "https://www.mairie-francheville69.fr/wp-content/uploads/2017/11/image-test-1024x640.jpeg" }}
-                style={{ height: 150, width: 250, resizeMode: "center" }}
-              />
+            <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
 
-              <Input
-                placeholder='Nom de la sortie'
-                inputStyle={styles.input}
-                inputContainerStyle={{ width: '80%', marginTop: 20, alignItems: 'center' }}
-              />
+              <View style={{ marginLeft: 10 }}>
 
-              <View>
+                <View>
+                  <Input
+                    placeholder='Nom de la sortie'
+                    inputStyle={styles.input}
+                    inputContainerStyle={{ width: '80%', marginTop: 20, alignItems: 'center' }}
+                  />
+                </View>
 
                 <View>
                   <Text>Date:</Text>
@@ -68,11 +87,45 @@ export default function PlanOrgaScreen(props, { navigation }) {
                   />
                 </View>
 
+                  <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <Text>Heure début:</Text>
+                    <Input
+                      inputContainerStyle={styles.inputContainer}
+                      rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
+                    />
+                  </View>
+
+                  <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <Text>Heure fin:</Text>
+                    <Input
+                      inputContainerStyle={styles.inputContainer}
+                      rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
+                    />
+                  </View>
+
                 <View>
-                  <Text>Horaire:</Text>
+                  <Text>Adresse:</Text>
                   <Input
                     inputContainerStyle={styles.inputContainer}
-                    rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
+                    rightIcon={<MaterialIcons name="location-on" size={22} color="black" />}
+                  />
+                </View>
+
+                <View>
+                  <Text>Code postal:</Text>
+                  <Input
+                    placeholder='par ex. "75010"'
+                    inputContainerStyle={styles.inputContainer}
+                    rightIcon={<MaterialIcons name="location-city" size={22} color="black" />}
+                  />
+                </View>
+
+                <View>
+                  <Text>Type:</Text>
+                  <Input
+                    placeholder='privé, amis ou public'
+                    inputContainerStyle={styles.inputContainer}
+                    rightIcon={<MaterialCommunityIcons name="eye" size={22} color="black" />}
                   />
                 </View>
 
@@ -211,3 +264,16 @@ export default function PlanOrgaScreen(props, { navigation }) {
     </View>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    token: state.tokenReducer,
+    user : state.userReduceur,
+    currentCity: state.currentCityReducer
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(PlanOrgaScreen);

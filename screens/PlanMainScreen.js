@@ -105,7 +105,7 @@ export default function PlanMainScreen({ navigation }) {
                   style={{ width: 85, height: 115 }}
                   source={{ uri: "https://fr.web.img2.acsta.net/medias/nmedia/18/62/89/48/18708437.jpg" }}
                   resizeMode="cover"
-                  onPress={() => navigation.navigate('PlanOrgaScreen')}
+                  onPress={() => navigation.navigate('AfficheSpecialScreen')}
                 />
                 <AntDesign
                   name="heart"

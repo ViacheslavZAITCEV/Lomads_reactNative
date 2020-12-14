@@ -76,18 +76,6 @@ function AfficheMainScreen(props) {
   const [token, setToken] = useState(props.token);
 
   useEffect(() => {
-    const getEvents = async () => {
-      const data = await fetch(`${urlLocal}/pullEvents`)
-      // const data = await fetch(`http://172.20.10.9:3000/pullEvents`)
-      // const data = await fetch(`http://172.17.1.111:3000/pullEvents`)
-      // const data = await fetch(`http://192.168.1.17:3000/pullEvents`)
-      const body = await data.json()
-      setEventsList(body)
-    }
-    getEvents()
-  }, [])
-
-  useEffect(() => {
     const getUserfromStorage = async () => {
 
         var tokenStorageRAW;
@@ -95,22 +83,31 @@ function AfficheMainScreen(props) {
             console.log('Read from Storage: user=', data);
             console.log('Read from Storage: error=', error);
             if (data){
-                tokenStorageRAW = data.json();
+              console.log ('AfficheMainScreen data=', data)
+                setToken(data);
+                props.addToken(data)
             }
         });
-
-        setToken(tokenStorageRAW);
     }
     getUserfromStorage ();
   },[])
+
+
+  useEffect(() => {
+    const getEvents = async () => {
+      const data = await fetch(`${urlLocal}/pullEvents`)
+      const body = await data.json()
+      setEventsList(body)
+    }
+    getEvents()
+  }, [])
+
 
   useEffect(() => {
     const updateUser = async () => {
         if(props.token){
 
         const userBD = await fetch(`${urlLocal}/users/getUser`, {
-        // const userBD = await fetch('http://172.17.1.111:3000/users/getUser', {
-        // const userBD = await fetch('http://192.168.1.98:3000/users/getUser', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `token=${props.token}`
@@ -127,9 +124,9 @@ function AfficheMainScreen(props) {
 
 
 
-  console.log('AfficheMainScreen, token = ', props.token);
   console.log('AfficheMainScreen, props.id = ', props.idUser);
   console.log('AfficheMainScreen, user = ', user);
+  console.log('AfficheMainScreen, token = ', token);
 
 
   let tokenOK = () => {
@@ -398,12 +395,12 @@ function AfficheMainScreen(props) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    addToken: function (token) {
+      dispatch({ type: 'saveToken', token });
+    },
     onAddIdEvent: function (idEvent) {
       dispatch({ type: 'addIdEvent', idEvent: idEvent });
-      // onAddCurrentCity: function async (currentCity) {
-      //   despatch({ type: 'addCurrentCity', currentCity: currentCity})
-      // }
-    }
+    },
   }
 }
 

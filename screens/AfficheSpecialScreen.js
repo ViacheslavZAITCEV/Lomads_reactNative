@@ -36,6 +36,7 @@ function AfficheSpecialScreen(props) {
   const [selectLieuEvenement,setSelectLieuEvenement] = useState('');
   const [dateEvenement,setDateEvenement] = useState([]);
   const [selectDateEvenement,setSelectDateEvenement] = useState('');
+  const [token, setToken] = useState(props.token);
   const [user, setUser] = useState(null);
 
   
@@ -51,6 +52,7 @@ function AfficheSpecialScreen(props) {
 
   useEffect(() => {
     const updateUser = async () => {
+      console.log('AfficheSpecialScreen: useEffect, function updateUser')
         if(props.token){
 
         const userBD = await fetch(`${urlLocal}/users/getUser`, {
@@ -60,7 +62,9 @@ function AfficheSpecialScreen(props) {
         })
         const body = await userBD.json();
         console.log('AfficheSpecialScreen, updateUser(), user = ', body);
+        setToken(props.token);
         setUser(body);
+
         // setCurrentCity(body.ville);
         }
     }
@@ -77,19 +81,11 @@ function AfficheSpecialScreen(props) {
 
       const body = await data.json()
       setEvenement(body);
-      console.log("body", body);
-      
-      console.log("event", body);
       backarray = recupLieu(body);
       setLieuEvenementSansDoublons(backarray);
       createLieuPicker(backarray);
-      
-      console.log("backarray ", backarray);
-      console.log("LIEU", lieuTransit)
-      console.log("LIEU nombre", lieuTransit.length)
-      console.log("lieux", lieux)      
     };
-    findEvent() ;
+    findEvent();
   },[])
 
   useEffect(() => {
@@ -102,15 +98,16 @@ function AfficheSpecialScreen(props) {
 
 
   function recupLieu (event){
+    console.log("function 'recupLieu'");
     var backy = [];
     if (event.lieux_dates){
-      console.log ('evenement.lieux_dates = ', event.lieux_dates)
+      // console.log ('evenement.lieux_dates = ', event.lieux_dates)
       for (var i = 0; i < event.lieux_dates.length;i++) {
         lieuTransit.push(event.lieux_dates[i].salle)
       }
       uniqueset = new Set(lieuTransit)
       backy=[...uniqueset];
-      console.log('backarray = ', backy);
+      console.log('backy = ', backy);
     }
     return backy;
   }
@@ -149,7 +146,9 @@ function AfficheSpecialScreen(props) {
       />)
     })
   }
-  console.log("selectLieuEvenement",selectLieuEvenement)
+  // console.log("selectLieuEvenement",selectLieuEvenement)
+  console.log("Affiche SpecialScreen :  token=",token)
+  console.log("Affiche SpecialScreen :  user=",user)
 
   if (dateEvenement.length > 0){
     dates = dateEvenement.map((date,i)=>{
@@ -282,7 +281,10 @@ function AfficheSpecialScreen(props) {
 
 }
 function mapStateToProps(state){
-  return {idEvent: state.idEventReducer}
+  return {
+    idEvent: state.idEventReducer,
+    token : state.token
+  }
 }
 
 

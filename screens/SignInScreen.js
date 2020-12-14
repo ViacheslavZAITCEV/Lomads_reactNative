@@ -32,7 +32,7 @@ function SignInScreen(props, { navigation, addToken }) {
         console.log('reponse Backend:', body);
         if (body.response === true) {
 
-            AsyncStorage.setItem('user', JSON.stringify(body.token));
+            AsyncStorage.setItem('user', body.token);
             setUserExists(true);
 
             //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend

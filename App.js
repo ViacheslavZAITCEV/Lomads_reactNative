@@ -81,26 +81,7 @@ var AfficheScreens = {
   //     }
   //   }
   // },
-  SignInScreen: {
-    screen: SignInScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      headerLeft: () => <HeaderLeft navigation={navigation}/>,
-      headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-      }
-    }
-  },
-  SignUpScreen: {
-    screen: SignUpScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      headerLeft: () => <HeaderLeft navigation={navigation}/>,
-      headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-      }
-    }
-  }
+
 }
 
 var AfficheStack = createStackNavigator (AfficheScreens, {
@@ -238,6 +219,26 @@ var ProfileScreens = {
       headerLeft: () => <HeaderLeft navigation={navigation}/>,
       headerTitle: () => <HeaderCity navigation={navigation}/>,
       headerRight: () => <HeaderRightSetting navigation={navigation}/>
+      }
+    }
+  },
+  SignInScreen: {
+    screen: SignInScreen,
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
+  },
+  SignUpScreen: {
+    screen: SignUpScreen,
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
       }
     }
   },

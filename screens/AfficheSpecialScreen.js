@@ -42,7 +42,7 @@ function AfficheSpecialScreen(props) {
   useEffect(() => {
     const findEvent = async() => {
       console.log("PROPS RECU", props.idEvent)
-      const data = await fetch(`http://192.168.1.142:3000/pullEventDetaille`, {
+      const data = await fetch(`http://172.17.1.91:3000/pullEventDetaille`, {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'id='+props.idEvent});
@@ -50,14 +50,16 @@ function AfficheSpecialScreen(props) {
       const body = await data.json()
       
       setEvenement(body) 
+      console.log(">>>>>>>>>>>>>>>><<<<<<<", evenement.lieux_dates);
+      console.log("=========>", evenement.lieux_dates[0].duree);
+      var duree = evenement.lieux_dates[0].duree;
     };
     async function representations() {
       recupLieu();
-      console.log("evene,ent", evenement)
-        console.log("LIEU", lieuTransit)
-        console.log("LIEU nombre", lieuTransit.length)
-        console.log("backarray ", backarray)
-        console.log("lieux", lieux)
+        // console.log("LIEU", lieuTransit)
+        // console.log("LIEU nombre", lieuTransit.length)
+        // console.log("backarray ", backarray)
+        // console.log("lieux", lieux)
        };
     findEvent() ;
     representations();   
@@ -80,36 +82,37 @@ function AfficheSpecialScreen(props) {
     uniqueset = new Set(lieuTransit)
     backarray=[...uniqueset];
     setLieuEvenementSansDoublons(backarray)
+    console.log("=========>>>>>",lieuEvenementSansDoublons[i])
   }
  
    var horaires= ()=>{
-    console.log("coucou")
+    // console.log("coucou")
     var dateFormat = function(date){
       var newDate = new Date(date);
       var format = newDate.getDate()+'/'+(newDate.getMonth()+1)+'/'+newDate.getFullYear()+' - '+newDate.getHours()+'h'+newDate.getMinutes();
+      console.log("FORMAT<<<<<<<<<",format)
       return format;
     }
     for (var i = 0; i< evenement.lieux_dates.length;i++) {
       if(selectLieuEvenement.itemValue==evenement.lieux_dates[i].salle) {
         horaireTransit.push(dateFormat(evenement.lieux_dates[i].date_debut))
       }}
-      console.log("HORAIRE TRANSIT",horaireTransit)
+      // console.log("Nous mets un undefined lorqu'on console.log(horaireTransit)")
     setDateEvenement(horaireTransit)}
 
-
-
-
-  
   lieux = lieuEvenementSansDoublons.map((lieu,i)=>{
     return(<Picker.Item key={i} label={lieu} value={lieu} />)})
  
-  console.log("selectLieuEvenement",selectLieuEvenement)
+  // console.log("selectLieuEvenement",selectLieuEvenement)
 
   dates = dateEvenement.map((date,i)=>{
     return(<Picker.Item key={i} label={date} value={date} />)
   })
+
+  // console.log("DATES++++++++ ", dateEvenement)
   
   const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
+
 
     return (
       <ScrollView style={{ flex: 1}}>
@@ -141,13 +144,12 @@ function AfficheSpecialScreen(props) {
         </View>
 
         <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>Catégories : </Text>
-
+          <Text style={{ textAlign: 'center', marginTop: 3 }}>Catégories : {evenement.categories} </Text>
         </View>
 
         <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>Durée :  minutes</Text>
-
+          <Text style={{ textAlign: 'center', marginTop: 3 }}>Durée : {duree} minutes</Text>
+          
         </View>
 
         <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
@@ -200,7 +202,7 @@ function AfficheSpecialScreen(props) {
               buttonStyle={{ backgroundColor: "#D70026", marginBottom:0,  width: 150, margin: 5 }}
               titleStyle={{ color: 'white' }}
               onPress={() => {
-                console.log(">>>>>>>>>>>>>>>>>>>>>>Reserver");
+                console.log(">>>>>>>>>>>>>>>>>>>>>>RESERVER");
                 
               }}            
             />

@@ -71,6 +71,8 @@ function AfficheSpecialScreen(props) {
   useEffect(() => {
     const findEvent = async() => {
       console.log("PROPS RECU", props.idEvent)
+      setToken(props.token);
+      console.log("AfficheSpecialScreen: props.token = ", props.token)
       const data = await fetch(`${urlLocal}/pullEventDetaille`, {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -150,6 +152,10 @@ function AfficheSpecialScreen(props) {
     });
   }
 
+  function createSortie(){
+    
+  }
+
     return (
       <ScrollView style={{ flex: 1}}>
       <View style={{ flex: 1, alignItems: 'center' }}>
@@ -222,7 +228,8 @@ function AfficheSpecialScreen(props) {
     </View>
 
     <View style={{ flex:1, alignItems: 'center', width: 200, margin: 5 }}>
-    <Button
+
+        <Button
           type='outline'
           title="Créer une sortie"
           buttonStyle={{ 
@@ -230,32 +237,20 @@ function AfficheSpecialScreen(props) {
             marginBottom:0,width: 150, margin: 5 }}
           titleStyle={{ color: 'white' }}
           onPress={() => {
-            console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
-            
+            (selectLieuEvenement !== '' && selectDateEvenement !== '') ? createSortie() : console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
           }}            
         />
         <Button
-              type='outline'
-              title="Créer une sortie"
-              buttonStyle={{ 
-                backgroundColor: (selectLieuEvenement !== '' && selectDateEvenement !== '') ? "#D70026" : "#16253D", 
-                marginBottom:0,width: 150, margin: 5 }}
-              titleStyle={{ color: 'white' }}
-              onPress={() => {
-                (selectLieuEvenement !== '' && selectDateEvenement !== '') ? console.log('Création une sortie') : console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
-              }}            
-              />
-            <Button
-              type='outline'
-              title="Réserver"
-              buttonStyle={{ 
-                backgroundColor: (selectLieuEvenement !== '' && selectDateEvenement !== '') ? "#D70026" : "#16253D", 
-                marginBottom:0,  width: 150, margin: 5 }}
-                titleStyle={{ color: 'white' }}
-                onPress={() => {
-                (selectLieuEvenement !== '' && selectDateEvenement !== '') ? console.log('redirect à site de Reservation') : console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
-              }}            
-            />
+          type='outline'
+          title="Réserver"
+          buttonStyle={{ 
+            backgroundColor: (selectLieuEvenement !== '' && selectDateEvenement !== '') ? "#D70026" : "#16253D", 
+            marginBottom:0,  width: 150, margin: 5 }}
+            titleStyle={{ color: 'white' }}
+            onPress={() => {
+            (selectLieuEvenement !== '' && selectDateEvenement !== '') ? console.log('redirect à site de Reservation') : console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
+          }}            
+        />
 
     </View>
 
@@ -268,8 +263,8 @@ function AfficheSpecialScreen(props) {
 }
 function mapStateToProps(state){
   return {
+    token : state.tokenReducer,
     idEvent: state.idEventReducer,
-    token : state.token
   }
 }
 

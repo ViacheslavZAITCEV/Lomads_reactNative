@@ -57,6 +57,11 @@ function ProfileMainScreen(props) {
     props.navigation.navigate('SignInScreen');
   }
 
+  function deconnecter(){
+    setUser(null);
+    setToken(null);
+
+  }
 
 
   return (
@@ -126,8 +131,7 @@ function ProfileMainScreen(props) {
         >
           <Text 
             onPress={ ()=> {
-              setUser(null);
-              setToken(null);
+              deconnecter()
             }}
             style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
                 Me déconnecter
@@ -144,7 +148,16 @@ function mapStateToProps(state){
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+      // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
+      addToken: function () {
+          dispatch({ type: 'deconnecter' })
+      }
+  }
+}
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(ProfileMainScreen);

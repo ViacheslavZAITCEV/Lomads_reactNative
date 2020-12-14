@@ -17,6 +17,17 @@ function SignInScreen(props, { navigation, addToken }) {
 
     const [listErrorsSignin, setErrorsSignin] = useState('')
 
+
+    useEffect( ()=>{
+        function goToBack(){
+            if (props.token){
+                props.navigation.goBack();
+            }
+        }
+        goToBack();
+    },[props.token])
+
+
     var handleSubmitSignin = async () => {
 
         console.log ('function handleSubmitSignin');

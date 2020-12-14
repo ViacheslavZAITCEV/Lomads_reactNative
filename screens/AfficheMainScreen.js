@@ -78,7 +78,6 @@ function AfficheMainScreen(props) {
   useEffect(() => {
     const getUserfromStorage = async () => {
 
-        var tokenStorageRAW;
         await AsyncStorage.getItem('user', async function (error, data){
             console.log('Read from Storage: user=', data);
             console.log('Read from Storage: error=', error);
@@ -116,6 +115,8 @@ function AfficheMainScreen(props) {
         console.log('AfficheMainScreen, updateUser(), user = ', body);
         setUser(body);
         setCurrentCity(body.ville);
+        }else{
+          setUser(null)
         }
     }
     updateUser ();

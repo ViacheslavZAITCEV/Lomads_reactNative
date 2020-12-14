@@ -52,7 +52,6 @@ function AfficheSpecialScreen(props) {
       setEvenement(body) 
       console.log(">>>>>>>>>>>>>>>><<<<<<<", evenement.lieux_dates);
       console.log("=========>", evenement.lieux_dates[0].duree);
-      var duree = evenement.lieux_dates[0].duree;
     };
     async function representations() {
       recupLieu();
@@ -107,7 +106,8 @@ function AfficheSpecialScreen(props) {
 
   dates = dateEvenement.map((date,i)=>{
     return(<Picker.Item key={i} label={date} value={date} />)
-  })
+  });
+  var duree = evenement.lieux_dates[0].duree;
 
   // console.log("DATES++++++++ ", dateEvenement)
   

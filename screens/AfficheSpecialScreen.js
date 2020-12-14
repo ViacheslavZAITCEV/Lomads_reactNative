@@ -36,12 +36,35 @@ function AfficheSpecialScreen(props) {
   const [selectLieuEvenement,setSelectLieuEvenement] = useState('');
   const [dateEvenement,setDateEvenement] = useState([]);
   const [selectDateEvenement,setSelectDateEvenement] = useState('');
+  const [user, setUser] = useState(null);
+
+  
+  const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
+
   var lieuTransit=[];
   var lieux;
   var uniqueset;
   var backarray;
   var horaireTransit=[];
   var dates;
+
+  useEffect(() => {
+    const updateUser = async () => {
+        if(props.token){
+
+        const userBD = await fetch(`${urlLocal}/users/getUser`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `token=${props.token}`
+        })
+        const body = await userBD.json();
+        console.log('AfficheSpecialScreen, updateUser(), user = ', body);
+        setUser(body);
+        // setCurrentCity(body.ville);
+        }
+    }
+    updateUser ();
+  },[props.token])
 
   useEffect(() => {
     const findEvent = async() => {
@@ -52,22 +75,23 @@ function AfficheSpecialScreen(props) {
         body: 'id='+props.idEvent});
 
       const body = await data.json()
+      setEvenement(body);
+      console.log("body", body);
       
-      setEvenement(body) 
+      console.log("event", body);
+      backarray = recupLieu(body);
+      setLieuEvenementSansDoublons(backarray);
+      createLieuPicker(backarray);
+      
+      console.log("backarray ", backarray);
+      console.log("LIEU", lieuTransit)
+      console.log("LIEU nombre", lieuTransit.length)
+      console.log("lieux", lieux)      
     };
-    async function representations() {
-      recupLieu();
-      console.log("evene,ent", evenement)
-        console.log("LIEU", lieuTransit)
-        console.log("LIEU nombre", lieuTransit.length)
-        console.log("backarray ", backarray)
-        console.log("lieux", lieux)
-       };
     findEvent() ;
-    representations();   
   },[])
 
-   useEffect(() => {
+  useEffect(() => {
         async function horairesEvent() {
         horaires()
       };
@@ -75,46 +99,63 @@ function AfficheSpecialScreen(props) {
   },[selectLieuEvenement])
 
 
-
-
-  var recupLieu = () => {
-    for (var i = 0; i< evenement.lieux_dates.length;i++) {
-      lieuTransit.push(evenement.lieux_dates[i].salle)
+  function recupLieu (event){
+    var backy = [];
+    if (event.lieux_dates){
+      console.log ('evenement.lieux_dates = ', event.lieux_dates)
+      for (var i = 0; i < event.lieux_dates.length;i++) {
+        lieuTransit.push(event.lieux_dates[i].salle)
+      }
+      uniqueset = new Set(lieuTransit)
+      backy=[...uniqueset];
+      console.log('backarray = ', backy);
     }
-    uniqueset = new Set(lieuTransit)
-    backarray=[...uniqueset];
-    setLieuEvenementSansDoublons(backarray)
+    return backy;
   }
+
  
    var horaires= ()=>{
-    console.log("coucou")
+    console.log("coucou from function 'horares'");
     var dateFormat = function(date){
       var newDate = new Date(date);
       var format = newDate.getDate()+'/'+(newDate.getMonth()+1)+'/'+newDate.getFullYear()+' - '+newDate.getHours()+'h'+newDate.getMinutes();
       return format;
     }
-    for (var i = 0; i< evenement.lieux_dates.length;i++) {
-      if(selectLieuEvenement.itemValue==evenement.lieux_dates[i].salle) {
-        horaireTransit.push(dateFormat(evenement.lieux_dates[i].date_debut))
+    if (evenement.lieux_dates){
+      for (var i = 0; i< evenement.lieux_dates.length; i++) {
+        if(selectLieuEvenement.itemValue==evenement.lieux_dates[i].salle) {
+          horaireTransit.push(dateFormat(evenement.lieux_dates[i].date_debut));
       }}
-      console.log("HORAIRE TRANSIT",horaireTransit)
-    setDateEvenement(horaireTransit)}
+    }
+    console.log("HORAIRE TRANSIT",horaireTransit);
+    setDateEvenement(horaireTransit);
+  }
 
 
 
+  if (lieuEvenementSansDoublons.length > 0){
+    createLieuPicker(lieuEvenementSansDoublons);
+  }
 
-  
-  lieux = lieuEvenementSansDoublons.map((lieu,i)=>{
-    return(<Picker.Item key={i} label={lieu} value={lieu} />)})
- 
+  function createLieuPicker (lieuEvenementSansDoublons){
+    lieux = lieuEvenementSansDoublons.map((lieu,i)=>{
+      return(
+      <Picker.Item 
+        key={i} 
+        label={lieu} 
+        value={lieu} 
+      />)
+      // return(<Picker.Item key={i} label={lieu} value={lieu} />)
+    })
+  }
   console.log("selectLieuEvenement",selectLieuEvenement)
 
-  dates = dateEvenement.map((date,i)=>{
-    return(<Picker.Item key={i} label={date} value={date} />)
-  })
+  if (dateEvenement.length > 0){
+    dates = dateEvenement.map((date,i)=>{
+      return(<Picker.Item key={i} label={date} value={date} />)
+    });
+  }
   
-  const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
-
     return (
       <ScrollView style={{ flex: 1}}>
       <View style={{ flex: 1, alignItems: 'center' }}>

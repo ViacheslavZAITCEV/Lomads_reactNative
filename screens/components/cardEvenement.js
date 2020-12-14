@@ -80,7 +80,7 @@ function Heart (props){
             
             name="heart"
             size={25}
-            style={{ position: 'absolute', top: 5, left: 140 }}
+            style={props.style}
             color={ likeEventState } 
             // color={ (props.user && isUserLikedEvent(props.user._id, props.x.popularite) ) ? '#D70026' : '#FFFFFF' } 
             onPress={() => likeEvent(props.user, props.x)}

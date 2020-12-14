@@ -48,6 +48,7 @@ function AfficheSpecialScreen(props) {
   var horaireTransit=[];
   var dates;
 
+
   useEffect(() => {
     const updateUser = async () => {
         if(props.token){
@@ -92,10 +93,11 @@ function AfficheSpecialScreen(props) {
   },[])
 
   useEffect(() => {
-        async function horairesEvent() {
-        horaires()
-      };
-     horairesEvent();
+    async function horairesEvent() {
+      setSelectDateEvenement('');
+      horaires()
+    };
+    horairesEvent();
   },[selectLieuEvenement])
 
 
@@ -145,7 +147,6 @@ function AfficheSpecialScreen(props) {
         label={lieu} 
         value={lieu} 
       />)
-      // return(<Picker.Item key={i} label={lieu} value={lieu} />)
     })
   }
   console.log("selectLieuEvenement",selectLieuEvenement)
@@ -166,7 +167,7 @@ function AfficheSpecialScreen(props) {
           <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: evenement.image }} />
 
 
-          {/* <Heart
+          <Heart
             size={25}
             style={{ position: 'absolute', top: 5, left: 140 }}
             token={props.token}      
@@ -174,17 +175,17 @@ function AfficheSpecialScreen(props) {
             x={evenement}
             user={user}
             navigation={props.navigation}
-          /> */}
+            style={{ position: 'absolute', top: 5, left: 270 }}
+          />
 
 
 
-          <AntDesign
+          {/* <AntDesign
             name="heart"
             size={25}
             color='#D70026'
-            style={{ position: 'absolute', top: 5, left: 270 }}
             onPress={() => console.log("LIKÉ")}
-          />
+          /> */}
           <Text style={{ textAlign: 'center', marginTop: 3,fontWeight:'bold' }}>{evenement.nom}</Text>
          
 
@@ -200,12 +201,15 @@ function AfficheSpecialScreen(props) {
         </View>
 
         <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>Catégories : </Text>
+          <Text style={{ textAlign: 'center', marginTop: 3 }}>
+            Catégories : 
+            {evenement.categories.map( (str, i)=> str)} 
+          </Text>
 
         </View>
 
         <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>Durée :  minutes</Text>
+          <Text style={{ textAlign: 'center', marginTop: 3 }}>Durée : {evenement.lieux_dates[0].duree}  minutes</Text>
 
         </View>
 
@@ -246,7 +250,9 @@ function AfficheSpecialScreen(props) {
         <Button
               type='outline'
               title="Créer une sortie"
-              buttonStyle={{ backgroundColor: "#D70026", marginBottom:0,width: 150, margin: 5 }}
+              buttonStyle={{ 
+                backgroundColor: (selectLieuEvenement !== '' && selectDateEvenement !== '') ? "#D70026" : "#16253D", 
+                marginBottom:0,width: 150, margin: 5 }}
               titleStyle={{ color: 'white' }}
               onPress={() => {
                 console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
@@ -256,7 +262,9 @@ function AfficheSpecialScreen(props) {
             <Button
               type='outline'
               title="Réserver"
-              buttonStyle={{ backgroundColor: "#D70026", marginBottom:0,  width: 150, margin: 5 }}
+              buttonStyle={{ 
+                backgroundColor: (selectLieuEvenement !== '' && selectDateEvenement !== '') ? "#D70026" : "#16253D", 
+                marginBottom:0,  width: 150, margin: 5 }}
               titleStyle={{ color: 'white' }}
               onPress={() => {
                 console.log(">>>>>>>>>>>>>>>>>>>>>>Reserver");

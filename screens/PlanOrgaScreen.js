@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView, StyleSheet, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import { Text, Input, Avatar, Icon } from 'react-native-elements';
+import { Text, Input, Avatar, Icon, Image } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { MaterialIcons } from '@expo/vector-icons';
@@ -32,18 +32,77 @@ const styles = StyleSheet.create({
 
 function PlanOrgaScreen(props, { navigation }) {
 
- const [FriendsList, setFriendsList] = useState([])
- const [invitedFriendsList, setInvitedFriendsList] = useState([])
+  const [imageSortie, setImageSortie] = useState(props.image)
+  const [nameSortie, setNameSortie] = useState(props.nomSortie)
+  const [adresseSortie, setAdresseSortie] = useState(props.adresse)
+  const [dateDebut, setDateDebut] = useState(props.date_debut)
+  const [dateFin, setDateFin] = useState(props.date_fin)
+  const [dureeSortie, setDureeSortie] = useState(props.duree)
+  const [codePostalSortie, setCodePostalSortie] = useState(props.cp)
+  const [typeSortie, setTypeSortie] = useState('')
 
- useEffect(() => {
-  const getFriends = async () => {
-    const data = await fetch(`${urlLocal}/getUser`)
+  const [invitedFriendsList, setInvitedFriendsList] = useState([])
+
+  const imageNouvelleSortie = () => {
+    if (imageSortie == '') {
+      setImageSortie('https://www.meetinggame.fr/reseau-de-loisirs/images/sorties/fete-sortie-entre-amis.jpg')
+    }
+  }
+
+  useEffect(() => {
+    const getFriendsList = async () => {
+      const data = await fetch(`${urlLocal}/pullFriendsList`)
+      const body = await data.json()
+      console.log(body)
+      // setFriendsList(body)
+    };
+    getFriendsList();
+    imageNouvelleSortie();
+  }, [])
+
+  const FriendsList = body.map((x, i) => {
+    return (
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
+        <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
+          <Icon
+            name="add-circle"
+            type='materialicons'
+            size={35}
+            color="#D70026"
+            onPress={() => console.log("ajout ami à l'invitation")}
+          />
+        </View>
+        <View style={{ marginHorizontal: 15 }}>
+          <Avatar
+            size='medium'
+            rounded
+            source={{
+              uri: body.avatar
+            }}
+          />
+        </View>
+        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+            {body.prenom} {body.nom}
+          </Text>
+        </View>
+      </View>
+    )
+  })
+
+  var createSortie = async () => {
+    const data = await fetch(`${urlLocal}/addSortie`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `evenementLie=${props.idEvent}&organisateur=${props.idUser}&image=${imageSortie}&nomSortie=${nameSortie}&adresse=${adresseSortie}&date_debut=${dateDebut}&date_fin=${dateFin}&cp=${codePostalSortie}&type=${typeSortie}&duree=${dureeSortie}&participants=${invitedFriendsList}`
+    })
     const body = await data.json()
     console.log(body)
-    // setFriendsList(body)
+    console.log(body.sortie)
+    props.onAddIdSortie(body._id)
+    // props.onAddIdSortie(body.sortie._id)
+    props.navigation.navigate('PlanDetailScreen')
   }
-  getFriends()
-}, [])
 
 
   return (
@@ -63,19 +122,19 @@ function PlanOrgaScreen(props, { navigation }) {
               INFORMATIONS SUR LA SORTIE
             </Text>
 
-            <View>
-              <Text>Inclure la card de l'événement ici</Text>
-            </View>
-
             <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
 
               <View style={{ marginLeft: 10 }}>
+
+                {imageSortieCreee}
 
                 <View>
                   <Input
                     placeholder='Nom de la sortie'
                     inputStyle={styles.input}
                     inputContainerStyle={{ width: '80%', marginTop: 20, alignItems: 'center' }}
+                    onChange={(e) => setNameSortie(e.target.value)}
+                    value={nameSortie}
                   />
                 </View>
 
@@ -84,30 +143,38 @@ function PlanOrgaScreen(props, { navigation }) {
                   <Input
                     inputContainerStyle={styles.inputContainer}
                     rightIcon={<MaterialIcons name="date-range" size={22} color="black" />}
+                    onChange={(e) => setDateSortie(e.target.value)}
+                    value={dateSortie}
                   />
                 </View>
 
-                  <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                    <Text>Heure début:</Text>
-                    <Input
-                      inputContainerStyle={styles.inputContainer}
-                      rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
-                    />
-                  </View>
+                <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <Text>Heure début:</Text>
+                  <Input
+                    inputContainerStyle={styles.inputContainer}
+                    rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
+                    onChange={(e) => setDateDebut(e.target.value)}
+                    value={heureDebut}
+                  />
+                </View>
 
-                  <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                    <Text>Heure fin:</Text>
-                    <Input
-                      inputContainerStyle={styles.inputContainer}
-                      rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
-                    />
-                  </View>
+                <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <Text>Heure fin:</Text>
+                  <Input
+                    inputContainerStyle={styles.inputContainer}
+                    rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
+                    onChange={(e) => setDateFin(e.target.value)}
+                    value={heureFin}
+                  />
+                </View>
 
                 <View>
                   <Text>Adresse:</Text>
                   <Input
                     inputContainerStyle={styles.inputContainer}
                     rightIcon={<MaterialIcons name="location-on" size={22} color="black" />}
+                    onChange={(e) => setAdresseSortie(e.target.value)}
+                    value={adresseSortie}
                   />
                 </View>
 
@@ -117,15 +184,19 @@ function PlanOrgaScreen(props, { navigation }) {
                     placeholder='par ex. "75010"'
                     inputContainerStyle={styles.inputContainer}
                     rightIcon={<MaterialIcons name="location-city" size={22} color="black" />}
+                    onChange={(e) => setCodePostalSortie(e.target.value)}
+                    value={codePostalSortie}
                   />
                 </View>
 
                 <View>
                   <Text>Type:</Text>
                   <Input
-                    placeholder='privé, amis ou public'
+                    placeholder='privée, amis ou publique'
                     inputContainerStyle={styles.inputContainer}
                     rightIcon={<MaterialCommunityIcons name="eye" size={22} color="black" />}
+                    onChange={(e) => setTypeSortie(e.target.value)}
+                    value={typeSortie}
                   />
                 </View>
 
@@ -137,113 +208,7 @@ function PlanOrgaScreen(props, { navigation }) {
               INVITER MES AMIS
             </Text>
 
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-              <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
-                <Icon
-                  name="add-circle"
-                  type='materialicons'
-                  size={35}
-                  color="#D70026"
-                  onPress={() => console.log("ajout ami à l'invitation")}
-                />
-              </View>
-              <View style={{ marginHorizontal: 15 }}>
-                <Avatar
-                  size='medium'
-                  rounded
-                  source={{
-                    uri:
-                      'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-                  }}
-                />
-              </View>
-              <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                  Cédric Alinc
-              </Text>
-              </View>
-            </View>
-
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-              <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
-                <Icon
-                  name="add-circle"
-                  type='materialicons'
-                  size={35}
-                  color="#D70026"
-                  onPress={() => console.log("ajout ami à l'invitation")}
-                />
-              </View>
-              <View style={{ marginHorizontal: 15 }}>
-                <Avatar
-                  size='medium'
-                  rounded
-                  source={{
-                    uri:
-                      'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-                  }}
-                />
-              </View>
-              <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                  Alexandra Bui-Catel
-              </Text>
-              </View>
-            </View>
-
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-              <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
-                <Icon
-                  name="add-circle"
-                  type='materialicons'
-                  size={35}
-                  color="#D70026"
-                  onPress={() => console.log("ajout ami à l'invitation")}
-                />
-              </View>
-              <View style={{ marginHorizontal: 15 }}>
-                <Avatar
-                  size='medium'
-                  rounded
-                  source={{
-                    uri:
-                      'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-                  }}
-                />
-              </View>
-              <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                  Slava Zaitcev
-              </Text>
-              </View>
-            </View>
-
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-              <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
-                <Icon
-                  name="add-circle"
-                  type='materialicons'
-                  size={35}
-                  color="#D70026"
-                  onPress={() => console.log("ajout ami à l'invitation")}
-                />
-              </View>
-              <View style={{ marginHorizontal: 15 }}>
-                <Avatar
-                  size='medium'
-                  rounded
-                  source={{
-                    uri:
-                      'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-                  }}
-                />
-              </View>
-              <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                  Emmanuelle Bouaziz
-              </Text>
-              </View>
-            </View>
+            {FriendsList}
 
           </SafeAreaView>
         </KeyboardAvoidingView>
@@ -251,7 +216,7 @@ function PlanOrgaScreen(props, { navigation }) {
 
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('PlanMainScreen')}
+          onPress={() => createSortie()}
           style={{
             width: '100%', height: 40, backgroundColor: '#D70026',
             alignItems: 'center', justifyContent: 'center'
@@ -265,15 +230,28 @@ function PlanOrgaScreen(props, { navigation }) {
   );
 }
 
+
 function mapStateToProps(state) {
   return {
     token: state.tokenReducer,
-    user : state.userReduceur,
-    currentCity: state.currentCityReducer
+    user: state.userReduceur,
+    currentCity: state.currentCityReducer,
+
+    idEvent: state.idEventReducer,
+    idUser: state.idUserReducer,
+  }
+}
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onAddIdSortie: function (idSortie) {
+      dispatch({ type: 'addIdSortie', idSortie: idSortie });
+    }
   }
 }
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(PlanOrgaScreen);

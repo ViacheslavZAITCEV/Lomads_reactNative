@@ -38,6 +38,7 @@ function SignUpScreen(props) {
             setUserExists(true)
             //si l'utilisateur a bien été enregistré en BDD (le sign-up a fonctionné), on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
             props.addToken(body.token);
+            props.addIdUser(body._id);
             // props.addUser(userBE);
             console.log('user est enregistré');
             props.navigation.navigate('AfficheMainScreen');
@@ -98,6 +99,9 @@ function mapDispatchToProps(dispatch) {
         // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
         addToken: function (token) {
             dispatch({ type: 'saveToken', token })
+        },
+        addIdUser: function (idUser) {
+            dispatch({ type: 'addIdUser', idUser })
         }
     }
 }

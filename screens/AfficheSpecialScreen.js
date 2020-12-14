@@ -7,11 +7,8 @@ import {
 } from 'react-native';
 import {
   Text,
-  Input,
   Button,
   Image,  
-
-  
 } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 const styles = StyleSheet.create({
@@ -31,7 +28,7 @@ import {connect} from 'react-redux';
 import urlLocal from '../urlDevsGoWizMe'
 
 function AfficheSpecialScreen(props) {
-  const [evenement,setEvenement] = useState({})    
+  const [evenement,setEvenement] = useState({})
   const [lieuEvenementSansDoublons,setLieuEvenementSansDoublons] = useState([]);
   const [selectLieuEvenement,setSelectLieuEvenement] = useState('');
   const [dateEvenement,setDateEvenement] = useState([]);
@@ -39,7 +36,7 @@ function AfficheSpecialScreen(props) {
   const [token, setToken] = useState(props.token);
   const [user, setUser] = useState(null);
 
-  
+
   const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
 
   var lieuTransit=[];
@@ -96,7 +93,6 @@ function AfficheSpecialScreen(props) {
     horairesEvent();
   },[selectLieuEvenement])
 
-
   function recupLieu (event){
     console.log("function 'recupLieu'");
     var backy = [];
@@ -130,8 +126,6 @@ function AfficheSpecialScreen(props) {
     setDateEvenement(horaireTransit);
   }
 
-
-
   if (lieuEvenementSansDoublons.length > 0){
     createLieuPicker(lieuEvenementSansDoublons);
   }
@@ -155,7 +149,7 @@ function AfficheSpecialScreen(props) {
       return(<Picker.Item key={i} label={date} value={date} />)
     });
   }
-  
+
     return (
       <ScrollView style={{ flex: 1}}>
       <View style={{ flex: 1, alignItems: 'center' }}>
@@ -163,90 +157,83 @@ function AfficheSpecialScreen(props) {
          <ImageBackground source={imageBackground} style={styles.imageBackground}>
       
         <View style={{ flex:1, alignItems: 'center', width: 300, margin: 5 }}>
-          <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: evenement.image }} />
+          <Image style={{ width: 210, height: 297, margin: 5 }} source={{ uri: evenement.image }} />
 
+      <Heart
+        size={25}
+        style={{ position: 'absolute', top: 5, left: 140 }}
+        token={props.token}      
+        i={0}
+        x={evenement}
+        user={user}
+        navigation={props.navigation}
+        style={{ position: 'absolute', top: 5, left: 270 }}
+      />
 
-          <Heart
-            size={25}
-            token={props.token}      
-            i={0}
-            x={evenement}
-            user={user}
-            navigation={props.navigation}
-            style={{ position: 'absolute', top: 5, left: 270 }}
-          />
+      <Text style={{ textAlign: 'center', marginTop: 3,fontWeight:'bold', textTransform: 'uppercase' }}>{evenement.nom}</Text>
+     
 
+    </View>
+    <View style={{ alignItems: 'center', width: 300, margin: 5 }}>
+      <Text style={{ textAlign: 'center', marginTop: 3 }}>{evenement.description}</Text>
 
+    </View>
 
-          {/* <AntDesign
-            name="heart"
-            size={25}
-            color='#D70026'
-            onPress={() => console.log("LIKÉ")}
-          /> */}
-          <Text style={{ textAlign: 'center', marginTop: 3,fontWeight:'bold' }}>{evenement.nom}</Text>
-         
+    <View style={{ alignItems: 'center', width: 500, margin: 5 }}>
+      <Text style={{ textAlign: 'center', marginTop: 3 }}>Type: {evenement.type}</Text>
+      <Text style={{ textAlign: 'center', marginTop: 3, maxWidth:'100%' }}>
+        Catégories: {evenement.categories} 
+      </Text>
+      <Text style={{ textAlign: 'center', marginTop: 3 }}>Durée: { (evenement && evenement.lieux_dates && evenement.lieux_dates.length >0) ? evenement.lieux_dates[0].duree : ''}  minutes</Text>
 
-        </View>
-        <View style={{ alignItems: 'center', width: 300, margin: 5 }}>
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>{evenement.description}</Text>
+    </View>
 
-        </View>
+    <View style={{ alignItems: 'center', width: 150, margin: 5, marginBottom:70 }}>
+  
+    <Picker
+      selectedValue={lieuTransit}
+     style={{height: 50, width: 200}}
+     onValueChange={(itemValue, itemIndex) =>
+      setSelectLieuEvenement({itemValue})
+      }>
+      <Picker.Item  label='Lieu(x)' value='Lieux' />
+     {lieux}
+    </Picker>
+    </View>
+    <View style={{ alignItems: 'center', width: 150, margin: 5, marginBottom:100 }}>
+   
+    <Picker
+    onPress={() => {horaires()}}
+    selectedValue={horaireTransit}
+     style={{height: 50, width: 200}}
+     onValueChange={(itemValue, itemIndex) =>
+      setSelectDateEvenement({itemValue})
+      }>
+       <Picker.Item label='Date(s) et horaire(s)' value='2020-12-24T00:00:00.000Z' />
+     {dates}
+    </Picker>
+    </View>
+    
+    <View style={{ alignItems: 'center', width: 200, margin: 5, marginTop:50 }}>
+    <Text style={{ textAlign: 'center', marginTop: 3 }}>Votre choix de lieu : </Text>
+    <Text style={{ textAlign: 'center', marginTop: 3,fontWeight:'bold',color: "#16253D"  }}>{selectLieuEvenement.itemValue}</Text>
+    <Text style={{ textAlign: 'center', marginTop: 8 }}>Votre choix de séance : </Text>
+    <Text style={{ textAlign: 'center', marginTop: 3,fontWeight:'bold', color: "#16253D" }}>{selectDateEvenement.itemValue}</Text>
+    </View>
 
-        <View style={{ alignItems: 'center', width: 500, margin: 5 }}>
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>Type : {evenement.type}</Text>
-
-        </View>
-
-        <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>
-            Catégories : 
-            {evenement.categories} 
-          </Text>
-
-        </View>
-
-        <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-          <Text style={{ textAlign: 'center', marginTop: 3 }}>
-            Durée : { (evenement && evenement.lieux_dates && evenement.lieux_dates.length >0) ? evenement.lieux_dates[0].duree : ''}  minutes
-          </Text>
-
-        </View>
-
-        <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-      
-        <Picker
-          selectedValue={lieuTransit}
-         style={{height: 50, width: 200}}
-         onValueChange={(itemValue, itemIndex) =>
-          setSelectLieuEvenement({itemValue})
-          }>
-          <Picker.Item  label='Lieu(x)' value='Lieux' />
-         {lieux}
-        </Picker>
-        </View>
-        <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-       
-        <Picker
-        onPress={() => {horaires()}}
-        selectedValue={horaireTransit}
-         style={{height: 50, width: 200}}
-         onValueChange={(itemValue, itemIndex) =>
-          setSelectDateEvenement({itemValue})
-          }>
-           <Picker.Item label='Date(s) et horaire(s)' value='2020-12-24T00:00:00.000Z' />
-         {dates}
-        </Picker>
-        </View>
-        
-        <View style={{ alignItems: 'center', width: 200, margin: 5 }}>
-        <Text style={{ textAlign: 'center', marginTop: 3 }}>Votre choix de lieu : </Text>
-        <Text style={{ textAlign: 'center', marginTop: 3,fontWeight:'bold',color: "#16253D"  }}>{selectLieuEvenement.itemValue}</Text>
-        <Text style={{ textAlign: 'center', marginTop: 8 }}>Votre choix de séance : </Text>
-        <Text style={{ textAlign: 'center', marginTop: 3,fontWeight:'bold', color: "#16253D" }}>{selectDateEvenement.itemValue}</Text>
-        </View>
-
-        <View style={{ flex:1, alignItems: 'center', width: 200, margin: 5 }}>
+    <View style={{ flex:1, alignItems: 'center', width: 200, margin: 5 }}>
+    <Button
+          type='outline'
+          title="Créer une sortie"
+          buttonStyle={{ 
+            backgroundColor: (selectLieuEvenement !== '' && selectDateEvenement !== '') ? "#D70026" : "#16253D", 
+            marginBottom:0,width: 150, margin: 5 }}
+          titleStyle={{ color: 'white' }}
+          onPress={() => {
+            console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
+            
+          }}            
+        />
         <Button
               type='outline'
               title="Créer une sortie"
@@ -270,15 +257,14 @@ function AfficheSpecialScreen(props) {
               }}            
             />
 
-        </View>
-    
-    </ImageBackground>
-   
     </View>
-    </ScrollView>
-    )
-  
 
+</ImageBackground>
+   
+</View>
+</ScrollView>
+)
+  
 }
 function mapStateToProps(state){
   return {
@@ -286,7 +272,6 @@ function mapStateToProps(state){
     token : state.token
   }
 }
-
 
 export default connect(
   mapStateToProps,

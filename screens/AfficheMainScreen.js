@@ -131,10 +131,10 @@ function AfficheMainScreen(props) {
 
   let tokenOK = () => {
     if (props.token) {
-      console.log("TOKEN", props.token)
+      console.log("TOKEN:", props.token)
       props.navigation.navigate('AfficheSpecialScreen')
     } else {
-      console.log('token absent')
+      console.log('token absent: user not connected')
       props.navigation.navigate('AfficheSpecialScreen')
     }
   }
@@ -145,7 +145,6 @@ function AfficheMainScreen(props) {
   var cine = eventsList.map((x,i) => {
     
     if (x.type === 'film') {
-      console.log("CINE>>>>>", x._id)
       return (
         <Card key={i}
           containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }}>
@@ -154,7 +153,6 @@ function AfficheMainScreen(props) {
             source={{ uri: x.image }}
             resizeMode="cover"
             onPress={() => {
-              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA", x._id);
               props.onAddIdEvent(x._id);
               tokenOK();
             }}
@@ -171,7 +169,7 @@ function AfficheMainScreen(props) {
             navigation={props.navigation}
           />
 
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>{x.nom}</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5, textTransform: 'uppercase' }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
           <View style={{ alignItems: 'center', margin: 2 }}>
             <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
@@ -183,7 +181,6 @@ function AfficheMainScreen(props) {
 
   var theatre = eventsList.map((x, i) => {
     if (x.type === 'théâtre') {
-      console.log("THEATRE>>>>>", x._id)
       return (
 
         <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
@@ -192,7 +189,6 @@ function AfficheMainScreen(props) {
             source={{ uri: x.image }}
             resizeMode="cover"
             onPress={() => {
-              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE THEATRE");
               props.onAddIdEvent(x._id);
               tokenOK();
             }}
@@ -206,7 +202,7 @@ function AfficheMainScreen(props) {
             user={user}
             navigation={props.navigation}
           />
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, textTransform: 'uppercase' }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
           <View style={{ alignItems: 'center', margin: 2 }}>
             <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
@@ -218,7 +214,6 @@ function AfficheMainScreen(props) {
 
   var expos = eventsList.map((x, i) => {
     if (x.type === 'exposition') {
-      console.log("EXPOS>>>>>", x._id)
       return (
 
         <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
@@ -227,7 +222,6 @@ function AfficheMainScreen(props) {
             source={{ uri: x.image }}
             resizeMode="cover"
             onPress={() => {
-              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE EXPOS");
               props.onAddIdEvent(x._id);
               tokenOK();
             }}
@@ -241,7 +235,7 @@ function AfficheMainScreen(props) {
             user={user}
             navigation={props.navigation}
           />
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, textTransform: 'uppercase' }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
           <View style={{ alignItems: 'center', margin: 2 }}>
             <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
@@ -253,7 +247,6 @@ function AfficheMainScreen(props) {
 
   var concert = eventsList.map((x, i) => {
     if (x.type === 'concert') {
-      console.log("CONCERT>>>>>", x._id)
       return (
 
         <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
@@ -262,7 +255,6 @@ function AfficheMainScreen(props) {
             source={{ uri: x.image }}
             resizeMode="cover"
             onPress={() => {
-              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CONCERT");
               props.onAddIdEvent(x._id);
               tokenOK();
             }}
@@ -276,7 +268,7 @@ function AfficheMainScreen(props) {
             user={user}
             navigation={props.navigation}
           />
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1 }}>{x.nom}</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, textTransform: 'uppercase' }}>{x.nom}</Text>
           <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
           <View style={{ alignItems: 'center', margin: 2 }}>
             <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
@@ -302,7 +294,6 @@ function AfficheMainScreen(props) {
             buttonStyle={{ backgroundColor: "#D70026", marginBottom: 0 }}
             titleStyle={{ color: 'white' }}
             onPress={() => {
-              console.log(">>>>>>>>>>>>>>>>>>>>>>IMAGE CINEMA");
               props.onAddIdEvent(x._id);
               tokenOK();
             }}
@@ -326,8 +317,7 @@ function AfficheMainScreen(props) {
               fontSize: 22,
               margin: 7,
               fontWeight: 'bold'
-            }}
-            onPress={() => { console.log("OnPress CINEMA OK") }}>
+            }}>
             CINEMA
             </Text>
 
@@ -343,8 +333,7 @@ function AfficheMainScreen(props) {
               fontSize: 22,
               margin: 7,
               fontWeight: 'bold'
-            }}
-            onPress={() => { console.log("OnPress THÉÂTRE OK") }}>
+            }}>
             THÉÂTRE
             </Text>
 
@@ -360,8 +349,7 @@ function AfficheMainScreen(props) {
               fontSize: 22,
               margin: 7,
               fontWeight: 'bold'
-            }}
-            onPress={() => { console.log("OnPress EXPOS OK") }}>
+            }}>
             EXPOSITIONS & MUSÉES
             </Text>
 
@@ -376,8 +364,7 @@ function AfficheMainScreen(props) {
               fontSize: 22,
               margin: 7,
               fontWeight: 'bold'
-            }}
-            onPress={() => { console.log("OnPress CONCERTS OK") }}>
+            }}>
             CONCERT
             </Text>
 

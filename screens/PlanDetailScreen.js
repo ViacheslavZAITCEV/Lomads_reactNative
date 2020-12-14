@@ -137,13 +137,15 @@ function PlanDetailScreen(props, { navigation }) {
 
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <TouchableOpacity
+
           onPress={() => navigation.navigate('PlanMainScreen')}
+          
           style={{
             width: '100%', height: 40, backgroundColor: '#D70026',
             alignItems: 'center', justifyContent: 'center'
           }}
         >
-          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Retour à mes options de sorties</Text>
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Ne plus participer à cette sortie</Text>
         </TouchableOpacity>
       </View>
 

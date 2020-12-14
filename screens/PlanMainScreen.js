@@ -60,7 +60,8 @@ function PlanMainScreen(props, { navigation }) {
           resizeMode="cover"
           onPress={() => {
             props.onAddIdSortie(x._id);
-            navigation.navigate('PlanDetailScreen')}
+            navigation.navigate('PlanDetailScreen')
+          }
           }
         />
         <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>{x.nomSortie}</Text>
@@ -76,9 +77,10 @@ function PlanMainScreen(props, { navigation }) {
           source={{ uri: x.image }}
           resizeMode="cover"
           onPress={() => {
-              props.onAddIdEvent(x._id);
-              navigation.navigate('AfficheSpecialScreen')}
-            }
+            props.onAddIdEvent(x._id);
+            navigation.navigate('AfficheSpecialScreen')
+          }
+          }
         />
         <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>{x.nom}</Text>
       </Card>
@@ -94,7 +96,8 @@ function PlanMainScreen(props, { navigation }) {
           resizeMode="cover"
           onPress={() => {
             props.onAddIdEvent(x._id);
-            navigation.navigate('AfficheSpecialScreen')}
+            navigation.navigate('AfficheSpecialScreen')
+          }
           }
         />
         <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>{x.nom}</Text>
@@ -111,7 +114,8 @@ function PlanMainScreen(props, { navigation }) {
           resizeMode="cover"
           onPress={() => {
             props.onAddIdSortie(x._id);
-            navigation.navigate('PlanDetailScreen')}
+            navigation.navigate('PlanDetailScreen')
+          }
           }
         />
         <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>{x.nomSortie}</Text>
@@ -185,7 +189,7 @@ function PlanMainScreen(props, { navigation }) {
           <View style={{ backgroundColor: '#E55039', paddingBottom: 25 }}>
             <ScrollView horizontal={true}>
 
-            {FavorisDuUser}
+              {FavorisDuUser}
 
             </ScrollView>
           </View>
@@ -224,6 +228,21 @@ function PlanMainScreen(props, { navigation }) {
 
         </ScrollView>
       </ImageBackground>
+
+      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+        <TouchableOpacity
+
+          onPress={() => navigation.navigate('PlanOrgaScreen')}
+
+          style={{
+            width: '100%', height: 40, backgroundColor: '#D70026',
+            alignItems: 'center', justifyContent: 'center'
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Organiser une événement personalisé</Text>
+        </TouchableOpacity>
+      </View>
+
     </View>
   );
 }

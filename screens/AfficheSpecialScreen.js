@@ -24,7 +24,11 @@ const styles = StyleSheet.create({
 
 import {Picker} from '@react-native-picker/picker';
 
+import Heart from './components/cardEvenement'
+
 import {connect} from 'react-redux';
+
+import urlLocal from '../urlDevsGoWizMe'
 
 function AfficheSpecialScreen(props) {
   const [evenement,setEvenement] = useState({})    
@@ -42,7 +46,7 @@ function AfficheSpecialScreen(props) {
   useEffect(() => {
     const findEvent = async() => {
       console.log("PROPS RECU", props.idEvent)
-      const data = await fetch(`http://192.168.1.142:3000/pullEventDetaille`, {
+      const data = await fetch(`${urlLocal}/pullEventDetaille`, {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'id='+props.idEvent});
@@ -119,6 +123,20 @@ function AfficheSpecialScreen(props) {
       
         <View style={{ flex:1, alignItems: 'center', width: 300, margin: 5 }}>
           <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: evenement.image }} />
+
+
+          {/* <Heart
+            size={25}
+            style={{ position: 'absolute', top: 5, left: 140 }}
+            token={props.token}      
+            i={0}
+            x={evenement}
+            user={user}
+            navigation={props.navigation}
+          /> */}
+
+
+
           <AntDesign
             name="heart"
             size={25}

@@ -147,12 +147,6 @@ function AfficheMainScreen(props) {
 
   var cine = eventsList.map((x,i) => {
     
-    // const [likeEventState,setLikeEventState ] = useState ((user && isUserLikedEvent(user._id, x.popularite) ) ? '#D70026' : '#FFFFFF');
-    function likeEventComponent(x){
-      // setLikeEventState( ! likeEventState );
-      likeEvent(x);
-    }
-    
     if (x.type === 'film') {
       console.log("CINE>>>>>", x._id)
       return (

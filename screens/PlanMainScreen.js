@@ -270,7 +270,7 @@ function PlanMainScreen(props, { navigation }) {
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <TouchableOpacity
 
-          onPress={() => navigation.navigate('PlanOrgaScreen')}
+          onPress={() => props.navigation.navigate('PlanOrgaScreen')}
 
           style={{
             width: '100%', height: 40, backgroundColor: '#D70026',

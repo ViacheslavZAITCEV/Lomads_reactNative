@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 export default function FriendsAddScreen(props, { navigation }) {
 
   const [nomRecherche, setNomRecherche] = useState('');
-
+  
   var handleSubmit = async () => {
 
       const friendsData = await fetch(`${urlLocal}/searchFriends`, {
@@ -41,14 +41,14 @@ export default function FriendsAddScreen(props, { navigation }) {
 
       const friendsResearch = await friendsData.json();
 
-      console.log(">>>>>>>>>>>>>>>>>>>>>",friendsResearch);
+      console.log("FRIENDSEARCHSCREEN ======>",friendsResearch);
       setNomRecherche(friendsResearch);
 
-      props.navigation.navigate('FriendsAddScreen');
+      // props.navigation.navigate('FriendsAddScreen', {resultatNom: nomRecherche})
+      props.navigation.navigate('FriendsAddScreen', {friendsResult: friendsResearch})
 
   }
 
-  
  
 
   return (

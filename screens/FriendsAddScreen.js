@@ -1,16 +1,50 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Avatar, Icon, CheckBox } from 'react-native-elements';
 
-export default function FriendsAddScreen(props, { navigation }) {
+export default function FriendsAddScreen(props, { route }) {
 
   const [requestToBeFriendsList, setRequestToBeFriendsList] = useState([]);
 
-  function addToFriends() {
+  // const resultatNom = route.params.resultatNom;
+  console.log("PROPS=>",props)
+  console.log("NOM => ",props.navigation.state.params.friendsResult)
+  const friendsResult = props.navigation.state.params.friendsResult;
 
-  } 
+  // -> map de nom
 
+  const affichageFriendSearch = friendsResult.map((x,i) => {
+    return(
+      <View key={i} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
+      <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
+        <Icon
+          name="add-circle"
+          type='materialicons'
+          size={35}
+          color="#D70026"
+          onPress={() => console.log("envoi de demande d'amis")}
+        />
+      </View>
+      <View style={{ marginHorizontal: 15 }}>
+        <Avatar
+          size='medium'
+          rounded
+          source={{
+            uri:
+              x.avatar,
+          }}
+        />
+      </View>
 
+      <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+          {x.prenom} {x.nom} 
+          </Text>
+      </View>
+    </View>
+    )
+  })
+  
   return (
     <View style={{ flex: 1 }}>
 
@@ -26,140 +60,8 @@ export default function FriendsAddScreen(props, { navigation }) {
 
       <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-          <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
-            <Icon
-              name="add-circle"
-              type='materialicons'
-              size={35}
-              color="#D70026"
-              onPress={() => console.log("envoi de demande d'amis")}
-            />
-          </View>
-          <View style={{ marginHorizontal: 15 }}>
-            <Avatar
-              size='medium'
-              rounded
-              source={{
-                uri:
-                  'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-              }}
-            />
-          </View>
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-              Cédric Alinc
-              </Text>
-          </View>
-        </View>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-          <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
-            <Icon
-              name="add-circle"
-              type='materialicons'
-              size={35}
-              color="#D70026"
-              onPress={() => console.log("envoi de demande d'amis")}
-            />
-          </View>
-          <View style={{ marginHorizontal: 15 }}>
-            <Avatar
-              size='medium'
-              rounded
-              source={{
-                uri:
-                  'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-              }}
-            />
-          </View>
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-              Thomas Alinc
-              </Text>
-          </View>
-        </View>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-          <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
-            <Icon
-              name="add-circle"
-              type='materialicons'
-              size={35}
-              color="#D70026"
-              onPress={() => console.log("envoi de demande d'amis")}
-            />
-          </View>
-          <View style={{ marginHorizontal: 15 }}>
-            <Avatar
-              size='medium'
-              rounded
-              source={{
-                uri:
-                  'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-              }}
-            />
-          </View>
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-              Lucie Alinc
-              </Text>
-          </View>
-        </View>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-          <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
-            <Icon
-              name="add-circle"
-              type='materialicons'
-              size={35}
-              color="#D70026"
-              onPress={() => console.log("envoi de demande d'amis")}
-            />
-          </View>
-          <View style={{ marginHorizontal: 15 }}>
-            <Avatar
-              size='medium'
-              rounded
-              source={{
-                uri:
-                  'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-              }}
-            />
-          </View>
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-              Sabrina Alinc
-              </Text>
-          </View>
-        </View>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-          <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
-            <Icon
-              name="add-circle"
-              type='materialicons'
-              size={35}
-              color="#D70026"
-              onPress={() => console.log("envoi de demande d'amis")}
-            />
-          </View>
-          <View style={{ marginHorizontal: 15 }}>
-            <Avatar
-              size='medium'
-              rounded
-              source={{
-                uri:
-                  'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-              }}
-            />
-          </View>
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-              Michel Alinc
-              </Text>
-          </View>
-        </View>
+      {affichageFriendSearch}
+      
 
       </ScrollView>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { Avatar, Text, Divider, Badge, Card } from 'react-native-elements';
 
-//Initialisation de Redux
+//Initialisation du store Redux
 import { connect } from 'react-redux';
 
 function FriendsProfileScreen() {

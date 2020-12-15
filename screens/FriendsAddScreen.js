@@ -1,50 +1,73 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
-import { Text, Avatar, Icon, CheckBox } from 'react-native-elements';
+import { Text, Avatar, Icon } from 'react-native-elements';
 
-export default function FriendsAddScreen(props, { route }) {
+//Initialisation du store Redux
+import { connect } from 'react-redux';
 
-  const [requestToBeFriendsList, setRequestToBeFriendsList] = useState([]);
+function FriendsAddScreen(props) {
 
-  // const resultatNom = route.params.resultatNom;
-  console.log("PROPS=>",props)
-  console.log("NOM => ",props.navigation.state.params.friendsResult)
+  const [requestToBeFriend, setRequestToBeFriend] = useState({});
+  
+  const askToBeFriend = async () => {
+    console.log("envoi de demande d'amis");
+
+  //   setRequestToBeFriend(props.???);
+
+  //   const data = await fetch(`${urlLocal}/??route addFriend ??`, {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  //     body: 'id=' + props.idEvent
+  //   });
+
+  //   const body = await data.json()
+
+    props.navigation.navigate('FriendsMainScreen')
+  };
+
+  console.log("PROPS=>", props)
+  console.log("NOM => ", props.navigation.state.params.friendsResult)
   const friendsResult = props.navigation.state.params.friendsResult;
 
-  // -> map de nom
-
-  const affichageFriendSearch = friendsResult.map((x,i) => {
-    return(
+  const affichageFriendSearch = friendsResult.map((x, i) => {
+    return (
       <View key={i} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-      <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
-        <Icon
-          name="add-circle"
-          type='materialicons'
-          size={35}
-          color="#D70026"
-          onPress={() => console.log("envoi de demande d'amis")}
-        />
-      </View>
-      <View style={{ marginHorizontal: 15 }}>
-        <Avatar
-          size='medium'
-          rounded
-          source={{
-            uri:
-              x.avatar,
-          }}
-        />
-      </View>
+        <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
+          <Icon
+            name="add-circle"
+            type='materialicons'
+            size={35}
+            color="#D70026"
+            onPress={() => askToBeFriend()}
+          />
+        </View>
+        <View style={{ marginHorizontal: 15 }}>
+          <Avatar
+            size='medium'
+            rounded
+            source={{
+              uri:
+                x.avatar,
+            }}
+          />
+        </View>
 
-      <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-          {x.prenom} {x.nom} 
-          </Text>
+        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', textAlign: 'left' }}>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+              {x.prenom} {x.nom}
+            </Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', textAlign: 'left' }}>
+            <Text style={{ fontSize: 16 }}>
+              {x.ville}
+            </Text>
+          </View>
+        </View>
       </View>
-    </View>
     )
   })
-  
+
   return (
     <View style={{ flex: 1 }}>
 
@@ -60,23 +83,27 @@ export default function FriendsAddScreen(props, { route }) {
 
       <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
 
-      {affichageFriendSearch}
-      
+        {affichageFriendSearch}
 
       </ScrollView>
 
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('FriendsMainScreen')}
+          onPress={() => props.navigation.navigate('FriendsResearchScreen')}
           style={{
             width: '100%', height: 40, backgroundColor: '#D70026',
             alignItems: 'center', justifyContent: 'center'
           }}
         >
-          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Demander à rejoindre mes amis</Text>
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Faire une nouvelle recherche</Text>
         </TouchableOpacity>
       </View>
 
     </View>
   );
 }
+
+export default connect(
+  null,
+  null
+)(FriendsAddScreen);

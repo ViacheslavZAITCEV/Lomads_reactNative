@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Button, Avatar, Icon, Badge } from 'react-native-elements';
 
-export default function FriendsMainScreen(props, { navigation }) {
+//Initialisation du store Redux
+import { connect } from 'react-redux';
+
+function FriendsMainScreen(props, { navigation }) {
 
   const [friendsRequests, setFriendsRequests] = useState([])
 
@@ -246,3 +249,8 @@ export default function FriendsMainScreen(props, { navigation }) {
     </View>
   );
 }
+
+export default connect(
+  null,
+  null
+)(FriendsMainScreen);

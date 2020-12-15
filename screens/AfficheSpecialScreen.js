@@ -25,6 +25,7 @@ import { Picker } from '@react-native-picker/picker';
 
 import Heart from './components/cardEvenement'
 
+//Initialisation du store Redux
 import { connect } from 'react-redux';
 
 import urlLocal from '../urlDevsGoWizMe'

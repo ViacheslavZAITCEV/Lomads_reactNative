@@ -82,9 +82,8 @@ function ProfileMainScreen(props) {
             //   'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
           }}
         />
-        <Text h4>
-          {nom}
-          {prenom} </Text>
+        <Text h4>{prenom} {nom}</Text>
+          
         <Text h5>{ville}</Text>
         <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#EFB509', width: 250, height: 2 }} />
       </View>

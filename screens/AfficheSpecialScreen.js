@@ -2,15 +2,18 @@ import React, {useState, useEffect} from "react";
 import {
   StyleSheet,
   View,
-  ImageBackground,ScrollView
-
+  ImageBackground,
+  ScrollView
 } from 'react-native';
+
 import {
   Text,
   Button,
   Image,  
 } from 'react-native-elements';
+
 import { AntDesign } from '@expo/vector-icons';
+
 const styles = StyleSheet.create({
   imageBackground: {
     flex: 1,

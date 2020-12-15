@@ -26,7 +26,7 @@ function PlanMainScreen(props, { navigation }) {
         body: `id=${props.idUser}`
       })
       const body = await data.json()
-      console.log(body)
+      // console.log(body)
       console.log(body.mesSorties)
       console.log(body.mesLikes)
       console.log(body.sortiesAffichees)

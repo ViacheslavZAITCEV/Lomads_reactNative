@@ -56,20 +56,20 @@ function AfficheMainScreen(props) {
     },
   ];
 
-  useEffect(() => {
-    async function askPermissions() {
-      var { status } = await Permissions.askAsync(Permissions.LOCATION);
-      if (status === 'granted') {
+  // useEffect(() => {
+  //   async function askPermissions() {
+  //     var { status } = await Permissions.askAsync(Permissions.LOCATION);
+  //     if (status === 'granted') {
 
-        Location.watchPositionAsync({ distanceInterval: 10 },
-          (location) => {
-            console.log("DATA GPS>>>>>>>", location);
-          }
-        );
-      }
-    }
-    askPermissions();
-  }, []);
+  //       Location.watchPositionAsync({ distanceInterval: 10 },
+  //         (location) => {
+  //           console.log("DATA GPS>>>>>>>", location);
+  //         }
+  //       );
+  //     }
+  //   }
+  //   askPermissions();
+  // }, []);
 
   const [eventsList, setEventsList] = useState([]);
   const [user, setUser] = useState(null);
@@ -79,10 +79,10 @@ function AfficheMainScreen(props) {
     const getUserfromStorage = async () => {
 
         await AsyncStorage.getItem('user', async function (error, data){
-            console.log('Read from Storage: user=', data);
-            console.log('Read from Storage: error=', error);
+            // console.log('Read from Storage: user=', data);
+            // console.log('Read from Storage: error=', error);
             if (data){
-              console.log ('AfficheMainScreen data=', data)
+              // console.log ('AfficheMainScreen data=', data)
                 setToken(data);
                 props.addToken(data)
             }
@@ -112,7 +112,7 @@ function AfficheMainScreen(props) {
             body: `token=${props.token}`
         })
         const body = await userBD.json();
-        console.log('AfficheMainScreen, updateUser(), user = ', body);
+        // console.log('AfficheMainScreen, updateUser(), user = ', body);
         setUser(body);
         setCurrentCity(body.ville);
         }else{
@@ -125,17 +125,17 @@ function AfficheMainScreen(props) {
 
 
 
-  console.log('AfficheMainScreen, props.id = ', props.idUser);
-  console.log('AfficheMainScreen, user = ', user);
-  console.log('AfficheMainScreen, token = ', token);
+  // console.log('AfficheMainScreen, props.id = ', props.idUser);
+  // console.log('AfficheMainScreen, user = ', user);
+  // console.log('AfficheMainScreen, token = ', token);
 
 
   let tokenOK = () => {
     if (props.token) {
-      console.log("TOKEN:", props.token)
+      // console.log("TOKEN:", props.token)
       props.navigation.navigate('AfficheSpecialScreen')
     } else {
-      console.log('token absent: user not connected')
+      // console.log('token absent: user not connected')
       props.navigation.navigate('AfficheSpecialScreen')
     }
   }
@@ -170,10 +170,10 @@ function AfficheMainScreen(props) {
             navigation={props.navigation}
           />
 
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5, textTransform: 'uppercase' }}>{x.nom}</Text>
-          <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', padding: 5, textTransform: 'uppercase' }}>{x.nom}</Text>
+          {/* <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text> */}
           <View style={{ alignItems: 'center', margin: 2 }}>
-            <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
+            <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value={x.categories[0]} />
           </View>
         </Card>
       )
@@ -203,10 +203,10 @@ function AfficheMainScreen(props) {
             user={user}
             navigation={props.navigation}
           />
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, textTransform: 'uppercase' }}>{x.nom}</Text>
-          <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', padding: 1, textTransform: 'uppercase' }}>{x.nom}</Text>
+          {/* <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text> */}
           <View style={{ alignItems: 'center', margin: 2 }}>
-            <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
+            <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value={x.categories[0]} />
           </View>
         </Card>
       )
@@ -236,10 +236,10 @@ function AfficheMainScreen(props) {
             user={user}
             navigation={props.navigation}
           />
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, textTransform: 'uppercase' }}>{x.nom}</Text>
-          <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', padding: 1, textTransform: 'uppercase' }}>{x.nom}</Text>
+          {/* <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text> */}
           <View style={{ alignItems: 'center', margin: 2 }}>
-            <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
+            <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value={x.categories[0]} />
           </View>
         </Card>
       )
@@ -269,10 +269,10 @@ function AfficheMainScreen(props) {
             user={user}
             navigation={props.navigation}
           />
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, textTransform: 'uppercase' }}>{x.nom}</Text>
-          <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', padding: 1, textTransform: 'uppercase' }}>{x.nom}</Text>
+          {/* <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text> */}
           <View style={{ alignItems: 'center', margin: 2 }}>
-            <Badge badgeStyle={{ backgroundColor: '#16253D', margin: 1 }} value={x.categories[0]} />
+            <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value={x.categories[0]} />
           </View>
         </Card>
       )

@@ -17,6 +17,8 @@ const styles = StyleSheet.create({
 })
 
 function PlanMainScreen(props, { navigation }) {
+  
+  const [planInfo, setPlanInfo] =useState([]);
 
   useEffect(() => {
     const getIdUser = async () => {
@@ -25,13 +27,14 @@ function PlanMainScreen(props, { navigation }) {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `id=${props.idUser}`
       })
-      
-      const body = await data.json()
-      console.log(body)
-      console.log(body.mesSorties)
-      console.log(body.mesLikes)
-      console.log(body.sortiesAffichees)
-      console.log(body.LikesDesAmis)
+      const body = await data.json();
+      setPlanInfo(body);
+
+      console.log(planInfo)
+      // console.log(body.mesSorties)
+      // console.log(body.mesLikes)
+      // console.log(body.sortiesAffichees)
+      // console.log(body.LikesDesAmis)
     }
     getIdUser()
   }, [])

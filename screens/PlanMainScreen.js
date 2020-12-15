@@ -25,8 +25,9 @@ function PlanMainScreen(props, { navigation }) {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `id=${props.idUser}`
       })
+      
       const body = await data.json()
-      // console.log(body)
+      console.log(body)
       console.log(body.mesSorties)
       console.log(body.mesLikes)
       console.log(body.sortiesAffichees)

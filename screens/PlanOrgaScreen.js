@@ -32,6 +32,8 @@ const styles = StyleSheet.create({
 
 function PlanOrgaScreen(props, { navigation }) {
 
+  const [friendsList, setFriendsList] = useState([])
+
   const [imageSortie, setImageSortie] = useState(props.image)
   const [nameSortie, setNameSortie] = useState(props.nomSortie)
   const [adresseSortie, setAdresseSortie] = useState(props.adresse)
@@ -53,14 +55,14 @@ function PlanOrgaScreen(props, { navigation }) {
     const getFriendsList = async () => {
       const data = await fetch(`${urlLocal}/pullFriendsList`)
       const body = await data.json()
-      console.log(body)
-      // setFriendsList(body)
+      setFriendsList(body)
+      console.log(friendsList)
     };
     getFriendsList();
     imageNouvelleSortie();
   }, [])
 
-  const FriendsList = body.map((x, i) => {
+  const ListeAmis = friendsList.map((x, i) => {
     return (
       <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
         <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
@@ -126,7 +128,7 @@ function PlanOrgaScreen(props, { navigation }) {
 
               <View style={{ marginLeft: 10 }}>
 
-                {imageSortieCreee}
+                {imageSortie}
 
                 <View>
                   <Input
@@ -138,33 +140,23 @@ function PlanOrgaScreen(props, { navigation }) {
                   />
                 </View>
 
-                <View>
-                  <Text>Date:</Text>
-                  <Input
-                    inputContainerStyle={styles.inputContainer}
-                    rightIcon={<MaterialIcons name="date-range" size={22} color="black" />}
-                    onChange={(e) => setDateSortie(e.target.value)}
-                    value={dateSortie}
-                  />
-                </View>
-
                 <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                  <Text>Heure début:</Text>
+                  <Text>Date début:</Text>
                   <Input
                     inputContainerStyle={styles.inputContainer}
                     rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
                     onChange={(e) => setDateDebut(e.target.value)}
-                    value={heureDebut}
+                    value={dateDebut}
                   />
                 </View>
 
                 <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                  <Text>Heure fin:</Text>
+                  <Text>Date fin:</Text>
                   <Input
                     inputContainerStyle={styles.inputContainer}
                     rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
                     onChange={(e) => setDateFin(e.target.value)}
-                    value={heureFin}
+                    value={dateFin}
                   />
                 </View>
 
@@ -208,7 +200,7 @@ function PlanOrgaScreen(props, { navigation }) {
               INVITER MES AMIS
             </Text>
 
-            {FriendsList}
+            {ListeAmis}
 
           </SafeAreaView>
         </KeyboardAvoidingView>

@@ -31,6 +31,7 @@ import {connect} from 'react-redux';
 import urlLocal from '../urlDevsGoWizMe'
 
 function AfficheSpecialScreen(props) {
+
   const [evenement,setEvenement] = useState({})
   const [lieuEvenementSansDoublons,setLieuEvenementSansDoublons] = useState([]);
   const [selectLieuEvenement,setSelectLieuEvenement] = useState('');
@@ -52,16 +53,15 @@ function AfficheSpecialScreen(props) {
 
   useEffect(() => {
     const updateUser = async () => {
-      console.log('AfficheSpecialScreen: useEffect, function updateUser')
+      // console.log('AfficheSpecialScreen: useEffect, function updateUser')
         if(props.token){
-
         const userBD = await fetch(`${urlLocal}/users/getUser`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `token=${props.token}`
         })
         const body = await userBD.json();
-        console.log('AfficheSpecialScreen, updateUser(), user = ', body);
+        // console.log('AfficheSpecialScreen, updateUser(), user = ', body);
         setToken(props.token);
         setUser(body);
 
@@ -73,9 +73,9 @@ function AfficheSpecialScreen(props) {
 
   useEffect(() => {
     const findEvent = async() => {
-      console.log("PROPS RECU", props.idEvent)
+      // console.log("PROPS RECU", props.idEvent)
       setToken(props.token);
-      console.log("AfficheSpecialScreen: props.token = ", props.token)
+      // console.log("AfficheSpecialScreen: props.token = ", props.token)
       const data = await fetch(`${urlLocal}/pullEventDetaille`, {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -83,6 +83,8 @@ function AfficheSpecialScreen(props) {
 
       const body = await data.json()
       setEvenement(body);
+      console.log(evenement)
+
       backarray = recupLieu(body);
       setLieuEvenementSansDoublons(backarray);
       createLieuPicker(backarray);
@@ -99,7 +101,7 @@ function AfficheSpecialScreen(props) {
   },[selectLieuEvenement])
 
   function recupLieu (event){
-    console.log("function 'recupLieu'");
+    // console.log("function 'recupLieu'");
     var backy = [];
     if (event.lieux_dates){
       // console.log ('evenement.lieux_dates = ', event.lieux_dates)
@@ -108,14 +110,14 @@ function AfficheSpecialScreen(props) {
       }
       uniqueset = new Set(lieuTransit)
       backy=[...uniqueset];
-      console.log('backy = ', backy);
+      // console.log('backy = ', backy);
     }
     return backy;
   }
 
  
    var horaires= ()=>{
-    console.log("coucou from function 'horares'");
+    // console.log("coucou from function 'horares'");
     var dateFormat = function(date){
       var newDate = new Date(date);
       var format = newDate.getDate()+'/'+(newDate.getMonth()+1)+'/'+newDate.getFullYear()+' - '+newDate.getHours()+'h'+newDate.getMinutes();
@@ -127,7 +129,7 @@ function AfficheSpecialScreen(props) {
           horaireTransit.push(dateFormat(evenement.lieux_dates[i].date_debut));
       }}
     }
-    console.log("HORAIRE TRANSIT",horaireTransit);
+    // console.log("HORAIRE TRANSIT",horaireTransit);
     setDateEvenement(horaireTransit);
   }
 
@@ -146,8 +148,8 @@ function AfficheSpecialScreen(props) {
     })
   }
   // console.log("selectLieuEvenement",selectLieuEvenement)
-  console.log("Affiche SpecialScreen :  token=",token)
-  console.log("Affiche SpecialScreen :  user=",user)
+  // console.log("Affiche SpecialScreen :  token=",token)
+  // console.log("Affiche SpecialScreen :  user=",user)
 
   if (dateEvenement.length > 0){
     dates = dateEvenement.map((date,i)=>{
@@ -155,12 +157,8 @@ function AfficheSpecialScreen(props) {
     });
   }
 
-  function createSortie(){
-    console.log('function createSortie');
 
 
-    props.navigation.navigate('PlanOrgaScreen')
-  }
 
     return (
       <ScrollView style={{ flex: 1}}>
@@ -243,8 +241,18 @@ function AfficheSpecialScreen(props) {
             marginBottom:0,width: 150, margin: 5 }}
           titleStyle={{ color: 'white' }}
           onPress={() => {
-            (selectLieuEvenement !== '' && selectDateEvenement !== '') ? createSortie() : console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
-          }}            
+            if (selectLieuEvenement !== '' && selectDateEvenement !== '') {
+              props.newSortie({ 
+                evenementLie: props.idEvent,
+                organisateur: props.idUser,
+                nomSortie: evenement.nom, 
+                image: evenement.image, 
+                adresse: selectLieuEvenement, 
+                date_debut:selectDateEvenement, 
+                duree: evenement.lieux_dates[0].duree });
+              props.navigation.navigate('PlanOrgaScreen')
+            }
+          }}        
         />
         <Button
           type='outline'
@@ -270,6 +278,7 @@ function AfficheSpecialScreen(props) {
 function mapStateToProps(state){
   return {
     token : state.tokenReducer,
+    idUser : state.idUserReducer,
     idEvent: state.idEventReducer,
   }
 }
@@ -278,7 +287,7 @@ function mapDispatchToProps(dispatch) {
   return {
       newSortie: function (obj) {
           dispatch({ type: 'newSortie', newSortie : obj })
-      }
+      },
   }
 }
 

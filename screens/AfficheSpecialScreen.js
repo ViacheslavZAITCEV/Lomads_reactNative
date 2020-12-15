@@ -61,7 +61,7 @@ function AfficheSpecialScreen(props) {
             body: `token=${props.token}`
         })
         const body = await userBD.json();
-        // console.log('AfficheSpecialScreen, updateUser(), user = ', body);
+        console.log('AfficheSpecialScreen, updateUser(), user = ', body);
         setToken(props.token);
         setUser(body);
 

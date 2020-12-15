@@ -13,31 +13,31 @@ function ProfilePreferenceScreen(props) {
   //                         TYPE D'EVENEMENTS
   // =========================================================================
 
-  const [typeFilms, setTypeFilms] = useState(true)
-  const [typeConcerts, setTypeConcerts] = useState(true)
-  const [typeExpositions, setTypeExpositions] = useState(true)
-  const [typeTheatre, setTypeTheatre] = useState(true)
+  const [typeFilms, setTypeFilms] = useState(false)
+  const [typeConcerts, setTypeConcerts] = useState(false)
+  const [typeExpositions, setTypeExpositions] = useState(false)
+  const [typeTheatre, setTypeTheatre] = useState(false)
 
 
   // =========================================================================
   //                         CATEGORIES D'EVENEMENTS
   // =========================================================================
 
-  const [categorieBeauxArts, setCategorieBeauxArts] = useState(true)
-  const [categorieClassique, setCategorieClassique] = useState(true)
-  const [categorieComedie, setCategorieComedie] = useState(true)
-  const [categorieOneManShow, setCategorieOneManShow] = useState(true)
-  const [categorieContemporain, setCategorieContemporain] = useState(true)
-  const [categorieDrame, setCategorieDrame] = useState(true)
-  const [categorieFantastique, setCategorieFantastique] = useState(true)
-  const [categorieScienceFiction, setCategorieScienceFiction] = useState(true)
-  const [categorieHistoire, setCategorieHistoire] = useState(true)
-  const [categorieCivilisations, setCategorieCivilisations] = useState(true)
-  const [categorieMusical, setCategorieMusical] = useState(true)
-  const [categorieMusiqueFrancaise, setCategorieMusiqueFrancaise] = useState(true)
-  const [categorieMusiqueUrbaine, setCategorieMusiqueUrbaine] = useState(true)
-  const [categoriePop, setCategoriePop] = useState(true)
-  const [categorieRock, setCategorieRock] = useState(true)
+  const [categorieBeauxArts, setCategorieBeauxArts] = useState(false)
+  const [categorieClassique, setCategorieClassique] = useState(false)
+  const [categorieComedie, setCategorieComedie] = useState(false)
+  const [categorieOneManShow, setCategorieOneManShow] = useState(false)
+  const [categorieContemporain, setCategorieContemporain] = useState(false)
+  const [categorieDrame, setCategorieDrame] = useState(false)
+  const [categorieFantastique, setCategorieFantastique] = useState(false)
+  const [categorieScienceFiction, setCategorieScienceFiction] = useState(false)
+  const [categorieHistoire, setCategorieHistoire] = useState(false)
+  const [categorieCivilisations, setCategorieCivilisations] = useState(false)
+  const [categorieMusical, setCategorieMusical] = useState(false)
+  const [categorieMusiqueFrancaise, setCategorieMusiqueFrancaise] = useState(false)
+  const [categorieMusiqueUrbaine, setCategorieMusiqueUrbaine] = useState(false)
+  const [categoriePop, setCategoriePop] = useState(false)
+  const [categorieRock, setCategorieRock] = useState(false)
 
 
     
@@ -45,29 +45,52 @@ function ProfilePreferenceScreen(props) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const updateUser = async () => {
+    const takeUserBD = async () => {
         if(props.token){
           const userBD = await fetch(`${urlLocal}/users/getUser`, {
-          // const userBD = await fetch('http://192.168.1.98:3000/users/getUser', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               body: `token=${props.token}`
           })
           const body = await userBD.json();
-          console.log('ProfilePreferencesScreen, updateUser(), user = ', body);
+          console.log('ProfileMainScreen, updateUser(), user = ', body);
           setUser(body);
+          setTypeFilms(body.preferences[0].cinema);
+        }else{
+          setUser(null);
         }
     }
-    updateUser ();
+    takeUserBD ();
   },[props.token])
 
   useEffect(() => {
     const updateUserBD = async () => {
-      const data = await fetch(`${urlLocal}/users/sign-up`, {
-        // const data = await fetch('http://192.168.1.98:3000/users/sign-up', {
+      var requet = [{
+        cinema : typeFilms,
+        theatre: typeTheatre,
+        exposition: typeExpositions,
+        concert: typeConcerts,
+        fantastique: categorieFantastique,
+        scienceFiction:  categorieScienceFiction,
+        comedie: categorieComedie,
+        drame: categorieDrame,
+        spectacleMusical: categorieMusical,
+        contemporain: categorieContemporain,
+        oneManShow: categorieOneManShow,
+        musiqueClassique: categorieClassique,
+        musiqueFrancaise: categorieMusiqueFrancaise,
+        musiquePop: categoriePop,
+        musiqueRock: categorieRock,
+        beauxArts : categorieBeauxArts,
+        histoireCivilisations: categorieCivilisations,
+      }];
+      var requetRAW = JSON.stringify(requet);
+      
+      console.log('ProfilPreferenceScreen, token=', token);
+      const data = await fetch(`${urlLocal}/users/updateJSON`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            // body: `prenom=${signUpUserFirstname}&nom=${signUpUserLastname}&email=${signUpEmail}&password=${signUpPassword}&ville=${signUpCity}`
+            body: `token=${props.token}&preferences=${requetRAW}`
         })
         const body = await data.json()
         if (body.response){
@@ -77,7 +100,27 @@ function ProfilePreferenceScreen(props) {
         }        
     }
     updateUserBD ();
-  },[typeFilms, typeConcerts, typeExpositions, typeTheatre])
+  },[
+    typeFilms, 
+    typeConcerts, 
+    typeExpositions, 
+    typeTheatre, 
+    categorieBeauxArts, 
+    categorieClassique, 
+    categorieComedie, 
+    categorieOneManShow,
+    categorieContemporain,
+    categorieDrame,
+    categorieFantastique,
+    categorieScienceFiction,
+    categorieHistoire,
+    categorieCivilisations,
+    categorieMusical, 
+    categorieMusiqueFrancaise, 
+    categorieMusiqueUrbaine, 
+    categoriePop, 
+    categorieRock,
+  ]);
 
   return (
     <View style={{ flex: 1 }}>

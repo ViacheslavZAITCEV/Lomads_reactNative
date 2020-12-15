@@ -69,11 +69,11 @@ function PlanMainScreen(props, { navigation }) {
               resizeMode="cover"
               onPress={() => {
                 props.onAddIdSortie(x._id);
-                navigation.navigate('PlanDetailScreen')
+                props.navigation.navigate('PlanDetailScreen')
               }
               }
             />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>{x.nomSortie}</Text>
+            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "100%", padding: 1,textTransform: 'uppercase', margin: 1 }}>{x.nomSortie}</Text>
           </Card>
         )
       })
@@ -88,9 +88,9 @@ function PlanMainScreen(props, { navigation }) {
     if (planInfo.mesLikes != undefined) {
       FavorisDuUser = planInfo.mesLikes.map((x, i) => {
         return (
-          <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
+          <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
             <Card.Image
-              style={{ width: 85, height: 115 }}
+              style={{ width: 170, height: 230 }}
               source={{ uri: x.image }}
               resizeMode="cover"
               onPress={() => {
@@ -99,7 +99,7 @@ function PlanMainScreen(props, { navigation }) {
               }
               }
             />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>{x.nom}</Text>
+            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "100%", padding: 1,textTransform: 'uppercase', margin: 1 }}>{x.nom}</Text>
           </Card>
         )
       })
@@ -116,7 +116,7 @@ function PlanMainScreen(props, { navigation }) {
         return (
           <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
             <Card.Image
-              style={{ width: 85, height: 115 }}
+              style={{ width: 170, height: 230 }}
               source={{ uri: x.image }}
               resizeMode="cover"
               onPress={() => {
@@ -125,7 +125,7 @@ function PlanMainScreen(props, { navigation }) {
               }
               }
             />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>{x.nom}</Text>
+            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "100%", padding: 1,textTransform: 'uppercase', margin: 1 }}>{x.nom}</Text>
           </Card>
         )
       })
@@ -142,7 +142,7 @@ function PlanMainScreen(props, { navigation }) {
         return (
           <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
             <Card.Image
-              style={{ width: 85, height: 115 }}
+              style={{ width: 170, height: 230 }}
               source={{ uri: x.image }}
               resizeMode="cover"
               onPress={() => {
@@ -151,7 +151,7 @@ function PlanMainScreen(props, { navigation }) {
               }
               }
             />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 1, margin: 1, marginLeft: "10%" }}>{x.nomSortie}</Text>
+            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "100%", padding: 1,textTransform: 'uppercase', margin: 1 }}>{x.nomSortie}</Text>
           </Card>
         )
       })

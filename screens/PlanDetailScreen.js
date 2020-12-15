@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Button, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Button, ImageBackground, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-elements';
 
 //Initialisation de Redux

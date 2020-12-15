@@ -15,7 +15,7 @@ function Heart (props){
   
   useEffect( ()=>{
     const upStateHeart = ()=> {
-      setLikeEventState((props.user && isUserLikedEvent(props.user._id, props.x.popularite) !== -1 ) ? '#D70026' : '#FFFFFF')
+      setLikeEventState((props.user && props.x.popularite && isUserLikedEvent(props.user._id, props.x.popularite) !== -1 ) ? '#D70026' : '#FFFFFF')
     }
     upStateHeart();
   }, [props.user])

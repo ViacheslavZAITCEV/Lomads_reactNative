@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Avatar, Icon, CheckBox } from 'react-native-elements';
 
 export default function FriendsAddScreen(props, { navigation }) {
+
+  const [requestToBeFriendsList, setRequestToBeFriendsList] = useState([]);
+
+  function addToFriends() {
+
+  } 
 
 
   return (
@@ -10,7 +16,7 @@ export default function FriendsAddScreen(props, { navigation }) {
 
       <View style={{ backgroundColor: '#E55039' }}>
         <Text style={{ color: 'white', textAlign: 'center', fontSize: 18, fontWeight: 'bold', maxWidth: "100%", marginTop: 10, marginBottom: 10 }}>
-          AJOUTER MES AMIS
+          AJOUTER À MES AMIS
         </Text>
       </View>
 

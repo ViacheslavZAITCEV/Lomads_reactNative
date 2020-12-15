@@ -21,8 +21,6 @@ function SignInScreen(props, { navigation, addToken }) {
 
         console.log ('function handleSubmitSignin');
         const data = await fetch(`${urlLocal}/users/sign-in`, {
-        // const data = await fetch('http://192.168.1.98:3000/users/sign-in', {
-        // const data = await fetch('http://172.20.10.9:3000/users/sign-in', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `email=${signInEmail}&password=${signInPassword}`
@@ -37,6 +35,7 @@ function SignInScreen(props, { navigation, addToken }) {
 
             //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
             props.addToken(body.token);
+            props.addIdUser(body._id);
             console.log('user est connecté');
             props.navigation.goBack();
         } else {
@@ -100,6 +99,9 @@ function mapDispatchToProps(dispatch) {
         // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
         addToken: function (token) {
             dispatch({ type: 'saveToken', token })
+        },
+        addIdUser: function (idUser) {
+            dispatch({ type: 'addIdUser', idUser })
         }
     }
 }

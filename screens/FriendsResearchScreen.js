@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, ScrollView, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { Input, Text, Button } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import urlLocal from '../urlDevsGoWizMe'
+
 
 const styles = StyleSheet.create({
   text: {
@@ -29,7 +32,24 @@ export default function FriendsAddScreen(props, { navigation }) {
 
   const [nomRecherche, setNomRecherche] = useState('');
 
+  var handleSubmit = async () => {
+
+      const friendsData = await fetch(`${urlLocal}/searchFriends`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'}, 
+        body: `nom=${nomRecherche}`});
+
+      const friendsResearch = await friendsData.json();
+
+      console.log(">>>>>>>>>>>>>>>>>>>>>",friendsResearch);
+      setNomRecherche(friendsResearch);
+
+      props.navigation.navigate('FriendsAddScreen');
+
+  }
+
   
+ 
 
   return (
     <View style={{ flex: 1 }}>
@@ -53,33 +73,16 @@ export default function FriendsAddScreen(props, { navigation }) {
                 inputStyle={styles.input}
                 inputContainerStyle={{ width: '100%', marginBottom: 0 }}
                 onChangeText={(val) => setNomRecherche(val)}
+                value={nomRecherche}
               />
               <Button
                 title='Chercher'
                 type='outline'
                 buttonStyle={styles.button}
                 titleStyle={{ color: 'white' }}
-                onPress={() => props.navigation.navigate('FriendsAddScreen')}
+                onPress={() => handleSubmit() }
               />
             </View>
-
-            {/* <View style={{ marginBottom: 70 }}>
-              <Text style={styles.text}>
-                Inviter des amis par email
-              </Text>
-              <Input
-                placeholder='email'
-                inputStyle={styles.input}
-                inputContainerStyle={{ width: '100%', marginBottom: 0 }}
-              />
-              <Button
-                title='Inviter'
-                type='outline'
-                buttonStyle={styles.button}
-                titleStyle={{ color: 'white' }}
-                onPress={() => console.log("INVITER")}
-              />
-            </View> */}
 
           </SafeAreaView>
         </KeyboardAvoidingView>

@@ -34,13 +34,13 @@ function PlanOrgaScreen(props, { navigation }) {
 
   const [friendsList, setFriendsList] = useState([])
 
-  const [imageSortie, setImageSortie] = useState(props.image)
-  const [nameSortie, setNameSortie] = useState(props.nomSortie)
-  const [adresseSortie, setAdresseSortie] = useState(props.adresse)
-  const [dateDebut, setDateDebut] = useState(props.date_debut)
-  const [dateFin, setDateFin] = useState(props.date_fin)
-  const [dureeSortie, setDureeSortie] = useState(props.duree)
-  const [codePostalSortie, setCodePostalSortie] = useState(props.cp)
+  const [imageSortie, setImageSortie] = useState(props.newSortie.image)
+  const [nameSortie, setNameSortie] = useState(props.newSortie.nomSortie)
+  const [adresseSortie, setAdresseSortie] = useState(props.newSortie.adresse)
+  const [dateDebut, setDateDebut] = useState(props.newSortie.date_debut)
+  const [dateFin, setDateFin] = useState('')
+  const [dureeSortie, setDureeSortie] = useState(props.newSortie.duree)
+  const [codePostalSortie, setCodePostalSortie] = useState('')
   const [typeSortie, setTypeSortie] = useState('')
 
   const [invitedFriendsList, setInvitedFriendsList] = useState([])
@@ -132,7 +132,7 @@ function PlanOrgaScreen(props, { navigation }) {
 
                 <View>
                   <Input
-                    placeholder='Nom de la sortie'
+                    // placeholder='Nom de la sortie'
                     inputStyle={styles.input}
                     inputContainerStyle={{ width: '80%', marginTop: 20, alignItems: 'center' }}
                     onChange={(e) => setNameSortie(e.target.value)}
@@ -157,6 +157,16 @@ function PlanOrgaScreen(props, { navigation }) {
                     rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
                     onChange={(e) => setDateFin(e.target.value)}
                     value={dateFin}
+                  />
+                </View>
+
+                <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <Text>Durée:</Text>
+                  <Input
+                    inputContainerStyle={styles.inputContainer}
+                    rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
+                    onChange={(e) => setDureeSortie(e.target.value)}
+                    value={dureeSortie}
                   />
                 </View>
 
@@ -231,6 +241,7 @@ function mapStateToProps(state) {
 
     idEvent: state.idEventReducer,
     idUser: state.idUserReducer,
+    newSortie: state.newSortieReducer,
   }
 }
 

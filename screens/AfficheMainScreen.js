@@ -16,11 +16,10 @@ import {
   ListItem,
 } from 'react-native-elements';
 
-import { AntDesign } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
+// import * as Location from 'expo-location';
+// import * as Permissions from 'expo-permissions';
 
 import Heart from './components/cardEvenement'
 
@@ -122,9 +121,6 @@ function AfficheMainScreen(props) {
     updateUser ();
   },[props.token])
 
-
-
-
   // console.log('AfficheMainScreen, props.id = ', props.idUser);
   // console.log('AfficheMainScreen, user = ', user);
   // console.log('AfficheMainScreen, token = ', token);
@@ -139,9 +135,6 @@ function AfficheMainScreen(props) {
       props.navigation.navigate('AfficheSpecialScreen')
     }
   }
-
-
-
 
   var cine = eventsList.map((x,i) => {
     

@@ -95,7 +95,7 @@ function PlanMainScreen(props, { navigation }) {
               resizeMode="cover"
               onPress={() => {
                 props.onAddIdEvent(x._id);
-                navigation.navigate('AfficheSpecialScreen')
+                props.navigation.navigate('AfficheSpecialScreen')
               }
               }
             />
@@ -121,7 +121,7 @@ function PlanMainScreen(props, { navigation }) {
               resizeMode="cover"
               onPress={() => {
                 props.onAddIdEvent(x._id);
-                navigation.navigate('AfficheSpecialScreen')
+                props.navigation.navigate('AfficheSpecialScreen')
               }
               }
             />
@@ -147,7 +147,7 @@ function PlanMainScreen(props, { navigation }) {
               resizeMode="cover"
               onPress={() => {
                 props.onAddIdSortie(x._id);
-                navigation.navigate('PlanDetailScreen')
+                props.navigation.navigate('PlanDetailScreen')
               }
               }
             />

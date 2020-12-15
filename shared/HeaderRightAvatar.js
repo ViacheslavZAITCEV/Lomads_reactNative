@@ -16,7 +16,7 @@ export default function HeaderRightAvatar({ navigation }) {
         onPress={goToProfileMainScreen}
         source={{
           uri:
-            'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
+            'https://res.cloudinary.com/dhtl1axxt/image/upload/v1608040334/Mike_2020_mq5oyx.jpg',
         }}
       />
     </View>

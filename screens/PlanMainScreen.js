@@ -64,7 +64,7 @@ function PlanMainScreen(props, { navigation }) {
         return (
           <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
             <Card.Image
-              style={{ width: 85, height: 115 }}
+              style={{ width: 170, height: 230 }}
               source={{ uri: x.image }}
               resizeMode="cover"
               onPress={() => {
@@ -172,7 +172,7 @@ function PlanMainScreen(props, { navigation }) {
 
       <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
-        <ScrollView style={{ flex: 2 }}>
+        <ScrollView style={{ flex: 1 }}>
 
           {/* ====================================================================================
                                         MES SORTIES PLANIFIEES
@@ -184,9 +184,7 @@ function PlanMainScreen(props, { navigation }) {
 
           <View style={{ backgroundColor: '#3C6382', paddingBottom: 15 }}>
             <ScrollView horizontal={true}>
-
               {SortiesDuUser}
-
             </ScrollView>
           </View>
 
@@ -226,9 +224,7 @@ function PlanMainScreen(props, { navigation }) {
 
           <View style={{ backgroundColor: '#E55039', paddingBottom: 25 }}>
             <ScrollView horizontal={true}>
-
               {FavorisDuUser}
-
             </ScrollView>
           </View>
 
@@ -242,9 +238,7 @@ function PlanMainScreen(props, { navigation }) {
 
           <View style={{ backgroundColor: '#3C6382', paddingBottom: 25 }}>
             <ScrollView horizontal={true}>
-
               {FavorisDesAmis}
-
             </ScrollView>
           </View>
 
@@ -258,28 +252,27 @@ function PlanMainScreen(props, { navigation }) {
 
           <View style={{ backgroundColor: '#F6E58D', paddingBottom: 25 }}>
             <ScrollView horizontal={true}>
-
               {SortiesDesAmis}
-
             </ScrollView>
           </View>
 
         </ScrollView>
+
+        {/* <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+          <TouchableOpacity
+
+            onPress={() => props.navigation.navigate('PlanOrgaScreen')}
+
+            style={{
+              width: '100%', height: 40, backgroundColor: '#D70026',
+              alignItems: 'center', justifyContent: 'center'
+            }}
+          >
+            <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Organiser un événement personnalisé</Text>
+          </TouchableOpacity>
+        </View> */}
+
       </ImageBackground>
-
-      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-        <TouchableOpacity
-
-          onPress={() => props.navigation.navigate('PlanOrgaScreen')}
-
-          style={{
-            width: '100%', height: 40, backgroundColor: '#D70026',
-            alignItems: 'center', justifyContent: 'center'
-          }}
-        >
-          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Organiser un événement personnalisé</Text>
-        </TouchableOpacity>
-      </View>
 
     </View>
   );

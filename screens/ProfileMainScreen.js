@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity, ScrollView  } from 'react-native';
 import { Avatar, Text, Divider, Badge } from 'react-native-elements';
@@ -7,8 +6,6 @@ import { Avatar, Text, Divider, Badge } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 import urlLocal from '../urlDevsGoWizMe'
-
-
 
 
 var badgesModel = {
@@ -33,12 +30,8 @@ var badgesModel = {
 }
 
 
-
-
-
 function ProfileMainScreen(props) {
 
-  
   const [token, setToken] = useState(props.token);
   const [user, setUser] = useState(null);
 
@@ -71,23 +64,24 @@ function ProfileMainScreen(props) {
 
   useEffect(()=>{
     const updateState = ()=>{
-      if (user){
+      if (user !== null){
         setPrenom(user.prenom);
         setNom(user.nom);
         setVille(user.ville);
         setAvatar(user.avatar);
-        var prefs = user.preferences[0];
-        console.log('user.preferences[0]=', user.preferences[0]);
-        console.log('type of prefs=', typeof prefs);
-        var keys = Object.getOwnPropertyNames(prefs);
-        console.log('keys=', keys);
-        keys.forEach( key => {
-          console.log('user.preferences :', key, ' value=', user.preferences[0].key)
-          if (user.preferences[0].key){
-            badges.push(badgesModel.key);
-          }        
-        });
-
+        if (user.preferences !== undefined && user.preferences.length > 0){
+          var prefs = user.preferences[0];
+          console.log('user.preferences[0]=', user.preferences[0]);
+          console.log('type of prefs=', typeof prefs);
+          var keys = Object.getOwnPropertyNames(prefs);
+          console.log('keys=', keys);
+          keys.forEach( key => {
+            console.log('user.preferences :', key, ' value=', user.preferences[0].key)
+            if (user.preferences[0].key){
+              badges.push(badgesModel.key);
+            }        
+          });
+        }
       }
     }
     updateState();
@@ -106,6 +100,7 @@ function ProfileMainScreen(props) {
       console.log(e);
     }
     setToken(null);
+    props.delToken();
     props.navigation.navigate('AfficheMainScreen');
 
   }
@@ -148,25 +143,7 @@ function ProfileMainScreen(props) {
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
 
           {badges}
-          {/* <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
-          <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Expositions' />
-          <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Théatre' />
-          <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Concerts' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Comédie' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Science-Fiction' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Classique' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Urbaine' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Rock' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Pop' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musical' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Beaux-Arts' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Civilisations' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Contemporain' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Drame' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Histoire' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Française' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='One-Man Show' /> */}
+
         </View>
       </View>
 
@@ -199,7 +176,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch) {
   return {
       // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
-      addToken: function () {
+      delToken: function () {
           dispatch({ type: 'deconnecter' })
       }
   }

@@ -23,30 +23,30 @@ function Heart (props){
   
   async function likeEvent(user, event){
     
-    // console.log("LIKÉ event", event._id);
+    console.log("LIKÉ event", event._id);
     
     if (user  === null){
-      // console.log('props.navigation:', props.navigation);
+      console.log('props.navigation:', props.navigation);
       props.navigation.navigate('SignInScreen');
     }else{
-      // console.log("Heart : user.id=", user._id);
+      console.log("Heart : user.id=", user._id);
 
       var responseBE;
       var index = isUserLikedEvent(user._id, event.popularite); 
 
-      // console.log ('analise likes: index=', index);
+      console.log ('analise likes: index=', index);
       if (  index !== -1 ){
         setLikeEventState( '#FFFFFF' );
         event.popularite.splice(index, 1);
         responseBE = await fetch(`${urlLocal}/unlikeEvent?idEvent=${event._id}&idUser=${user._id}`);
-        // console.log('Result: unLike event=', event._id, ' user=', user._id)
+        console.log('Result: unLike event=', event._id, ' user=', user._id)
       }else{
         setLikeEventState( '#D70026' );
         event.popularite.unshift(user._id);
         responseBE = await fetch(`${urlLocal}/likeEvent?idEvent=${event._id}&idUser=${user._id}`);
-        // console.log('Result: Like event=', event._id, ' user=', user._id)
+        console.log('Result: Like event=', event._id, ' user=', user._id)
       }
-      // console.log(responseBE);
+      console.log(responseBE);
     }
   }
 
@@ -54,14 +54,14 @@ function Heart (props){
 
 
   function isUserLikedEvent (u, popularite){
-    // console.log('isUserLikedEvent; popularite=', popularite);
+    console.log('isUserLikedEvent; popularite=', popularite);
     var result = false;
     if (u){
       var i=0;
       while ( !result &&  i < popularite.length){
         if (u == popularite[i]){
           result = true;
-          // console.log('User liked, index = ', i);
+          console.log('User liked, index = ', i);
         }
         i++;
       }

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView, Button, ImageBackground, TouchableOpacity } from 'react-native';
-import { Text, Image } from 'react-native-elements';
+import { Text, Avatar, Image } from 'react-native-elements';
+import { AntDesign } from '@expo/vector-icons';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
+
+import urlLocal from '../urlDevsGoWizMe'
 
 const styles = StyleSheet.create({
   imageBackground: {
@@ -21,6 +24,7 @@ function PlanDetailScreen(props, { navigation }) {
 
   useEffect(() => {
     const getSortieDetails = async () => {
+      console.log(props.idSortie);
       const data = await fetch(`${urlLocal}/pullSortieDetaillee`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -32,30 +36,40 @@ function PlanDetailScreen(props, { navigation }) {
     getSortieDetails()
   }, [])
 
-  const affichageAmisParticipants = planDetailInfo.listAmisSortie.map((x, i) => {
-    return (
-      <View key={i} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-        <View style={{ justifyContent: 'flex-end', marginHorizontal: 15, marginLeft: 15 }}>
-          <Avatar
-            size='medium'
-            rounded
-            source={{
-              uri:
-                x.avatar,
-            }}
-          />
-        </View>
+  console.log(planDetailInfo);
 
-        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', textAlign: 'left' }}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-              {x.prenom} {x.nom}
-            </Text>
+  var affichageAmisParticipants
+  var functionAfficherAmisParticipants = () => {
+    if (planDetailInfo.listAmisSortie != undefined) {
+      affichageAmisParticipants = planDetailInfo.listAmisSortie.map((x, i) => {
+        return (
+          <View key={i} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
+            <View style={{ justifyContent: 'flex-end', marginHorizontal: 15, marginLeft: 15 }}>
+              <Avatar
+                size='medium'
+                rounded
+                source={{
+                  uri:
+                    x.avatar,
+                }}
+              />
+            </View>
+
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', textAlign: 'left' }}>
+                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+                  {x.prenom} {x.nom}
+                </Text>
+              </View>
+            </View>
           </View>
-        </View>
-      </View>
-    )
-  })
+        )
+      });
+    } else {
+      affichageAmisParticipants = <Text>Aucun participant pour cette sortie</Text>
+    }
+  }
+  functionAfficherAmisParticipants();
 
 
   return (
@@ -73,8 +87,8 @@ function PlanDetailScreen(props, { navigation }) {
 
           <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
-            <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
-              <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: planDetailInfo.sortie.image }} />
+            {/* <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
+              <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: {(planDetailInfo && planDetailInfo.sortie.image) ? planDetailInfo.sortie.image : ''} }}/>
               <AntDesign
                 name="heart"
                 size={25}
@@ -84,26 +98,26 @@ function PlanDetailScreen(props, { navigation }) {
               />
               <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold' }}>{planDetailInfo.sortie.nomSortie}</Text>
 
-            </View>
+            </View> */}
 
             <View style={{ alignItems: 'center', width: 500, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Type : {planDetailInfo.sortie.type}</Text>
+              <Text style={{ textAlign: 'center', marginTop: 3 }}>Type : {(planDetailInfo && planDetailInfo.sortie.type) ? planDetailInfo.sortie.type : ''} </Text>
             </View>
 
             <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Adresse : {planDetailInfo.sortie.adresse}</Text>
+              <Text style={{ textAlign: 'center', marginTop: 3 }}>Adresse : {(planDetailInfo && planDetailInfo.sortie.adresse) ? planDetailInfo.sortie.adresse : ''} </Text>
             </View>
 
             <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Code postal : {planDetailInfo.sortie.cp}</Text>
+              <Text style={{ textAlign: 'center', marginTop: 3 }}>Code postal : {(planDetailInfo && planDetailInfo.sortie.cp) ? planDetailInfo.sortie.cp : ''} </Text>
             </View>
 
             <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Date début : {planDetailInfo.sortie.date_debut}</Text>
+              <Text style={{ textAlign: 'center', marginTop: 3 }}>Date début : {(planDetailInfo && planDetailInfo.sortie.date_debut) ? planDetailInfo.sortie.date_debut : ''} </Text>
             </View>
 
             <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Date fin : {planDetailInfo.sortie.date_fin}</Text>
+              <Text style={{ textAlign: 'center', marginTop: 3 }}>Date fin : {(planDetailInfo && planDetailInfo.sortie.date_fin) ? planDetailInfo.sortie.date_fin : ''} </Text>
             </View>
 
             {affichageAmisParticipants}
@@ -117,8 +131,8 @@ function PlanDetailScreen(props, { navigation }) {
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <TouchableOpacity
 
-          onPress={() => navigation.navigate('PlanMainScreen')}
-          
+          onPress={() => props.navigation.navigate('PlanMainScreen')}
+
           style={{
             width: '100%', height: 40, backgroundColor: '#D70026',
             alignItems: 'center', justifyContent: 'center'

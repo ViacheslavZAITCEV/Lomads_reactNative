@@ -29,16 +29,11 @@ function PlanMainScreen(props, { navigation }) {
       })
       const body = await data.json();
       setPlanInfo(body);
-
-      // console.log(planInfo.mesSorties)
-      // console.log(planInfo.mesLikes)
-      // console.log(planInfo.sortiesAffichees)
-      // console.log(planInfo.LikesDesAmis)
     }
     getIdUser()
   }, [])
 
-  console.log('============================', planInfo.mesSorties)
+  // console.log('============================', planInfo.mesSorties)
 
   const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
 

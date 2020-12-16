@@ -18,19 +18,19 @@ function SignInScreen(props, { navigation, addToken }) {
     const [listErrorsSignin, setErrorsSignin] = useState('')
 
 
-    useEffect( ()=>{
-        function goToBack(){
-            if (props.token){
+    useEffect(() => {
+        function goToBack() {
+            if (props.token) {
                 props.navigation.goBack();
             }
         }
         goToBack();
-    },[props.token])
+    }, [props.token])
 
 
     var handleSubmitSignin = async () => {
 
-        console.log ('function handleSubmitSignin');
+        console.log('function handleSubmitSignin');
         const data = await fetch(`${urlLocal}/users/sign-in`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -40,9 +40,9 @@ function SignInScreen(props, { navigation, addToken }) {
 
         console.log('reponse Backend:', body);
         if (body.response === true) {
-            try{
+            try {
                 AsyncStorage.setItem('user', body.token);
-            }catch(e){
+            } catch (e) {
                 console.log(e);
             }
             setUserExists(true);
@@ -51,7 +51,7 @@ function SignInScreen(props, { navigation, addToken }) {
             props.addToken(body.token);
             props.addIdUser(body._id);
             console.log('user est connecté');
-            props.navigation.goBack();
+            // props.navigation.goBack();
         } else {
             setErrorsSignin(body.error)
         }

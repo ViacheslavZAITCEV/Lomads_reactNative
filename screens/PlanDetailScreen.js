@@ -7,17 +7,17 @@ import { connect } from 'react-redux';
 
 import urlLocal from '../urlDevsGoWizMe'
 
-const styles = StyleSheet.create({
-  imageBackground: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  }
-})
+// const styles = StyleSheet.create({
+//   imageBackground: {
+//     flex: 1,
+//     resizeMode: "cover",
+//     justifyContent: "center",
+//   }
+// })
 
 function PlanDetailScreen(props, { navigation }) {
 
-  const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
+  // const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
 
   const [planDetailInfo, setPlanDetailInfo] = useState({});
 
@@ -105,7 +105,7 @@ function PlanDetailScreen(props, { navigation }) {
 
       <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
 
-        <ImageBackground source={imageBackground} style={styles.imageBackground}>
+        {/* <ImageBackground source={imageBackground} style={styles.imageBackground}> */}
 
           <View style={{ flex: 1, alignItems: 'center' }}>
 
@@ -119,7 +119,7 @@ function PlanDetailScreen(props, { navigation }) {
 
           </View>
 
-        </ImageBackground>
+        {/* </ImageBackground> */}
 
       </ScrollView>
 

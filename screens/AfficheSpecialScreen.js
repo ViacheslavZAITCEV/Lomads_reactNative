@@ -1,26 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  ImageBackground,
-  ScrollView,
-  TouchableOpacity
-} from 'react-native';
-
-import {
-  Text,
-  Button,
-  Image,
-} from 'react-native-elements';
-
-const styles = StyleSheet.create({
-  imageBackground: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  }
-})
-
+import { StyleSheet, View, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, Image } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
 
 import Heart from './components/cardEvenement'
@@ -30,8 +10,20 @@ import { connect } from 'react-redux';
 
 import urlLocal from '../urlDevsGoWizMe'
 
+const styles = StyleSheet.create({
+  imageBackground: {
+    flex: 1,
+    resizeMode: 'cover',
+    alignItems: "center",
+  }
+})
+
+
 function AfficheSpecialScreen(props) {
- 
+
+  const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
+
+
   const [evenement, setEvenement] = useState({})
   const [lieuEvenementSansDoublons, setLieuEvenementSansDoublons] = useState([]);
   const [selectLieuEvenement, setSelectLieuEvenement] = useState('');
@@ -40,8 +32,6 @@ function AfficheSpecialScreen(props) {
   const [token, setToken] = useState(props.token);
   const [user, setUser] = useState(null);
 
-  
-  const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
 
   var lieuTransit = [];
   var lieux;
@@ -172,68 +162,64 @@ function AfficheSpecialScreen(props) {
           <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
             <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
+
               <Image style={{ width: 210, height: 297, margin: 5 }} source={{ uri: evenement.image }} />
 
               <Heart
                 size={25}
-                style={{ position: 'absolute', top: 5, left: 140 }}
+                style={{ position: 'absolute', top: 10, left: 225 }}
                 token={props.token}
                 i={0}
                 x={evenement}
                 user={user}
                 navigation={props.navigation}
-                style={{ position: 'absolute', top: 5, left: 270 }}
               />
 
-              <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold', textTransform: 'uppercase' }}>{evenement.nom}</Text>
+              <Text style={{ textAlign: 'center', marginTop: 5, fontWeight: 'bold', fontSize: 18, textTransform: 'uppercase' }}>{evenement.nom}</Text>
 
-            </View>
-            <View style={{ alignItems: 'center', width: 300, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>{evenement.description}</Text>
+              <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 18 }}>{evenement.description}</Text>
 
-            </View>
+              <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 18 }}>Type: {evenement.type}</Text>
 
-            <View style={{ alignItems: 'center', width: 500, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Type: {evenement.type}</Text>
-              <Text style={{ textAlign: 'center', marginTop: 3, maxWidth: '100%' }}>
+              <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 18, maxWidth: '100%' }}>
                 Catégories: {evenement.categories}
               </Text>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Durée: {(evenement && evenement.lieux_dates && evenement.lieux_dates.length > 0) ? evenement.lieux_dates[0].duree : ''}  minutes</Text>
+
+              <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 18 }}>Durée: {(evenement && evenement.lieux_dates && evenement.lieux_dates.length > 0) ? evenement.lieux_dates[0].duree : ''} minutes</Text>
 
             </View>
 
-            <View style={{ alignItems: 'center', width: 150, margin: 5, marginBottom: 70 }}>
-
-              <Picker
-                selectedValue={lieuTransit}
-                style={{ height: 50, width: 200 }}
-                onValueChange={(itemValue, itemIndex) =>
-                  setSelectLieuEvenement({ itemValue })
-                }>
-                <Picker.Item label='Lieu(x)' value='Lieux' />
-                {lieux}
-              </Picker>
-            </View>
-            <View style={{ alignItems: 'center', width: 150, margin: 5, marginBottom: 100 }}>
-
-              <Picker
-                onPress={() => { horaires() }}
-                selectedValue={horaireTransit}
-                style={{ height: 50, width: 200 }}
-                onValueChange={(itemValue, itemIndex) =>
-                  setSelectDateEvenement({ itemValue })
-                }>
-                <Picker.Item label='Date(s) et horaire(s)' value='2020-12-24T00:00:00.000Z' />
-                {dates}
-              </Picker>
+            <View style={{ alignItems: 'center', width: 250, marginTop: 15 }}>
+              <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 18 }}>Votre choix de lieu : </Text>
+              <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 22, fontWeight: 'bold', color: "#16253D" }}>{selectLieuEvenement.itemValue}</Text>
+              <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 18 }}>Votre choix de séance : </Text>
+              <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 22, fontWeight: 'bold', color: "#16253D" }}>{selectDateEvenement.itemValue}</Text>
             </View>
 
-            <View style={{ alignItems: 'center', width: 200, margin: 5, marginTop: 50 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Votre choix de lieu : </Text>
-              <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold', color: "#16253D" }}>{selectLieuEvenement.itemValue}</Text>
-              <Text style={{ textAlign: 'center', marginTop: 8 }}>Votre choix de séance : </Text>
-              <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold', color: "#16253D" }}>{selectDateEvenement.itemValue}</Text>
-            </View>
+              <View style={{ alignItems: 'center', width: 400, marginBottom: 70 }}>
+                <Picker
+                  selectedValue={lieuTransit}
+                  style={{ height: 50, width: 300 }}
+                  onValueChange={(itemValue, itemIndex) =>
+                    setSelectLieuEvenement({ itemValue })
+                  }>
+                  <Picker.Item label='Lieu(x)' value='Lieux' />
+                  {lieux}
+                </Picker>
+              </View>
+
+              <View style={{ alignItems: 'center', width: 400, marginBottom: 150 }}>
+                <Picker
+                  onPress={() => { horaires() }}
+                  selectedValue={horaireTransit}
+                  style={{ height: 70, width: 300 }}
+                  onValueChange={(itemValue, itemIndex) =>
+                    setSelectDateEvenement({ itemValue })
+                  }>
+                  <Picker.Item label='Date(s) et horaire(s)' value='2020-12-24T00:00:00.000Z' />
+                  {dates}
+                </Picker>
+              </View>
 
           </ImageBackground>
 

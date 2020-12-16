@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView, Button, ImageBackground, TouchableOpacity } from 'react-native';
 import { Text, Avatar, Image } from 'react-native-elements';
-import { AntDesign } from '@expo/vector-icons';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
@@ -22,15 +21,18 @@ function PlanDetailScreen(props, { navigation }) {
 
   const [planDetailInfo, setPlanDetailInfo] = useState({});
 
+  // console.log(props.idSortie);
+
   useEffect(() => {
     const getSortieDetails = async () => {
-      console.log(props.idSortie);
+      // console.log(props.idSortie);
       const data = await fetch(`${urlLocal}/pullSortieDetaillee`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `id=${props.idSortie}`
       })
       const body = await data.json()
+      // console.log(body)
       setPlanDetailInfo(body);
     }
     getSortieDetails()
@@ -71,6 +73,44 @@ function PlanDetailScreen(props, { navigation }) {
   }
   functionAfficherAmisParticipants();
 
+  var affichageDetailsSortie
+  var functionAfficherDetailsSortie = () => {
+    if (planDetailInfo.sortie != undefined) {
+      affichageDetailsSortie =
+        <View>
+          <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
+            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: planDetailInfo.sortie.image }} />
+
+            <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold' }}> {planDetailInfo.sortie.nomSortie} </Text>
+
+          </View>
+
+          <View style={{ alignItems: 'center', width: 500, margin: 5 }}>
+            <Text style={{ textAlign: 'center', marginTop: 3 }}>Type : {(planDetailInfo && planDetailInfo.sortie.type) ? planDetailInfo.sortie.type : ''} </Text>
+          </View>
+
+          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
+            <Text style={{ textAlign: 'center', marginTop: 3 }}>Adresse : {(planDetailInfo && planDetailInfo.sortie.adresse) ? planDetailInfo.sortie.adresse : ''} </Text>
+          </View>
+
+          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
+            <Text style={{ textAlign: 'center', marginTop: 3 }}>Code postal : {(planDetailInfo && planDetailInfo.sortie.cp) ? planDetailInfo.sortie.cp : ''} </Text>
+          </View>
+
+          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
+            <Text style={{ textAlign: 'center', marginTop: 3 }}>Date début : {(planDetailInfo && planDetailInfo.sortie.date_debut) ? planDetailInfo.sortie.date_debut : ''} </Text>
+          </View>
+
+          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
+            <Text style={{ textAlign: 'center', marginTop: 3 }}>Date fin : {(planDetailInfo && planDetailInfo.sortie.date_fin) ? planDetailInfo.sortie.date_fin : ''} </Text>
+          </View>
+        </View>
+    } else {
+      affichageDetailsSortie = <Text>Chargement</Text>
+    }
+  }
+  functionAfficherDetailsSortie();
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -87,38 +127,7 @@ function PlanDetailScreen(props, { navigation }) {
 
           <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
-            {/* <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
-              <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: {(planDetailInfo && planDetailInfo.sortie.image) ? planDetailInfo.sortie.image : ''} }}/>
-              <AntDesign
-                name="heart"
-                size={25}
-                color='#D70026'
-                style={{ position: 'absolute', top: 5, left: 270 }}
-                onPress={() => console.log("LIKÉ")}
-              />
-              <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold' }}>{planDetailInfo.sortie.nomSortie}</Text>
-
-            </View> */}
-
-            <View style={{ alignItems: 'center', width: 500, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Type : {(planDetailInfo && planDetailInfo.sortie.type) ? planDetailInfo.sortie.type : ''} </Text>
-            </View>
-
-            <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Adresse : {(planDetailInfo && planDetailInfo.sortie.adresse) ? planDetailInfo.sortie.adresse : ''} </Text>
-            </View>
-
-            <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Code postal : {(planDetailInfo && planDetailInfo.sortie.cp) ? planDetailInfo.sortie.cp : ''} </Text>
-            </View>
-
-            <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Date début : {(planDetailInfo && planDetailInfo.sortie.date_debut) ? planDetailInfo.sortie.date_debut : ''} </Text>
-            </View>
-
-            <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Date fin : {(planDetailInfo && planDetailInfo.sortie.date_fin) ? planDetailInfo.sortie.date_fin : ''} </Text>
-            </View>
+            {affichageDetailsSortie}
 
             {affichageAmisParticipants}
 

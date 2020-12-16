@@ -34,14 +34,20 @@ function PlanOrgaScreen(props, { navigation }) {
 
   const [friendsList, setFriendsList] = useState([])
 
-  const [imageSortie, setImageSortie] = useState(props.newSortie.image)
+  const [imageSortie, setImageSortie] = useState(props.newSortie.image.toString())
   const [nameSortie, setNameSortie] = useState(props.newSortie.nomSortie)
-  const [adresseSortie, setAdresseSortie] = useState(props.newSortie.adresse)
-  const [dateDebut, setDateDebut] = useState(props.newSortie.date_debut)
+  const [adresseSortie, setAdresseSortie] = useState(props.newSortie.adresse.itemValue)
+  const [dateDebut, setDateDebut] = useState(props.newSortie.date_debut.itemValue)
   const [dateFin, setDateFin] = useState('')
-  const [dureeSortie, setDureeSortie] = useState(props.newSortie.duree)
+  const [dureeSortie, setDureeSortie] = useState(props.newSortie.duree.toString())
   const [codePostalSortie, setCodePostalSortie] = useState('')
   const [typeSortie, setTypeSortie] = useState('')
+
+  console.log(imageSortie);
+  console.log(nameSortie);
+  console.log(adresseSortie);
+  console.log(dateDebut);
+  console.log(dureeSortie);
 
   const [invitedFriendsList, setInvitedFriendsList] = useState([])
 
@@ -51,20 +57,33 @@ function PlanOrgaScreen(props, { navigation }) {
     }
   }
 
+  console.log('idUser=', props.idUser)
+
   useEffect(() => {
     const getFriendsList = async () => {
-      const data = await fetch(`${urlLocal}/pullFriendsList`)
-      const body = await data.json()
-      setFriendsList(body)
-      console.log(friendsList)
+      const data = await fetch(`${urlLocal}/pullFriendsList`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `id=${props.idUser}`
+      })
+      const body = await data.json();
+      setFriendsList(body);
     };
     getFriendsList();
     imageNouvelleSortie();
   }, [])
 
-  const ListeAmis = friendsList.map((x, i) => {
+  console.log(friendsList)
+
+
+  var ListeAmis;
+  if (friendsList.listAmis == undefined) {
+    ListeAmis = 
+      <Text>Chargement</Text>
+  } else if (friendsList.listAmis.length > 0) {
+    ListeAmis = friendsList.listAmis.map((x, i) => {
     return (
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
+      <View key={i} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
         <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
           <Icon
             name="add-circle"
@@ -79,18 +98,21 @@ function PlanOrgaScreen(props, { navigation }) {
             size='medium'
             rounded
             source={{
-              uri: body.avatar
+              uri: x.avatar
             }}
           />
         </View>
         <View style={{ flexDirection: 'column', alignItems: 'center' }}>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-            {body.prenom} {body.nom}
+            {x.prenom} {x.nom}
           </Text>
         </View>
       </View>
     )
   })
+} else {
+  <Text>Pas encore d'amis enregistrés</Text>
+}
 
   var createSortie = async () => {
     const data = await fetch(`${urlLocal}/addSortie`, {
@@ -98,7 +120,7 @@ function PlanOrgaScreen(props, { navigation }) {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `evenementLie=${props.idEvent}&organisateur=${props.idUser}&image=${imageSortie}&nomSortie=${nameSortie}&adresse=${adresseSortie}&date_debut=${dateDebut}&date_fin=${dateFin}&cp=${codePostalSortie}&type=${typeSortie}&duree=${dureeSortie}&participants=${invitedFriendsList}`
     })
-    const body = await data.json()
+    const body = await data.json();
     console.log(body)
     console.log(body.sortie)
     props.onAddIdSortie(body._id)
@@ -127,8 +149,8 @@ function PlanOrgaScreen(props, { navigation }) {
             <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
 
               <View style={{ marginLeft: 10 }}>
-
-                {imageSortie}
+{/* 
+                {imageSortie} */}
 
                 <View>
                   <Input

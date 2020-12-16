@@ -17,6 +17,8 @@ function PlanDetailScreen(props, { navigation }) {
 
   const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
 
+  const [planDetailInfo, setPlanDetailInfo] = useState({});
+
   useEffect(() => {
     const getSortieDetails = async () => {
       const data = await fetch(`${urlLocal}/pullSortieDetaillee`, {
@@ -25,12 +27,35 @@ function PlanDetailScreen(props, { navigation }) {
         body: `id=${props.idSortie}`
       })
       const body = await data.json()
-      console.log(body)
-      console.log(body.sorties)
-      console.log(body.listAmisSortie)
+      setPlanDetailInfo(body);
     }
     getSortieDetails()
   }, [])
+
+  const affichageAmisParticipants = planDetailInfo.listAmisSortie.map((x, i) => {
+    return (
+      <View key={i} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
+        <View style={{ justifyContent: 'flex-end', marginHorizontal: 15, marginLeft: 15 }}>
+          <Avatar
+            size='medium'
+            rounded
+            source={{
+              uri:
+                x.avatar,
+            }}
+          />
+        </View>
+
+        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', textAlign: 'left' }}>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+              {x.prenom} {x.nom}
+            </Text>
+          </View>
+        </View>
+      </View>
+    )
+  })
 
 
   return (
@@ -44,13 +69,12 @@ function PlanDetailScreen(props, { navigation }) {
 
       <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
 
-
         <View style={{ flex: 1, alignItems: 'center' }}>
 
           <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
             <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
-              <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: evenement.image }} />
+              <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: planDetailInfo.sortie.image }} />
               <AntDesign
                 name="heart"
                 size={25}
@@ -58,86 +82,31 @@ function PlanDetailScreen(props, { navigation }) {
                 style={{ position: 'absolute', top: 5, left: 270 }}
                 onPress={() => console.log("LIKÉ")}
               />
-              <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold' }}>{evenement.nom}</Text>
-
-
-            </View>
-            <View style={{ alignItems: 'center', width: 300, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>{evenement.description}</Text>
+              <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold' }}>{planDetailInfo.sortie.nomSortie}</Text>
 
             </View>
 
             <View style={{ alignItems: 'center', width: 500, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Type : {evenement.type}</Text>
-
+              <Text style={{ textAlign: 'center', marginTop: 3 }}>Type : {planDetailInfo.sortie.type}</Text>
             </View>
 
             <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Catégories : </Text>
-
+              <Text style={{ textAlign: 'center', marginTop: 3 }}>Adresse : {planDetailInfo.sortie.adresse}</Text>
             </View>
 
             <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Durée :  minutes</Text>
-
+              <Text style={{ textAlign: 'center', marginTop: 3 }}>Code postal : {planDetailInfo.sortie.cp}</Text>
             </View>
 
             <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-
-              <Picker
-                selectedValue={lieuTransit}
-                style={{ height: 50, width: 200 }}
-                onValueChange={(itemValue, itemIndex) =>
-                  setSelectLieuEvenement({ itemValue })
-                }>
-                <Picker.Item label='Lieu(x)' value='Lieux' />
-                {lieux}
-              </Picker>
+              <Text style={{ textAlign: 'center', marginTop: 3 }}>Date début : {planDetailInfo.sortie.date_debut}</Text>
             </View>
+
             <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-
-              <Picker
-                onPress={() => { horaires() }}
-                selectedValue={horaireTransit}
-                style={{ height: 50, width: 200 }}
-                onValueChange={(itemValue, itemIndex) =>
-                  setSelectDateEvenement({ itemValue })
-                }>
-                <Picker.Item label='Date(s) et horaire(s)' value='2020-12-24T00:00:00.000Z' />
-                {dates}
-              </Picker>
+              <Text style={{ textAlign: 'center', marginTop: 3 }}>Date fin : {planDetailInfo.sortie.date_fin}</Text>
             </View>
 
-            <View style={{ alignItems: 'center', width: 200, margin: 5 }}>
-              <Text style={{ textAlign: 'center', marginTop: 3 }}>Votre choix de lieu : </Text>
-              <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold', color: "#16253D" }}>{selectLieuEvenement.itemValue}</Text>
-              <Text style={{ textAlign: 'center', marginTop: 8 }}>Votre choix de séance : </Text>
-              <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold', color: "#16253D" }}>{selectDateEvenement.itemValue}</Text>
-            </View>
-
-            <View style={{ flex: 1, alignItems: 'center', width: 200, margin: 5 }}>
-              <Button
-                type='outline'
-                title="Créer une sortie"
-                buttonStyle={{ backgroundColor: "#D70026", marginBottom: 0, width: 150, margin: 5 }}
-                titleStyle={{ color: 'white' }}
-                onPress={() => {
-                  console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
-
-                }}
-              />
-              <Button
-                type='outline'
-                title="Réserver"
-                buttonStyle={{ backgroundColor: "#D70026", marginBottom: 0, width: 150, margin: 5 }}
-                titleStyle={{ color: 'white' }}
-                onPress={() => {
-                  console.log(">>>>>>>>>>>>>>>>>>>>>>Reserver");
-
-                }}
-              />
-
-            </View>
+            {affichageAmisParticipants}
 
           </ImageBackground>
 

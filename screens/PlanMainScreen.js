@@ -62,7 +62,7 @@ function PlanMainScreen(props, { navigation }) {
     if (planInfo.mesSorties != undefined) {
       SortiesDuUser = planInfo.mesSorties.map((x, i) => {
         return (
-          <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
+          <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
             <Card.Image
               style={{ width: 170, height: 230 }}
               source={{ uri: x.image }}
@@ -88,7 +88,7 @@ function PlanMainScreen(props, { navigation }) {
     if (planInfo.mesLikes != undefined) {
       FavorisDuUser = planInfo.mesLikes.map((x, i) => {
         return (
-          <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
+          <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
             <Card.Image
               style={{ width: 170, height: 230 }}
               source={{ uri: x.image }}
@@ -114,7 +114,7 @@ function PlanMainScreen(props, { navigation }) {
     if (planInfo.LikesDesAmis != undefined) {
       FavorisDesAmis = planInfo.LikesDesAmis.map((x, i) => {
         return (
-          <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
+          <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
             <Card.Image
               style={{ width: 170, height: 230 }}
               source={{ uri: x.image }}
@@ -140,7 +140,7 @@ function PlanMainScreen(props, { navigation }) {
     if (planInfo.sortiesAffichees != undefined) {
       SortiesDesAmis = planInfo.sortiesAffichees.map((x, i) => {
         return (
-          <Card containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
+          <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
             <Card.Image
               style={{ width: 170, height: 230 }}
               source={{ uri: x.image }}

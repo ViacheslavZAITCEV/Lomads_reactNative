@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, Button, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ScrollView, ImageBackground, TouchableOpacity } from 'react-native';
 import { Text, Avatar, Image } from 'react-native-elements';
 
 //Initialisation de Redux
@@ -10,7 +10,7 @@ import urlLocal from '../urlDevsGoWizMe'
 const styles = StyleSheet.create({
   imageBackground: {
     flex: 1,
-    alignItems: "center",
+    resizeMode: "cover",
     justifyContent: "center",
   }
 })
@@ -45,25 +45,18 @@ function PlanDetailScreen(props, { navigation }) {
     if (planDetailInfo.listAmisSortie != undefined) {
       affichageAmisParticipants = planDetailInfo.listAmisSortie.map((x, i) => {
         return (
-          <View key={i} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-            <View style={{ justifyContent: 'flex-end', marginHorizontal: 15, marginLeft: 15 }}>
-              <Avatar
-                size='medium'
-                rounded
-                source={{
-                  uri:
-                    x.avatar,
-                }}
-              />
-            </View>
+          <View key={i} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginVertical: 5, marginLeft: 15, maxWidth: 350 }}>
 
-            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', textAlign: 'left' }}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                  {x.prenom} {x.nom}
-                </Text>
-              </View>
-            </View>
+            <Avatar
+              size='medium'
+              rounded
+              source={{ uri: x.avatar }}
+            />
+
+            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 5 }}>
+              {x.prenom} {x.nom}
+            </Text>
+
           </View>
         )
       });
@@ -77,33 +70,22 @@ function PlanDetailScreen(props, { navigation }) {
   var functionAfficherDetailsSortie = () => {
     if (planDetailInfo.sortie != undefined) {
       affichageDetailsSortie =
-        <View>
-          <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
-            <Image style={{ width: 150, height: 210, margin: 5 }} source={{ uri: planDetailInfo.sortie.image }} />
+        <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
 
-            <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold' }}> {planDetailInfo.sortie.nomSortie} </Text>
+          <Image style={{ width: 210, height: 297, margin: 5 }} source={{ uri: planDetailInfo.sortie.image }} />
 
-          </View>
+          <Text style={{ textAlign: 'center', marginTop: 5, fontWeight: 'bold', fontSize: 18, textTransform: 'uppercase' }}> {planDetailInfo.sortie.nomSortie} </Text>
 
-          <View style={{ alignItems: 'center', width: 500, margin: 5 }}>
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>Type : {(planDetailInfo && planDetailInfo.sortie.type) ? planDetailInfo.sortie.type : ''} </Text>
-          </View>
+          {/* <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 18 }}>Type : {(planDetailInfo && planDetailInfo.sortie.type) ? planDetailInfo.sortie.type : ''} </Text> */}
 
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>Adresse : {(planDetailInfo && planDetailInfo.sortie.adresse) ? planDetailInfo.sortie.adresse : ''} </Text>
-          </View>
+          <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 18 }}>Lieu : {(planDetailInfo && planDetailInfo.sortie.adresse) ? planDetailInfo.sortie.adresse : ''} </Text>
 
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>Code postal : {(planDetailInfo && planDetailInfo.sortie.cp) ? planDetailInfo.sortie.cp : ''} </Text>
-          </View>
+          {/* <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 18 }}>Code postal : {(planDetailInfo && planDetailInfo.sortie.cp) ? planDetailInfo.sortie.cp : ''} </Text> */}
 
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>Date début : {(planDetailInfo && planDetailInfo.sortie.date_debut) ? planDetailInfo.sortie.date_debut : ''} </Text>
-          </View>
+          <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 18 }}>Date et heure : {(planDetailInfo && planDetailInfo.sortie.date_debut) ? planDetailInfo.sortie.date_debut : ''} </Text>
 
-          <View style={{ alignItems: 'center', width: 150, margin: 5 }}>
-            <Text style={{ textAlign: 'center', marginTop: 3 }}>Date fin : {(planDetailInfo && planDetailInfo.sortie.date_fin) ? planDetailInfo.sortie.date_fin : ''} </Text>
-          </View>
+          {/* <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 18 }}>Date fin : {(planDetailInfo && planDetailInfo.sortie.date_fin) ? planDetailInfo.sortie.date_fin : ''} </Text> */}
+
         </View>
     } else {
       affichageDetailsSortie = <Text>Chargement</Text>
@@ -123,17 +105,21 @@ function PlanDetailScreen(props, { navigation }) {
 
       <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
 
-        <View style={{ flex: 1, alignItems: 'center' }}>
+        <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
-          <ImageBackground source={imageBackground} style={styles.imageBackground}>
+          <View style={{ flex: 1, alignItems: 'center' }}>
 
             {affichageDetailsSortie}
 
+            <Text style={{ fontSize: 18, margin: 10, fontWeight: 'bold' }} >
+              PARTICIPANTS:
+            </Text>
+
             {affichageAmisParticipants}
 
-          </ImageBackground>
+          </View>
 
-        </View>
+        </ImageBackground>
 
       </ScrollView>
 
@@ -143,8 +129,11 @@ function PlanDetailScreen(props, { navigation }) {
           onPress={() => props.navigation.navigate('PlanMainScreen')}
 
           style={{
-            width: '100%', height: 40, backgroundColor: '#D70026',
-            alignItems: 'center', justifyContent: 'center'
+            width: '100%',
+            height: 40,
+            backgroundColor: '#D70026',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
         >
           <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Ne plus participer à cette sortie</Text>

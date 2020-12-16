@@ -16,7 +16,7 @@ import FriendsAddScreen from './screens/FriendsAddScreen';
 // import MessagesMainScreen from './screens/MessagesMainScreen';
 
 import PlanMainScreen from './screens/PlanMainScreen';
-import PlanInvitationScreen from './screens/PlanInvitationScreen';
+// import PlanInvitationScreen from './screens/PlanInvitationScreen';
 import PlanDetailScreen from './screens/PlanDetailScreen';
 import PlanOrgaScreen from './screens/PlanOrgaScreen';
 // import PlanJoinScreen from './screens/PlanJoinScreen';
@@ -118,16 +118,16 @@ var PlanScreens = {
       }
     }
   },
-  PlanInvitationScreen: {
-    screen: PlanInvitationScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      headerLeft: () => <HeaderLeft navigation={navigation}/>,
-      headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-      }
-    }
-  },
+  // PlanInvitationScreen: {
+  //   screen: PlanInvitationScreen,
+  //   navigationOptions: ({ navigation }) => {
+  //     return {
+  //     headerLeft: () => <HeaderLeft navigation={navigation}/>,
+  //     headerTitle: () => <HeaderCity navigation={navigation}/>,
+  //     headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+  //     }
+  //   }
+  // },
   PlanOrgaScreen: {
     screen: PlanOrgaScreen,
     navigationOptions: ({ navigation }) => {

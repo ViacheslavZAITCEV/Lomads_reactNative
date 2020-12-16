@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, StyleSheet, ImageBackground, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { Text, Input, Avatar, Icon, Image } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -24,6 +24,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: 225,
     height: 35,
+  },
+  imageBackground: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
   },
   button: {
     backgroundColor: "#D70026",
@@ -57,7 +62,7 @@ function PlanOrgaScreen(props, { navigation }) {
     }
   }
 
-  console.log('idUser=', props.idUser)
+  // console.log('idUser=', props.idUser)
 
   useEffect(() => {
     const getFriendsList = async () => {
@@ -73,7 +78,7 @@ function PlanOrgaScreen(props, { navigation }) {
     imageNouvelleSortie();
   }, [])
 
-  console.log(friendsList)
+  // console.log(friendsList)
 
 
   var ListeAmis;
@@ -146,14 +151,16 @@ function PlanOrgaScreen(props, { navigation }) {
       </View>
 
       <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
-        <KeyboardAvoidingView behavior="padding" enabled>
-          <SafeAreaView>
+        <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
-            <Text style={{ fontSize: 18, margin: 7, fontWeight: 'bold' }} >
-              INFORMATIONS SUR LA SORTIE
+          <KeyboardAvoidingView behavior="padding" enabled>
+            <SafeAreaView>
+
+              <Text style={{ fontSize: 18, margin: 7, fontWeight: 'bold' }} >
+                INFORMATIONS SUR LA SORTIE
             </Text>
 
-            <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+              <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
 
                 <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
                   <Image style={{ width: 210, height: 297, margin: 5 }} source={{ uri: imageSortie }} />
@@ -232,16 +239,17 @@ function PlanOrgaScreen(props, { navigation }) {
                   />
                 </View>
 
-            </View>
+              </View>
 
-            <Text style={{ fontSize: 18, margin: 7, fontWeight: 'bold' }} >
-              INVITER MES AMIS
+              <Text style={{ fontSize: 18, margin: 7, fontWeight: 'bold' }} >
+                INVITER MES AMIS
             </Text>
 
-            {ListeAmis}
+              {ListeAmis}
 
-          </SafeAreaView>
-        </KeyboardAvoidingView>
+            </SafeAreaView>
+          </KeyboardAvoidingView>
+        </ImageBackground>
       </ScrollView>
 
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>

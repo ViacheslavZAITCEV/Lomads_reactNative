@@ -13,8 +13,8 @@ import urlLocal from '../urlDevsGoWizMe'
 const styles = StyleSheet.create({
   imageBackground: {
     flex: 1,
-    resizeMode: 'cover',
-    alignItems: "center",
+    resizeMode: "cover",
+    justifyContent: "center",
   }
 })
 
@@ -156,10 +156,10 @@ function AfficheSpecialScreen(props) {
       </View>
 
       <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
+        
+        <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
-        <View style={{ flex: 1, alignItems: 'center' }}>
-
-          <ImageBackground source={imageBackground} style={styles.imageBackground}>
+          <View style={{ flex: 1, alignItems: 'center' }}>
 
             <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
 
@@ -196,34 +196,35 @@ function AfficheSpecialScreen(props) {
               <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 22, fontWeight: 'bold', color: "#16253D" }}>{selectDateEvenement.itemValue}</Text>
             </View>
 
-              <View style={{ alignItems: 'center', width: 400, marginBottom: 70 }}>
-                <Picker
-                  selectedValue={lieuTransit}
-                  style={{ height: 50, width: 300 }}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setSelectLieuEvenement({ itemValue })
-                  }>
-                  <Picker.Item label='Lieu(x)' value='Lieux' />
-                  {lieux}
-                </Picker>
-              </View>
+            <View style={{ alignItems: 'center', width: 400, marginBottom: 70 }}>
+              <Picker
+                selectedValue={lieuTransit}
+                style={{ height: 50, width: 300 }}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectLieuEvenement({ itemValue })
+                }>
+                <Picker.Item label='Lieu(x)' value='Lieux' />
+                {lieux}
+              </Picker>
+            </View>
 
-              <View style={{ alignItems: 'center', width: 400, marginBottom: 150 }}>
-                <Picker
-                  onPress={() => { horaires() }}
-                  selectedValue={horaireTransit}
-                  style={{ height: 70, width: 300 }}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setSelectDateEvenement({ itemValue })
-                  }>
-                  <Picker.Item label='Date(s) et horaire(s)' value='2020-12-24T00:00:00.000Z' />
-                  {dates}
-                </Picker>
-              </View>
+            <View style={{ alignItems: 'center', width: 400, marginBottom: 150 }}>
+              <Picker
+                onPress={() => { horaires() }}
+                selectedValue={horaireTransit}
+                style={{ height: 70, width: 300 }}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectDateEvenement({ itemValue })
+                }>
+                <Picker.Item label='Date(s) et horaire(s)' value='2020-12-24T00:00:00.000Z' />
+                {dates}
+              </Picker>
+            </View>
 
-          </ImageBackground>
+          </View>
 
-        </View>
+        </ImageBackground>
+
       </ScrollView>
 
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
@@ -255,7 +256,7 @@ function AfficheSpecialScreen(props) {
       </View>
 
     </View>
-  )
+  );
 }
 
 function mapStateToProps(state) {

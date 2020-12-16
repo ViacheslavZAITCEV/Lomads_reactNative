@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, StyleSheet, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import { Text, Input, Avatar, Icon, Image } from 'react-native-elements';
+import { Text, Input, Avatar, Icon, Image, CheckBox } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { MaterialIcons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
@@ -25,19 +24,12 @@ const styles = StyleSheet.create({
     width: 225,
     height: 35,
   },
-  imageBackground: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  },
   button: {
     backgroundColor: "#D70026",
   }
 })
 
 function PlanOrgaScreen(props, { navigation }) {
-
-  const [friendsList, setFriendsList] = useState([])
 
   const [imageSortie, setImageSortie] = useState(props.newSortie.image.toString())
   const [nameSortie, setNameSortie] = useState(props.newSortie.nomSortie)
@@ -48,13 +40,23 @@ function PlanOrgaScreen(props, { navigation }) {
   const [codePostalSortie, setCodePostalSortie] = useState('')
   const [typeSortie, setTypeSortie] = useState('')
 
-  console.log(imageSortie);
-  console.log(nameSortie);
-  console.log(adresseSortie);
-  console.log(dateDebut);
-  console.log(dureeSortie);
-
+  const [friendsList, setFriendsList] = useState([])
+  const [selectedFriend, setSelectedFriend] = useState(false)
   const [invitedFriendsList, setInvitedFriendsList] = useState([])
+
+  var selectIconColor;
+  if (selectedFriend == true) {
+    selectIconColor = '#EFB509'
+  } else {
+    selectIconColor = '#D70026'
+  }
+
+  // console.log(imageSortie);
+  // console.log(nameSortie);
+  // console.log(adresseSortie);
+  // console.log(dateDebut);
+  // console.log(dureeSortie);
+
 
   const imageNouvelleSortie = () => {
     if (imageSortie == '') {
@@ -89,19 +91,22 @@ function PlanOrgaScreen(props, { navigation }) {
     ListeAmis = friendsList.listAmis.map((x, i) => {
       return (
         <View key={i} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-          <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
-            <Icon
-              name="add-circle"
-              type='materialicons'
+          <View style={{ justifyContent: 'flex-end' }}>
+            <CheckBox
               size={35}
-              color="#D70026"
+              checkedIcon='plus-circle'
+              uncheckedIcon='plus-circle'
+              checkedColor='#EFB509'
+              uncheckedColor='#D70026'
+              checked={selectedFriend}
               onPress={() => {
                 console.log("ajout ami à l'invitation");
+                setSelectedFriend(true);
                 inviteFriends(x._id)
               }}
             />
           </View>
-          <View style={{ marginHorizontal: 15 }}>
+          <View style={{ marginRight: 15 }}>
             <Avatar
               size='medium'
               rounded
@@ -133,13 +138,13 @@ function PlanOrgaScreen(props, { navigation }) {
       body: `evenementLie=${props.idEvent}&organisateur=${props.idUser}&image=${imageSortie}&nomSortie=${nameSortie}&adresse=${adresseSortie}&date_debut=${dateDebut}&date_fin=${dateFin}&cp=${codePostalSortie}&type=${typeSortie}&duree=${dureeSortie}&part=${invitedFriendsList}`
     })
     const body = await data.json();
-    console.log(body)
-    console.log(body.sortie)
+    // console.log(body)
+    // console.log(body.sortie)
     props.onAddIdSortie(body._id)
     props.navigation.navigate('PlanDetailScreen')
   }
 
-  console.log(invitedFriendsList);
+  // console.log(invitedFriendsList);
 
   return (
     <View style={{ flex: 1 }}>
@@ -152,102 +157,102 @@ function PlanOrgaScreen(props, { navigation }) {
 
       <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
 
-          <KeyboardAvoidingView behavior="padding" enabled>
-            <SafeAreaView>
+        <KeyboardAvoidingView behavior="padding" enabled>
+          <SafeAreaView>
 
-              <Text style={{ fontSize: 18, margin: 7, fontWeight: 'bold' }} >
-                INFORMATIONS SUR LA SORTIE
-            </Text>
+            <Text style={{ fontSize: 18, margin: 7, fontWeight: 'bold' }} >
+              INFORMATIONS SUR LA SORTIE
+              </Text>
+
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+
+              <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
+                <Image style={{ width: 210, height: 297, margin: 5 }} source={{ uri: imageSortie }} />
+              </View>
+
+
+              <View>
+                <Input
+                  // placeholder='Nom de la sortie'
+                  inputStyle={styles.input}
+                  inputContainerStyle={{ width: '80%', marginTop: 20, alignItems: 'center' }}
+                  onChange={(e) => setNameSortie(e.target.value)}
+                  value={nameSortie}
+                />
+              </View>
 
               <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+                <Text>Date et heure:</Text>
+                <Input
+                  inputContainerStyle={styles.inputContainer}
+                  leftIcon={<MaterialCommunityIcons name="calendar-clock" size={22} color="black" />}
+                  onChange={(e) => setDateDebut(e.target.value)}
+                  value={dateDebut}
+                />
+              </View>
 
-                <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
-                  <Image style={{ width: 210, height: 297, margin: 5 }} source={{ uri: imageSortie }} />
-                </View>
-
-
-                <View>
-                  <Input
-                    // placeholder='Nom de la sortie'
-                    inputStyle={styles.input}
-                    inputContainerStyle={{ width: '80%', marginTop: 20, alignItems: 'center' }}
-                    onChange={(e) => setNameSortie(e.target.value)}
-                    value={nameSortie}
-                  />
-                </View>
-
-                <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                  <Text>Date début:</Text>
-                  <Input
-                    inputContainerStyle={styles.inputContainer}
-                    rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
-                    onChange={(e) => setDateDebut(e.target.value)}
-                    value={dateDebut}
-                  />
-                </View>
-
-                <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                  <Text>Date fin:</Text>
+              {/* <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <Text>Date et heure de fin:</Text>
                   <Input
                     inputContainerStyle={styles.inputContainer}
                     rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
                     onChange={(e) => setDateFin(e.target.value)}
                     value={dateFin}
                   />
-                </View>
+                </View> */}
 
-                <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                  <Text>Durée:</Text>
-                  <Input
-                    inputContainerStyle={styles.inputContainer}
-                    rightIcon={<MaterialCommunityIcons name="clock-time-eight-outline" size={22} color="black" />}
-                    onChange={(e) => setDureeSortie(e.target.value)}
-                    value={dureeSortie}
-                  />
-                </View>
-
-                <View>
-                  <Text>Adresse:</Text>
-                  <Input
-                    inputContainerStyle={styles.inputContainer}
-                    rightIcon={<MaterialIcons name="location-on" size={22} color="black" />}
-                    onChange={(e) => setAdresseSortie(e.target.value)}
-                    value={adresseSortie}
-                  />
-                </View>
-
-                <View>
-                  <Text>Code postal:</Text>
-                  <Input
-                    placeholder='par ex. "75010"'
-                    inputContainerStyle={styles.inputContainer}
-                    rightIcon={<MaterialIcons name="location-city" size={22} color="black" />}
-                    onChange={(e) => setCodePostalSortie(e.target.value)}
-                    value={codePostalSortie}
-                  />
-                </View>
-
-                <View>
-                  <Text>Type:</Text>
-                  <Input
-                    placeholder='privée, amis ou publique'
-                    inputContainerStyle={styles.inputContainer}
-                    rightIcon={<MaterialCommunityIcons name="eye" size={22} color="black" />}
-                    onChange={(e) => setTypeSortie(e.target.value)}
-                    value={typeSortie}
-                  />
-                </View>
-
+              <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+                <Text>Durée:</Text>
+                <Input
+                  inputContainerStyle={styles.inputContainer}
+                  leftIcon={<MaterialCommunityIcons name="timer-sand" size={22} color="black" />}
+                  onChange={(e) => setDureeSortie(e.target.value)}
+                  value={dureeSortie}
+                />
               </View>
 
-              <Text style={{ fontSize: 18, margin: 7, fontWeight: 'bold' }} >
-                INVITER MES AMIS
+              <View>
+                <Text>Adresse:</Text>
+                <Input
+                  inputContainerStyle={styles.inputContainer}
+                  leftIcon={<MaterialIcons name="location-on" size={22} color="black" />}
+                  onChange={(e) => setAdresseSortie(e.target.value)}
+                  value={adresseSortie}
+                />
+              </View>
+
+              <View>
+                <Text>Code postal:</Text>
+                <Input
+                  placeholder='par ex. "75010"'
+                  inputContainerStyle={styles.inputContainer}
+                  leftIcon={<MaterialIcons name="location-city" size={22} color="black" />}
+                  onChange={(e) => setCodePostalSortie(e.target.value)}
+                  value={codePostalSortie}
+                />
+              </View>
+
+              <View>
+                <Text>Type:</Text>
+                <Input
+                  placeholder='privée, amis ou publique'
+                  inputContainerStyle={styles.inputContainer}
+                  leftIcon={<MaterialCommunityIcons name="eye" size={22} color="black" />}
+                  onChange={(e) => setTypeSortie(e.target.value)}
+                  value={typeSortie}
+                />
+              </View>
+
+            </View>
+
+            <Text style={{ fontSize: 18, margin: 7, fontWeight: 'bold' }} >
+              INVITER MES AMIS
             </Text>
 
-              {ListeAmis}
+            {ListeAmis}
 
-            </SafeAreaView>
-          </KeyboardAvoidingView>
+          </SafeAreaView>
+        </KeyboardAvoidingView>
 
       </ScrollView>
 

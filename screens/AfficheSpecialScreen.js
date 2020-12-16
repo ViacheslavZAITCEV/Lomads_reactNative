@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Image } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
 
@@ -10,19 +10,7 @@ import { connect } from 'react-redux';
 
 import urlLocal from '../urlDevsGoWizMe'
 
-const styles = StyleSheet.create({
-  imageBackground: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  }
-})
-
-
 function AfficheSpecialScreen(props) {
-
-  const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
-
 
   const [evenement, setEvenement] = useState({})
   const [lieuEvenementSansDoublons, setLieuEvenementSansDoublons] = useState([]);
@@ -157,8 +145,6 @@ function AfficheSpecialScreen(props) {
 
       <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
         
-        <ImageBackground source={imageBackground} style={styles.imageBackground}>
-
           <View style={{ flex: 1, alignItems: 'center' }}>
 
             <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
@@ -222,8 +208,6 @@ function AfficheSpecialScreen(props) {
             </View>
 
           </View>
-
-        </ImageBackground>
 
       </ScrollView>
 

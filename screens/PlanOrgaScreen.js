@@ -78,56 +78,63 @@ function PlanOrgaScreen(props, { navigation }) {
 
   var ListeAmis;
   if (friendsList.listAmis == undefined) {
-    ListeAmis = 
+    ListeAmis =
       <Text>Chargement</Text>
   } else if (friendsList.listAmis.length > 0) {
     ListeAmis = friendsList.listAmis.map((x, i) => {
-    return (
-      <View key={i} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-        <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
-          <Icon
-            name="add-circle"
-            type='materialicons'
-            size={35}
-            color="#D70026"
-            onPress={() => console.log("ajout ami à l'invitation")}
-          />
+      return (
+        <View key={i} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
+          <View style={{ justifyContent: 'flex-end', marginLeft: 15 }}>
+            <Icon
+              name="add-circle"
+              type='materialicons'
+              size={35}
+              color="#D70026"
+              onPress={() => {
+                console.log("ajout ami à l'invitation");
+                inviteFriends(x._id)
+              }}
+            />
+          </View>
+          <View style={{ marginHorizontal: 15 }}>
+            <Avatar
+              size='medium'
+              rounded
+              source={{
+                uri: x.avatar
+              }}
+            />
+          </View>
+          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+              {x.prenom} {x.nom}
+            </Text>
+          </View>
         </View>
-        <View style={{ marginHorizontal: 15 }}>
-          <Avatar
-            size='medium'
-            rounded
-            source={{
-              uri: x.avatar
-            }}
-          />
-        </View>
-        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-            {x.prenom} {x.nom}
-          </Text>
-        </View>
-      </View>
-    )
-  })
-} else {
-  <Text>Pas encore d'amis enregistrés</Text>
-}
+      )
+    })
+  } else {
+    <Text>Pas encore d'amis enregistrés</Text>
+  }
+
+  var inviteFriends = (idAmi) => {
+    setInvitedFriendsList([...invitedFriendsList, idAmi])
+  }
 
   var createSortie = async () => {
     const data = await fetch(`${urlLocal}/addSortie`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `evenementLie=${props.idEvent}&organisateur=${props.idUser}&image=${imageSortie}&nomSortie=${nameSortie}&adresse=${adresseSortie}&date_debut=${dateDebut}&date_fin=${dateFin}&cp=${codePostalSortie}&type=${typeSortie}&duree=${dureeSortie}&participants=${invitedFriendsList}`
+      body: `evenementLie=${props.idEvent}&organisateur=${props.idUser}&image=${imageSortie}&nomSortie=${nameSortie}&adresse=${adresseSortie}&date_debut=${dateDebut}&date_fin=${dateFin}&cp=${codePostalSortie}&type=${typeSortie}&duree=${dureeSortie}&part=${invitedFriendsList}`
     })
     const body = await data.json();
     console.log(body)
     console.log(body.sortie)
     props.onAddIdSortie(body._id)
-    // props.onAddIdSortie(body.sortie._id)
     props.navigation.navigate('PlanDetailScreen')
   }
 
+  console.log(invitedFriendsList);
 
   return (
     <View style={{ flex: 1 }}>
@@ -148,9 +155,10 @@ function PlanOrgaScreen(props, { navigation }) {
 
             <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
 
-              <View style={{ marginLeft: 10 }}>
-{/* 
-                {imageSortie} */}
+                <View style={{ flex: 1, alignItems: 'center', width: 300, margin: 5 }}>
+                  <Image style={{ width: 210, height: 297, margin: 5 }} source={{ uri: imageSortie }} />
+                </View>
+
 
                 <View>
                   <Input
@@ -223,8 +231,6 @@ function PlanOrgaScreen(props, { navigation }) {
                     value={typeSortie}
                   />
                 </View>
-
-              </View>
 
             </View>
 

@@ -31,7 +31,7 @@ import { connect } from 'react-redux';
 import urlLocal from '../urlDevsGoWizMe'
 
 function AfficheSpecialScreen(props) {
-
+ 
   const [evenement, setEvenement] = useState({})
   const [lieuEvenementSansDoublons, setLieuEvenementSansDoublons] = useState([]);
   const [selectLieuEvenement, setSelectLieuEvenement] = useState('');
@@ -40,7 +40,7 @@ function AfficheSpecialScreen(props) {
   const [token, setToken] = useState(props.token);
   const [user, setUser] = useState(null);
 
-
+  
   const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
 
   var lieuTransit = [];
@@ -149,18 +149,12 @@ function AfficheSpecialScreen(props) {
         />)
     })
   }
-  // console.log("selectLieuEvenement",selectLieuEvenement)
-  // console.log("Affiche SpecialScreen :  token=",token)
-  // console.log("Affiche SpecialScreen :  user=",user)
 
   if (dateEvenement.length > 0) {
     dates = dateEvenement.map((date, i) => {
       return (<Picker.Item key={i} label={date} value={date} />)
     });
   }
-
-
-
 
   return (
     <View style={{ flex: 1 }}>
@@ -192,7 +186,6 @@ function AfficheSpecialScreen(props) {
               />
 
               <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold', textTransform: 'uppercase' }}>{evenement.nom}</Text>
-
 
             </View>
             <View style={{ alignItems: 'center', width: 300, margin: 5 }}>
@@ -242,21 +235,6 @@ function AfficheSpecialScreen(props) {
               <Text style={{ textAlign: 'center', marginTop: 3, fontWeight: 'bold', color: "#16253D" }}>{selectDateEvenement.itemValue}</Text>
             </View>
 
-            {/* <View style={{ flex: 1, alignItems: 'center', width: 200, margin: 5 }}>
-              <Button
-                type='outline'
-                title="Réserver"
-                buttonStyle={{
-                  backgroundColor: (selectLieuEvenement !== '' && selectDateEvenement !== '') ? "#D70026" : "#16253D",
-                  marginBottom: 0, width: 150, margin: 5
-                }}
-                titleStyle={{ color: 'white' }}
-                onPress={() => {
-                  (selectLieuEvenement !== '' && selectDateEvenement !== '') ? console.log('redirect à site de Reservation') : console.log(">>>>>>>>>>>>>>>>>>>>>>SORTIE");
-                }}
-              />
-            </View> */}
-
           </ImageBackground>
 
         </View>
@@ -292,8 +270,8 @@ function AfficheSpecialScreen(props) {
 
     </View>
   )
-
 }
+
 function mapStateToProps(state) {
   return {
     token: state.tokenReducer,

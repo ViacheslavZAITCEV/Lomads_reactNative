@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, ImageBackground, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, StyleSheet, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { Text, Input, Avatar, Icon, Image } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -151,7 +151,6 @@ function PlanOrgaScreen(props, { navigation }) {
       </View>
 
       <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
-        <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
           <KeyboardAvoidingView behavior="padding" enabled>
             <SafeAreaView>
@@ -249,7 +248,7 @@ function PlanOrgaScreen(props, { navigation }) {
 
             </SafeAreaView>
           </KeyboardAvoidingView>
-        </ImageBackground>
+
       </ScrollView>
 
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>

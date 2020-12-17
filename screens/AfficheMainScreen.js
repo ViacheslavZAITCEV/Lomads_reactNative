@@ -113,6 +113,7 @@ function AfficheMainScreen(props) {
         const body = await userBD.json();
         // console.log('AfficheMainScreen, updateUser(), user = ', body);
         setUser(body);
+        props.onAddIdUser(body._id);
         setCurrentCity(body.ville);
         }else{
           setUser(null)
@@ -382,6 +383,9 @@ function mapDispatchToProps(dispatch) {
     },
     onAddIdEvent: function (idEvent) {
       dispatch({ type: 'addIdEvent', idEvent: idEvent });
+    },
+    onAddIdUser: function (idUser) {
+      dispatch({ type: 'addIdEvent', idUser: idUser });
     },
   }
 }

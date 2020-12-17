@@ -43,7 +43,7 @@ function FriendsMainScreen(props, { navigation }) {
       const dataFriends = await fetch(`${urlLocal}/pullFriendsList`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `id=5fd8957156659543d44e477a`
+        body: `id=5fdb409fa597eb0f08533c1d`
       })
       const bodyFriends = await dataFriends.json()
       setFriendsList(bodyFriends)

@@ -22,12 +22,12 @@ function FriendsProfileScreen() {
             rounded
             source={{
               uri:
-                'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
+                'https://res.cloudinary.com/dhtl1axxt/image/upload/v1608197402/hlotdsopnuvekbmsfbfd.png',
             }}
           />
           <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-            <Text h4>Jane Doe</Text>
-            <Text h5>Paris, FR</Text>
+            <Text h4>Cedric Alinc</Text>
+            <Text h5>Paris</Text>
           </View>
         </View>
 
@@ -49,16 +49,16 @@ function FriendsProfileScreen() {
           <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Concerts' />
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Comédie' />
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Science-Fiction' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Classique' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Urbaine' />
+          {/* <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Classique' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Urbaine' /> */}
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Rock' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Pop' />
+          {/* <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Pop' /> */}
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musical' />
+          {/* <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musical' />
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Beaux-Arts' />
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Civilisations' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Contemporain' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Drame' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Contemporain' /> */}
+          {/* <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Drame' /> */}
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Histoire' />
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Française' />
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='One-Man Show' />
@@ -85,7 +85,7 @@ function FriendsProfileScreen() {
               />
               <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>TENET</Text>
             </Card>
-            <Card
+            {/* <Card
               containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '100%', backgroundColor: '#F8F5F2' }}>
               <Card.Image
                 style={{ width: 85, height: 65 }}
@@ -111,7 +111,7 @@ function FriendsProfileScreen() {
                 resizeMode="cover"
               />
               <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>TENET</Text>
-            </Card>
+            </Card> */}
           </ScrollView>
         </View>
 
@@ -135,7 +135,7 @@ function FriendsProfileScreen() {
               />
               <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>TENET</Text>
             </Card>
-            <Card
+            {/* <Card
               containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '100%', backgroundColor: '#F8F5F2' }}>
               <Card.Image
                 style={{ width: 85, height: 65 }}
@@ -161,7 +161,7 @@ function FriendsProfileScreen() {
                 resizeMode="cover"
               />
               <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "80%", padding: 5 }}>TENET</Text>
-            </Card>
+            </Card> */}
           </ScrollView>
         </View>
       </ScrollView>

@@ -38,7 +38,7 @@ function PlanOrgaScreen(props, { navigation }) {
   const [dateFin, setDateFin] = useState('')
   const [dureeSortie, setDureeSortie] = useState(props.newSortie.duree.toString())
   const [codePostalSortie, setCodePostalSortie] = useState('')
-  const [typeSortie, setTypeSortie] = useState('')
+  const [typeSortie, setTypeSortie] = useState('amis')
 
   const [friendsList, setFriendsList] = useState([])
   const [selectedFriend, setSelectedFriend] = useState(false)

@@ -385,7 +385,7 @@ function mapDispatchToProps(dispatch) {
       dispatch({ type: 'addIdEvent', idEvent: idEvent });
     },
     onAddIdUser: function (idUser) {
-      dispatch({ type: 'addIdEvent', idUser: idUser });
+      dispatch({ type: 'addIdUser', idUser: idUser });
     },
   }
 }

@@ -128,7 +128,7 @@ function FriendsMainScreen(props, { navigation }) {
 
   if (friendsList.listAmis == undefined) {
     ListeAmis =
-      <Text>Chargement</Text>
+      <Text>Echec de récupération de la liste d'amis</Text>
   } else if (friendsList.listAmis.length > 0) {
     ListeAmis = friendsList.listAmis.map((x, i) => {
       console.log("++++++++++AMIS+++++++++++++++++", x)

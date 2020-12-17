@@ -86,7 +86,7 @@ function PlanOrgaScreen(props, { navigation }) {
   var ListeAmis;
   if (friendsList.listAmis == undefined) {
     ListeAmis =
-      <Text>Chargement</Text>
+      <Text>Echec de récupération de la liste d'amis</Text>
   } else if (friendsList.listAmis.length > 0) {
     ListeAmis = friendsList.listAmis.map((x, i) => {
       return (
@@ -101,7 +101,7 @@ function PlanOrgaScreen(props, { navigation }) {
               checked={selectedFriend}
               onPress={() => {
                 console.log("ajout ami à l'invitation");
-                setSelectedFriend(true);
+                // setSelectedFriend(true);
                 inviteFriends(x._id)
               }}
             />
@@ -124,7 +124,7 @@ function PlanOrgaScreen(props, { navigation }) {
       )
     })
   } else {
-    <Text>Pas encore d'amis enregistrés</Text>
+    <Text>Pas encore d'amis dans ta liste</Text>
   }
 
   var inviteFriends = (idAmi) => {

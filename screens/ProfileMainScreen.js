@@ -103,23 +103,25 @@ function ProfileMainScreen(props) {
 
   console.log('ProfileMainScreen, user=', user)
 
-  if (token === null){
+  if (props.token === null){
     props.navigation.navigate('SignInScreen');
   }
 
   async function deconnecter(){
+    console.log('deconnection...')
     try{
-      await AsyncStorage.setItem('user', null);
+      AsyncStorage.setItem('user', null);
     }catch(e){
       console.log(e);
     }
+    console.log('deconnection...en cours...');
     setToken(null);
     props.delToken();
-    props.navigation.navigate('AfficheMainScreen');
+    console.log('deconnection...complets');
 
   }
 
-  if (token === null){
+  if (props.token === null){
     return(
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
       <TouchableOpacity

@@ -21,7 +21,7 @@ function SignInScreen(props, { navigation, addToken }) {
     useEffect(() => {
         function goToBack() {
             if (props.token) {
-                props.navigation.goBack();
+                props.navigation.navigate('AfficheMainScreen');
             }
         }
         goToBack();

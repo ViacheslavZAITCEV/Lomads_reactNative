@@ -20,6 +20,11 @@ function PlanMainScreen(props, { navigation }) {
 
   const [planInfo, setPlanInfo] = useState({});
 
+  const [likesDesAmisInfo, setLikesDesAmisInfo] = useState({});
+  const [mesLikesInfo, setMesLikesInfo] = useState({});
+  const [mesSortiesInfo, setMesSortiesInfo] = useState({});
+  const [sortiesDesAmisInfo, setSortiesDesAmisInfo] = useState({});
+
   useEffect(() => {
     const getIdUser = async () => {
       const data = await fetch(`${urlLocal}/pullUser`, {
@@ -28,12 +33,12 @@ function PlanMainScreen(props, { navigation }) {
         body: `id=${props.idUser}`
       })
       const body = await data.json();
+      // console.log('BODY',body);
       setPlanInfo(body);
     }
     getIdUser()
   }, [])
   
-  console.log('console.log de planInfo.sortiesAmis', planInfo.sortiesAmis);
   // console.log('============================', planInfo.mesSorties)
 
   const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
@@ -56,20 +61,20 @@ function PlanMainScreen(props, { navigation }) {
   var SortiesDuUser
   var functionSortiesDuUser = () => {
     if (planInfo.mesSorties != undefined) {
-      SortiesDuUser = planInfo.mesSorties.map((x, i) => {
+      SortiesDuUser = planInfo.mesSorties.map((w, i) => {
         return (
           <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '55%', backgroundColor: '#F8F5F2' }} >
             <Card.Image
               style={{ width: 170, height: 230 }}
-              source={{ uri: x.image }}
+              source={{ uri: w.image }}
               resizeMode="cover"
               onPress={() => {
-                props.onAddIdSortie(x._id);
+                props.onAddIdSortie(w._id);
                 props.navigation.navigate('PlanDetailScreen')
               }
               }
             />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "100%", padding: 1,textTransform: 'uppercase', margin: 1 }}>{x.nomSortie}</Text>
+            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "100%", padding: 1,textTransform: 'uppercase', margin: 1 }}>{w.nomSortie}</Text>
           </Card>
         )
       })
@@ -108,20 +113,20 @@ function PlanMainScreen(props, { navigation }) {
   var FavorisDesAmis
   var functionFavorisDesAmis = () => {
     if (planInfo.LikesDesAmis != undefined) {
-      FavorisDesAmis = planInfo.LikesDesAmis.map((x, i) => {
+      FavorisDesAmis = planInfo.LikesDesAmis.map((y, i) => {
         return (
           <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
             <Card.Image
               style={{ width: 170, height: 230 }}
-              source={{ uri: x.image }}
+              source={{ uri: y.image }}
               resizeMode="cover"
               onPress={() => {
-                props.onAddIdEvent(x._id);
+                props.onAddIdEvent(y._id);
                 props.navigation.navigate('AfficheSpecialScreen')
               }
               }
             />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "100%", padding: 1,textTransform: 'uppercase', margin: 1 }}>{x.nom}</Text>
+            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "100%", padding: 1,textTransform: 'uppercase', margin: 1 }}>{y.nom}</Text>
           </Card>
         )
       })
@@ -133,25 +138,25 @@ function PlanMainScreen(props, { navigation }) {
 
   var SortiesDesAmis
   var functionSortieDesAmis = () => {
+    console.log("planinfo sorties Amis", planInfo.sortiesAmis)
+
     if (planInfo.sortiesAmis == null) {
       SortiesDesAmis = <Text>Aucune sortie planifiée par mes amis</Text>
     } else if (planInfo.sortiesAmis != undefined) {
-      SortiesDesAmis = planInfo.sortiesAmis.map((x, i) => {
-        // console.log(x)
-
+      SortiesDesAmis = planInfo.sortiesAmis.map((z, i) => {
         return (
           <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
             <Card.Image
               style={{ width: 170, height: 230 }}
-              source={{ uri: x.image }}
+              source={{ uri: z.image }}
               resizeMode="cover"
               onPress={() => {
-                props.onAddIdSortie(x._id);
+                props.onAddIdSortie(z._id);
                 props.navigation.navigate('PlanDetailScreen')
               }
               }
             />
-            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "100%", padding: 1,textTransform: 'uppercase', margin: 1 }}>{x.nomSortie}</Text>
+            <Text style={{ textAlign: 'center', fontWeight: 'bold', maxWidth: "100%", padding: 1,textTransform: 'uppercase', margin: 1 }}>{z.nomSortie}</Text>
           </Card>
         )
       })

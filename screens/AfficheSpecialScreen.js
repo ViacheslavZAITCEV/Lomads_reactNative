@@ -99,7 +99,11 @@ function AfficheSpecialScreen(props) {
     // console.log("coucou from function 'horares'");
     var dateFormat = function (date) {
       var newDate = new Date(date);
-      var format = newDate.getDate() + '/' + (newDate.getMonth() + 1) + '/' + newDate.getFullYear() + ' - ' + newDate.getHours() + 'h' + newDate.getMinutes();
+      if (newDate.getMinutes()<10) {
+        var format = newDate.getDate() + '/' + (newDate.getMonth() + 1) + '/' + newDate.getFullYear() + ' - ' + newDate.getHours() + 'h0' + newDate.getMinutes();
+      } else {
+        var format = newDate.getDate() + '/' + (newDate.getMonth() + 1) + '/' + newDate.getFullYear() + ' - ' + newDate.getHours() + 'h' + newDate.getMinutes();
+      }
       return format;
     }
     if (evenement.lieux_dates) {

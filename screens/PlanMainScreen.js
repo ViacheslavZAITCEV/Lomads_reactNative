@@ -33,7 +33,7 @@ function PlanMainScreen(props, { navigation }) {
     getIdUser()
   }, [])
   
-  console.log(planInfo);
+  console.log('console.log de planInfo.sortiesAmis', planInfo.sortiesAmis);
   // console.log('============================', planInfo.mesSorties)
 
   const imageBackground = { uri: "https://us.123rf.com/450wm/zephyr18/zephyr181509/zephyr18150900028/44975226-nature-abstraite-arri%C3%A8re-plan-flou-dans-un-ton-bleu-turquoise-avec-un-soleil-%C3%A9clatant-des-reflets-et-un-.jpg?ver=6" };
@@ -133,8 +133,12 @@ function PlanMainScreen(props, { navigation }) {
 
   var SortiesDesAmis
   var functionSortieDesAmis = () => {
-    if (planInfo.sortiesAffichees != undefined) {
-      SortiesDesAmis = planInfo.sortiesAffichees.map((x, i) => {
+    if (planInfo.sortiesAmis == null) {
+      SortiesDesAmis = <Text>Aucune sortie planifiée par mes amis</Text>
+    } else if (planInfo.sortiesAmis != undefined) {
+      SortiesDesAmis = planInfo.sortiesAmis.map((x, i) => {
+        // console.log(x)
+
         return (
           <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '90%', backgroundColor: '#F8F5F2' }} >
             <Card.Image

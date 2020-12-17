@@ -103,7 +103,7 @@ function PlanDetailScreen(props, { navigation }) {
         </Text>
       </View>
 
-      <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
+      <ScrollView style={{ flexDirection: 'column', marginBottom: 0 }}>
 
         {/* <ImageBackground source={imageBackground} style={styles.imageBackground}> */}
 
@@ -123,7 +123,7 @@ function PlanDetailScreen(props, { navigation }) {
 
       </ScrollView>
 
-      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+      {/* <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <TouchableOpacity
 
           onPress={() => {
@@ -141,7 +141,7 @@ function PlanDetailScreen(props, { navigation }) {
         >
           <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Ne plus participer à cette sortie</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
     </View>
   );

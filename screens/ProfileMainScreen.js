@@ -9,37 +9,38 @@ import urlLocal from '../urlDevsGoWizMe'
 
 
 var badgesModel = {
-  cinema : `<Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />`,
-  theatre: `<Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Théatre' />`,
-  exposition: `<Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Expositions' />`,
-  concert: `<Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Concerts' />`,
+  cinema :  'Films' ,
+  theatre:  'Théatre' ,
+  exposition:  'Expositions' ,
+  concert:  'Concerts' ,
   
-  fantastique: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />`,
-  scienceFiction:  `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Science-Fiction' />`,
-  comedie: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Comédie' />`,
-  drame: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Drame' />`,
-  spectacleMusical: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musical' />`,
-  contemporain: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Contemporain' />`,
-  oneManShow: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='One-Man Show' />`,
-  musiqueClassique: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Classique' />`,
-  musiqueFrancaise: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Française' />`,
-  musiquePop: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Pop' />`,
-  musiqueRock: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Rock' />`,
-  beauxArts : `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Beaux-Arts' />`,
-  histoireCivilisations: `<Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Civilisations' />`,
+  fantastique:  'Fantastique' ,
+  scienceFiction:   'Science-Fiction' ,
+  comedie:  'Comédie' ,
+  drame:  'Drame' ,
+  spectacleMusical:  'Musical' ,
+  contemporain:  'Contemporain' ,
+  oneManShow:  'One-Man Show' ,
+  musiqueClassique:  'Classique' ,
+  musiqueFrancaise:  'Musique Française' ,
+  musiquePop:  'Pop' ,
+  musiqueRock:  'Rock' ,
+  beauxArts :  'Beaux-Arts' ,
+  histoireCivilisations:  'Civilisations' ,
 }
 
 
 function ProfileMainScreen(props) {
 
   const [token, setToken] = useState(props.token);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(props.user);
 
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
   const [ville, setVille] = useState('');
   const [avatar, setAvatar] = useState('https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png');
   
+  const [badges, setBadges] = useState([]);
 
   useEffect(() => {
     const takeUserBD = async () => {
@@ -60,7 +61,6 @@ function ProfileMainScreen(props) {
   },[props.token])
 
 
-  var badges = [];
 
   useEffect(()=>{
     const updateState = ()=>{
@@ -71,14 +71,28 @@ function ProfileMainScreen(props) {
         setAvatar(user.avatar);
         if (user.preferences !== undefined && user.preferences.length > 0){
           var prefs = user.preferences[0];
+          var badgesTemp = [];
           console.log('user.preferences[0]=', user.preferences[0]);
           console.log('type of prefs=', typeof prefs);
           var keys = Object.getOwnPropertyNames(prefs);
           console.log('keys=', keys);
           keys.forEach( key => {
-            console.log('user.preferences :', key, ' value=', user.preferences[0].key)
-            if (user.preferences[0].key){
-              badges.push(badgesModel.key);
+            console.log('prefs[key]=', prefs[key]);
+            console.log('key=', key);
+            console.log('badgesModel[key]=', badgesModel[key]);
+            if (prefs[key] === true ){
+              if(key === 'cinema' || key === 'theatre' || key === 'exposition' || key === 'concert'){
+                badgesTemp.push(
+                  // { style : `backgroundColor: '#3C6382', margin: 1`, value : badgesModel[key] }
+                <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value={badgesModel[key]} />
+                )
+              }else{
+                badgesTemp.push(
+                  // { style : `backgroundColor: '#E55039', margin: 1`, value : badgesModel[key] }
+                  <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value={badgesModel[key]} />
+                )
+              }
+              setBadges(badgesTemp);
             }        
           });
         }
@@ -169,7 +183,8 @@ function ProfileMainScreen(props) {
 
 function mapStateToProps(state){
   return {
-    token: state.tokenReducer
+    token: state.tokenReducer,
+    user : state.userReducer
   }
 }
 

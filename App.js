@@ -45,8 +45,9 @@ import idEventReducer from './reducers/idevent.reducer';
 import idSortieReducer from './reducers/idSortie.reducer';
 import newSortieReducer from './reducers/newSortie.reducer';
 import idUserReducer from './reducers/idUser.reducer';
+import userReducer from './reducers/user.reduceur';
 
-const store = createStore(combineReducers({tokenReducer,idEventReducer,idSortieReducer,newSortieReducer,idUserReducer}));
+const store = createStore(combineReducers({tokenReducer,idEventReducer,idSortieReducer,newSortieReducer,idUserReducer, userReducer}));
 console.log('store.getState=', store.getState.userReduceur)
 
 // ===============================================================================

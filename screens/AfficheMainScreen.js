@@ -389,7 +389,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     token: state.tokenReducer,
-    user : state.userReduceur,
+    user : state.userReducer,
     currentCity: state.currentCityReducer
   }
 }

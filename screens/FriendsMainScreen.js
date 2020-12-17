@@ -5,19 +5,198 @@ import { Text, Button, Avatar, Icon, Badge } from 'react-native-elements';
 //Initialisation du store Redux
 import { connect } from 'react-redux';
 
+import urlLocal from '../urlDevsGoWizMe'
+
 function FriendsMainScreen(props, { navigation }) {
 
-  const [friendsRequests, setFriendsRequests] = useState([])
+  const [friendsRequests, setFriendsRequests] = useState([]);
+  const [friendsList, setFriendsList] = useState([]);
+  const [token, setToken] = useState(props.token)
 
-  // if (friendsRequests.length === 0) {
-  //   return {
-  //     code pour afficher "Aucune nouvelle demande d'amis"
-  //   }
-  // }
+  useEffect(() => {
+    async function findDemandes() {
 
+      try {
+        const data = await fetch(`${urlLocal}/findDemandes`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `token=${props.token}`
+        });
 
+        console.log("FRIENDS MAIN SCREEN => PROPS.TOKEN=>>>>>>>><", props.token)
 
+        var resBD = await data.json();
+        // if (resBD.status){
+        setFriendsRequests(resBD);
 
+        console.log("RESBD=>>>>>>>>>>>>>><", resBD)
+
+        // }
+      } catch (e) {
+        console.log('function findDemandes, error:', e)
+      }
+
+    }
+    const getFriendsList = async () => {
+      const dataFriends = await fetch(`${urlLocal}/pullFriendsList`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `id=5fd8957156659543d44e477a`
+      })
+      const bodyFriends = await dataFriends.json()
+      setFriendsList(bodyFriends)
+    }
+
+    findDemandes();
+    getFriendsList();
+
+  }, [])
+
+  console.log("+++++++++ FRIENDS LIST +++++++++", friendsList)
+
+  // console.log("REQUEST================",friendsRequests)
+  // console.log("PORPS=========",props.token)
+
+  useEffect(() => {
+    function toSignIn() {
+      if (props.token === null) {
+        props.navigation.navigate('SignInScreen')
+      }
+    }
+    toSignIn();
+  }, [token])
+
+  var demandesAmis;
+  var mapDemandes = () => {
+    if (friendsRequests == undefined) {
+      demandesAmis =
+        <Text>Ca fonctionne pas</Text>
+    } else {
+      demandesAmis =
+        friendsRequests.map((ami, i) => {
+          // console.log("AMI+>>>>>>>>>>>",ami)
+
+          console.log("AVATAR", ami.avatar)
+          console.log("nom", ami.nom)
+          console.log("PRENOM", ami.prenom)
+
+          return (
+            <View key={i} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', marginVertical: 5 }}>
+
+              <Avatar
+                size='small'
+                rounded
+                source={{ uri: ami.avatar }}
+              />
+
+              <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
+                  {ami.nom}  {ami.prenom}
+                </Text>
+                <Text> veut faire partie de vos amis </Text>
+              </View>
+
+              <Icon
+                name="checkcircle"
+                type='antdesign'
+                size={30}
+                color="#D70026"
+                onPress={() => accepteDemande(ami._id)}
+              />
+
+              <Icon
+                name="closecircle"
+                type='antdesign'
+                size={30}
+                color="#D70026"
+                onPress={() => delDemande(ami._id)}
+              />
+
+            </View>
+
+          )
+        })
+    }
+  }
+
+  mapDemandes();
+
+  var ListeAmis;
+
+  if (friendsList.listAmis == undefined) {
+    ListeAmis =
+      <Text>Chargement</Text>
+  } else if (friendsList.listAmis.length > 0) {
+    ListeAmis = friendsList.listAmis.map((x, i) => {
+      console.log("++++++++++AMIS+++++++++++++++++", x)
+      return (
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginVertical: 5, marginLeft: 15 }}>
+
+          <Avatar
+            onPress={() => props.navigation.navigate('FriendsProfileScreen')}
+            size='medium'
+            rounded
+            source={{
+              uri: x.avatar
+            }}
+          />
+
+          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+            <Text style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 5 }}>
+              {x.nom} {x.prenom}
+            </Text>
+            {/* <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', maxWidth: 300 }}>
+              <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
+              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Science-Fiction' />
+              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Urbaine' />
+              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />
+              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Histoire' />
+            </View> */}
+          </View>
+        </View>
+      )
+    })
+  } else {
+    <Text>Pas encore d'amis enregistrés</Text>
+  }
+
+  // ========================================================
+  // GESTION DE VALIDATION / REFUS D'AJOUT D'AMIS
+  // ========================================================
+
+  async function accepteDemande(idAmis) {
+    try {
+      const data = await fetch(`${urlLocal}/accepteDemande`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `token=${props.token}&idDemandeur=${idAmis}`
+      });
+      var resBD = await data.json();
+      if (resBD.status) {
+        console.log('=========================================')
+        console.log('resBD.response=', resBD.response);
+        console.log()
+      }
+    } catch (e) {
+      console.log('function accepteDemande, error:', e)
+    }
+  }
+
+  async function delDemande(idAmis) {
+    try {
+      const data = await fetch(`${urlLocal}/delDemande`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `token=${props.token}&idDemandeur=${idAmis}`
+      });
+      var resBD = await data.json();
+      if (resBD.status) {
+        console.log('resBD.response=', resBD.response);
+      }
+    } catch (e) {
+      console.log('function findDemandes, error:', e)
+    }
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -25,212 +204,22 @@ function FriendsMainScreen(props, { navigation }) {
       <View style={{ backgroundColor: '#E55039' }}>
         <Text style={{ color: 'white', textAlign: 'center', fontSize: 18, fontWeight: 'bold', maxWidth: "100%", marginTop: 10, marginBottom: 10 }}>
           GERER MES AMIS
-        </Text>
+      </Text>
       </View>
 
       <ScrollView style={{ flexDirection: 'column', marginBottom: 40 }}>
 
         <Text style={{ fontSize: 18, margin: 7, fontWeight: 'bold' }} >
           DEMANDES D'AMIS
-        </Text>
+      </Text>
 
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', marginVertical: 5 }}>
+        {demandesAmis}
 
-          <Avatar
-            size='small'
-            rounded
-            source={{
-              uri:
-                'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-            }}
-          />
-
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
-              Cédric Alinc
-              </Text>
-            <Text> veut faire partie de vos amis </Text>
-          </View>
-
-          <Icon
-            name="checkcircle"
-            type='antdesign'
-            size={30}
-            color="#D70026"
-            onPress={() => console.log('demande acceptée')}
-          />
-
-          <Icon
-            name="closecircle"
-            type='antdesign'
-            size={30}
-            color="#D70026"
-            onPress={() => console.log('demande refusée')}
-          />
-
-        </View>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', marginVertical: 5 }}>
-
-          <Avatar
-            size='small'
-            rounded
-            source={{
-              uri:
-                'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-            }}
-          />
-
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
-              Emmanuelle Bouaziz
-            </Text>
-            <Text> veut faire partie de vos amis </Text>
-          </View>
-
-          <Icon
-            name="checkcircle"
-            type='antdesign'
-            size={30}
-            color="#D70026"
-            onPress={() => console.log('demande acceptée')}
-          />
-
-          <Icon
-            name="closecircle"
-            type='antdesign'
-            size={30}
-            color="#D70026"
-            onPress={() => console.log('demande refusée')}
-          />
-
-        </View>
 
         <Text style={{ fontSize: 18, margin: 7, fontWeight: 'bold' }} >
           MES AMIS
-        </Text>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginVertical: 5, marginLeft: 15 }}>
-
-          <Avatar
-            onPress={() => props.navigation.navigate('FriendsProfileScreen')}
-            size='medium'
-            rounded
-            source={{
-              uri:
-                'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-            }}
-          />
-
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 5 }}>
-              Slava Zaitcev
-            </Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', maxWidth: 300 }}>
-              <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Science-Fiction' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Urbaine' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Histoire' />
-            </View>
-          </View>
-        </View>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginVertical: 5, marginLeft: 15 }}>
-
-          <Avatar
-            onPress={() => props.navigation.navigate('FriendsProfileScreen')}
-            size='medium'
-            rounded
-            source={{
-              uri:
-                'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-            }}
-          />
-
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 5 }}>
-              Alexandra Bui-Catel
-            </Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', maxWidth: 300 }}>
-              <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Expositions' />
-              <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Théatre' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musical' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Beaux-Arts' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Contemporain' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Drame' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Histoire' />
-            </View>
-          </View>
-        </View>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginVertical: 5, marginLeft: 15 }}>
-
-          <Avatar
-            onPress={() => props.navigation.navigate('FriendsProfileScreen')}
-            size='medium'
-            rounded
-            source={{
-              uri:
-                'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-            }}
-          />
-
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 5 }}>
-              Clément Simonneau 
-            </Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', maxWidth: 300 }}>
-              <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
-              <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Concerts' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Comédie' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Science-Fiction' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Rock' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='One-Man Show' />
-            </View>
-          </View>
-        </View>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginVertical: 5, marginLeft: 15 }}>
-
-          <Avatar
-            onPress={() => props.navigation.navigate('FriendsProfileScreen')}
-            size='medium'
-            rounded
-            source={{
-              uri:
-                'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-            }}
-          />
-
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 5 }}>
-              Antoine Dury
-            </Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', maxWidth: 300 }}>
-              <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
-              <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Expositions' />
-              <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Théatre' />
-              <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Concerts' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Comédie' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Science-Fiction' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Classique' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Urbaine' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Rock' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Pop' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musical' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Beaux-Arts' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Civilisations' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Contemporain' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Drame' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Histoire' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Musique Française' />
-              <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='One-Man Show' />
-            </View>
-          </View>
-        </View>
+      </Text>
+        {ListeAmis}
 
       </ScrollView>
 
@@ -245,12 +234,19 @@ function FriendsMainScreen(props, { navigation }) {
           <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Rechercher mes amis sur GoWizMe</Text>
         </TouchableOpacity>
       </View>
-      
+
     </View>
   );
 }
 
+function mapStateToProps(state) {
+  return {
+    token: state.tokenReducer,
+    idUser: state.idUserReducer,
+  }
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   null
 )(FriendsMainScreen);

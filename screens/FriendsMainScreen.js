@@ -65,8 +65,9 @@ function FriendsMainScreen(props, { navigation }) {
     toSignIn();
   }, [token])
 
-  useEffect(() => {
-  }, [nombreDemandes])
+  // useEffect(() => {
+  //   console.log("rafraichissement de l'écran")
+  // }, [nombreDemandes])
 
   var demandesAmis;
   var mapDemandes = () => {
@@ -132,7 +133,7 @@ function FriendsMainScreen(props, { navigation }) {
     ListeAmis = friendsList.listAmis.map((x, i) => {
       console.log("++++++++++AMIS+++++++++++++++++", x)
       return (
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginVertical: 5, marginLeft: 15 }}>
+        <View key={i} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginVertical: 5, marginLeft: 15 }}>
 
           <Avatar
             onPress={() => props.navigation.navigate('FriendsProfileScreen')}
@@ -175,7 +176,7 @@ function FriendsMainScreen(props, { navigation }) {
       });
       var resBD = await data.json();
       if (resBD.status) {
-        setNombreDemandes(nombreDemandes--)
+        // setNombreDemandes(nombreDemandes--)
         console.log('=========================================')
         console.log('resBD.response=', resBD.response);
         console.log()
@@ -194,7 +195,7 @@ function FriendsMainScreen(props, { navigation }) {
       });
       var resBD = await data.json();
       if (resBD.status) {
-        setNombreDemandes(nombreDemandes--)
+        // setNombreDemandes(nombreDemandes--)
         console.log('resBD.response=', resBD.response);
       }
     } catch (e) {

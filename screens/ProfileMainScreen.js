@@ -156,7 +156,12 @@ function ProfileMainScreen(props) {
         </View>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
 
-          {badges}
+          {/* {badges} */}
+
+          <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
+          <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Concerts' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Science-Fiction' />
 
         </View>
       </View>

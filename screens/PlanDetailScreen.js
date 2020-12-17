@@ -93,6 +93,15 @@ function PlanDetailScreen(props, { navigation }) {
   }
   functionAfficherDetailsSortie();
 
+  var nePlusParticiper = async () => {
+    const data = await fetch(`${urlLocal}/desinscription`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `idUser=${props.idUser}&idSortie=${props.idSortie}`
+    })
+    const body = await data.json();
+  }
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -126,7 +135,10 @@ function PlanDetailScreen(props, { navigation }) {
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <TouchableOpacity
 
-          onPress={() => props.navigation.navigate('PlanMainScreen')}
+          onPress={() => {
+            nePlusParticiper();
+            props.navigation.navigate('PlanMainScreen')}
+          }
 
           style={{
             width: '100%',

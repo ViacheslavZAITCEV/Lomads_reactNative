@@ -221,7 +221,7 @@ function PlanOrgaScreen(props, { navigation }) {
                 />
               </View>
 
-              <View>
+              {/* <View>
                 <Text>Code postal:</Text>
                 <Input
                   placeholder='par ex. "75010"'
@@ -230,9 +230,9 @@ function PlanOrgaScreen(props, { navigation }) {
                   onChange={(e) => setCodePostalSortie(e.target.value)}
                   value={codePostalSortie}
                 />
-              </View>
+              </View> */}
 
-              <View>
+              {/* <View>
                 <Text>Type:</Text>
                 <Input
                   placeholder='privée, amis ou publique'
@@ -241,7 +241,7 @@ function PlanOrgaScreen(props, { navigation }) {
                   onChange={(e) => setTypeSortie(e.target.value)}
                   value={typeSortie}
                 />
-              </View>
+              </View> */}
 
             </View>
 

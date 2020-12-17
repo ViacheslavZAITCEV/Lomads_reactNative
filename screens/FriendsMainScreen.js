@@ -13,6 +13,8 @@ function FriendsMainScreen(props, { navigation }) {
   const [friendsList, setFriendsList] = useState([]);
   const [token, setToken] = useState(props.token)
 
+  const [nombreDemandes, setNombreDemandes] = useState(friendsRequests.length)
+
   useEffect(() => {
     async function findDemandes() {
 
@@ -54,9 +56,6 @@ function FriendsMainScreen(props, { navigation }) {
 
   console.log("+++++++++ FRIENDS LIST +++++++++", friendsList)
 
-  // console.log("REQUEST================",friendsRequests)
-  // console.log("PORPS=========",props.token)
-
   useEffect(() => {
     function toSignIn() {
       if (props.token === null) {
@@ -65,6 +64,9 @@ function FriendsMainScreen(props, { navigation }) {
     }
     toSignIn();
   }, [token])
+
+  useEffect(() => {
+  }, [nombreDemandes])
 
   var demandesAmis;
   var mapDemandes = () => {
@@ -91,7 +93,7 @@ function FriendsMainScreen(props, { navigation }) {
 
               <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                 <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
-                  {ami.nom}  {ami.prenom}
+                {ami.prenom} {ami.nom}
                 </Text>
                 <Text> veut faire partie de vos amis </Text>
               </View>
@@ -143,7 +145,7 @@ function FriendsMainScreen(props, { navigation }) {
 
           <View style={{ flexDirection: 'column', alignItems: 'center' }}>
             <Text style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 5 }}>
-              {x.nom} {x.prenom}
+            {x.prenom} {x.nom}
             </Text>
             {/* <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', maxWidth: 300 }}>
               <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
@@ -173,6 +175,7 @@ function FriendsMainScreen(props, { navigation }) {
       });
       var resBD = await data.json();
       if (resBD.status) {
+        setNombreDemandes(nombreDemandes--)
         console.log('=========================================')
         console.log('resBD.response=', resBD.response);
         console.log()
@@ -191,6 +194,7 @@ function FriendsMainScreen(props, { navigation }) {
       });
       var resBD = await data.json();
       if (resBD.status) {
+        setNombreDemandes(nombreDemandes--)
         console.log('resBD.response=', resBD.response);
       }
     } catch (e) {

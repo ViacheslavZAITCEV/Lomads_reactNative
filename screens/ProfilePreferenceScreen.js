@@ -42,7 +42,7 @@ function ProfilePreferenceScreen(props) {
 
     
   const [token, setToken] = useState(props.token);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(props.user);
 
   useEffect(() => {
     const takeUserBD = async () => {
@@ -65,7 +65,8 @@ function ProfilePreferenceScreen(props) {
 
   useEffect(() => {
     const updateUserBD = async () => {
-      var requet = [{
+
+      var newprefs = [{
         cinema : typeFilms,
         theatre: typeTheatre,
         exposition: typeExpositions,
@@ -84,10 +85,16 @@ function ProfilePreferenceScreen(props) {
         beauxArts : categorieBeauxArts,
         histoireCivilisations: categorieCivilisations,
       }];
-      var requetRAW = JSON.stringify(requet);
+
+      var newUser = user;
+      newUser.preferences = newprefs;
+      props.updateStoreUser(newUser);
+      console.log('ProfilPreferenceScreen, newUser=', newUser);
+
       
+      var requetRAW = JSON.stringify(newprefs);
       console.log('ProfilPreferenceScreen, token=', token);
-      const data = await fetch(`${urlLocal}/users/updateJSON`, {
+      const data = await fetch(`${urlLocal}/users/updatePrefs`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `token=${props.token}&preferences=${requetRAW}`
@@ -97,7 +104,7 @@ function ProfilePreferenceScreen(props) {
           console.log('ProfilPreferenceScreen, update est enregistré dans BD');
         }else {
           console.log('ProfilPreferenceScreen, enregistrement dans BD est refusé, error=', body.error);
-        }        
+        } 
     }
     updateUserBD ();
   },[
@@ -344,11 +351,20 @@ function ProfilePreferenceScreen(props) {
 
 function mapStateToProps(state){
   return {
-    token: state.tokenReducer
+    token: state.tokenReducer,
+    user : state.userReducer
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+      updateStoreUser: function (user) {
+        dispatch({ type: 'user', user })
+    }
   }
 }
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(ProfilePreferenceScreen);

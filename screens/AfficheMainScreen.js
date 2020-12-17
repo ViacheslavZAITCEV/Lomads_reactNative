@@ -132,7 +132,8 @@ function AfficheMainScreen(props) {
       props.navigation.navigate('AfficheSpecialScreen')
     } else {
       // console.log('token absent: user not connected')
-      props.navigation.navigate('AfficheSpecialScreen')
+      // props.navigation.navigate('AfficheSpecialScreen')
+      props.navigation.navigate('SignInScreen')
     }
   }
 

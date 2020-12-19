@@ -53,6 +53,10 @@ function ProfileMainScreen(props) {
           const body = await userBD.json();
           console.log('ProfileMainScreen, updateUser(), user = ', body);
           setUser(body);
+          setNom(body.nom);
+          setPrenom(body.prenom);
+          setAvatar(body.avatar);
+
         }else{
           setUser(null);
         }
@@ -99,13 +103,13 @@ function ProfileMainScreen(props) {
       }
     }
     updateState();
-  },[user])
+  },[props.user])
 
   console.log('ProfileMainScreen, user=', user)
 
-  if (props.token === null){
-    props.navigation.navigate('SignInScreen');
-  }
+  // if (props.token === null){
+  //   props.navigation.navigate('SignInScreen');
+  // }
 
   async function deconnecter(){
     console.log('deconnection...')
@@ -179,13 +183,13 @@ function ProfileMainScreen(props) {
           </View>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
 
-            {/* {badges} */}
+            {badges}
 
-          <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
+          {/* <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
           <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Concerts' />
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />
           <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Science-Fiction' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Comédie' />
+          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Comédie' /> */}
 
           </View>
         </View>

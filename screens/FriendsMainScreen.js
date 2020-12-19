@@ -145,7 +145,13 @@ function FriendsMainScreen(props, { navigation }) {
           />
 
           <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 5 }}>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('FriendsProfileScreen')}
+            >
+            
+            <Text 
+            style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 5 }}
+            >
             {x.prenom} {x.nom}
             </Text>
             {/* <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', maxWidth: 300 }}>
@@ -155,6 +161,7 @@ function FriendsMainScreen(props, { navigation }) {
               <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />
               <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Histoire' />
             </View> */}
+            </TouchableOpacity>
           </View>
         </View>
       )

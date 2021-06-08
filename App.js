@@ -2,7 +2,7 @@ console.disableYellowBox = true;
 
 import React from 'react';
 
-import AfficheMainScreen from './screens/AfficheMainScreen';
+import AfficheMainScreen from './screens/Home/HomePage';
 import AfficheSpecialScreen from './screens/AfficheSpecialScreen';
 // import AfficheByTypeScreen from './screens/AfficheByTypeScreen';
 import SignInScreen from './screens/SignInScreen';

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, TouchableOpacity, AsyncStorage  } from 'react-native';
-import { Text, Input } from 'react-native-elements';
+import { Text } from 'react-native-elements';
+import  InputComponent  from '../components/InputComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
-import urlLocal from '../urlDevsGoWizMe'
+// import urlLocal from '../../urlDevsGoWizMe'
 
 function SignUpScreen(props) {
 
@@ -14,7 +15,6 @@ function SignUpScreen(props) {
     const [signUpUserLastname, setSignUpUserLastname] = useState('')
     const [signUpEmail, setSignUpEmail] = useState('')
     const [signUpPassword, setSignUpPassword] = useState('')
-    const [signUpCity, setSignUpCity] = useState('')
 
     const [isVisible, setVisible] = useState(false);
     const [textModal, setTextModal] = useState('');
@@ -23,7 +23,7 @@ function SignUpScreen(props) {
 
     var handleSubmitSignup = async () => {
 
-        const data = await fetch(`${urlLocal}/users/sign-up`, {
+        const data = await fetch(`${process.env.URL_DB}/users/sign-up`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `prenom=${signUpUserFirstname}&nom=${signUpUserLastname}&email=${signUpEmail}&password=${signUpPassword}&ville=${signUpCity}`
@@ -62,16 +62,26 @@ function SignUpScreen(props) {
             <ScrollView contentContainerStyle={{ flexDirection: 'row', alignItems: 'flex-start'}}>
                 <KeyboardAvoidingView behavior="padding" style={{ flex: 1, justifyContent: 'center' }}>
                     <SafeAreaView>
-                        <Input label="prénom" placeholder="entrer mon prénom"
-                            onChangeText={(val) => setSignUpUserFirstname(val)} />
-                        <Input label="nom" placeholder="entrer mon nom"
-                            onChangeText={(val) => setSignUpUserLastname(val)} />
-                        <Input label="ville de résidence" placeholder="entrer ma ville"
-                            onChangeText={(val) => setSignUpCity(val)} />
-                        <Input label="e-mail" placeholder="entrer mon adresse e-mail"
-                            onChangeText={(val) => setSignUpEmail(val)} />
-                        <Input label="mot de passe" placeholder="entrer mon mot de passe" secureTextEntry={true}
-                            onChangeText={(val) => setSignUpPassword(val)} />
+                        <InputComponent 
+                        label="prénom" 
+                        placeholder="entrer mon prénom"
+                        secureTextEntry={false}
+                        usetState = { setSignUpUserFirstname} />
+                        <InputComponent 
+                        label="nom" 
+                        placeholder="entrer mon nom"
+                        secureTextEntry={false}
+                        usetState = { setSignUpUserLastname} />
+                        <InputComponent 
+                        label="e-mail" 
+                        placeholder="entrer mon adresse e-mail"
+                        secureTextEntry={false}
+                        usetState = { setSignUpEmail} />
+                        <InputComponent 
+                        label="mot de passe" 
+                        placeholder="entrer mon mot de passe"
+                        secureTextEntry={true}
+                        usetState = { setSignUpPassword} />
                     </SafeAreaView>
                 </KeyboardAvoidingView>
             </ScrollView>

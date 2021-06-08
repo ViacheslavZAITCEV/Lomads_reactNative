@@ -5,7 +5,7 @@ import { Avatar, Text, Divider, Badge } from 'react-native-elements';
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
-import urlLocal from '../urlDevsGoWizMe'
+// import urlLocal from '../urlDevsGoWizMe'
 
 
 var badgesModel = {
@@ -30,7 +30,7 @@ var badgesModel = {
 }
 
 
-function Profile(props) {
+function ProfileMainScreen(props) {
 
   const [token, setToken] = useState(props.token);
   const [user, setUser] = useState(props.user);
@@ -45,7 +45,7 @@ function Profile(props) {
   useEffect(() => {
     const takeUserBD = async () => {
         if(props.token){
-          const userBD = await fetch(`${urlLocal}/users/getUser`, {
+          const userBD = await fetch(`${process.env.URL_DB}/users/getUser`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               body: `token=${props.token}`
@@ -234,4 +234,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Profile);
+)(ProfileMainScreen);

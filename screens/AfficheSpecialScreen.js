@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Image } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
 
-import Heart from './components/cardEvenement'
+import Heart from './Home/components/cardEvenement'
 
 //Initialisation du store Redux
 import { connect } from 'react-redux';

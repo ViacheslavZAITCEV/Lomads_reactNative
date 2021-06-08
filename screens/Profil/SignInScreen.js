@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
-import urlLocal from '../urlDevsGoWizMe'
+// import urlLocal from '../urlDevsGoWizMe'
 
 function SignInScreen(props, { navigation, addToken }) {
 
@@ -31,7 +31,7 @@ function SignInScreen(props, { navigation, addToken }) {
     var handleSubmitSignin = async () => {
 
         console.log('function handleSubmitSignin');
-        const data = await fetch(`${urlLocal}/users/sign-in`, {
+        const data = await fetch(`${process.env.URL_DB}/users/sign-in`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `email=${signInEmail}&password=${signInPassword}`

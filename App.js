@@ -5,8 +5,8 @@ import React from 'react';
 import AfficheMainScreen from './screens/Home/HomePage';
 import AfficheSpecialScreen from './screens/AfficheSpecialScreen';
 // import AfficheByTypeScreen from './screens/AfficheByTypeScreen';
-import SignInScreen from './screens/SignInScreen';
-import SignUpScreen from './screens/SignUpScreen';
+import SignInScreen from './screens/Profil/SignInScreen';
+import SignUpScreen from './screens/Profil/SignUpScreen';
 
 import FriendsMainScreen from './screens/FriendsMainScreen';
 import FriendsProfileScreen from './screens/FriendsProfileScreen';
@@ -21,7 +21,7 @@ import PlanDetailScreen from './screens/PlanDetailScreen';
 import PlanOrgaScreen from './screens/PlanOrgaScreen';
 // import PlanJoinScreen from './screens/PlanJoinScreen';
 
-import ProfileMainScreen from './screens/ProfileMainScreen';
+import ProfileMainScreen from './screens/Profil/Profil';
 // import ProfileSettingScreen from './screens/ProfileSettingScreen';
 import ProfilePreferenceScreen from './screens/ProfilePreferenceScreen';
 // import ProfileAvatarModifScreen from './screens/ProfileAvatarModifScreen';

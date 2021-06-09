@@ -2,38 +2,27 @@ console.disableYellowBox = true;
 
 import React from 'react';
 
-import AfficheMainScreen from './screens/Home/HomePage';
-import AfficheSpecialScreen from './screens/AfficheSpecialScreen';
-// import AfficheByTypeScreen from './screens/AfficheByTypeScreen';
-import SignInScreen from './screens/Profil/SignInScreen';
-import SignUpScreen from './screens/Profil/SignUpScreen';
-
-import FriendsMainScreen from './screens/FriendsMainScreen';
-import FriendsProfileScreen from './screens/FriendsProfileScreen';
-import FriendsResearchScreen from './screens/FriendsResearchScreen';
-import FriendsAddScreen from './screens/FriendsAddScreen';
-
-// import MessagesMainScreen from './screens/MessagesMainScreen';
-
-import PlanMainScreen from './screens/PlanMainScreen';
-// import PlanInvitationScreen from './screens/PlanInvitationScreen';
-import PlanDetailScreen from './screens/PlanDetailScreen';
-import PlanOrgaScreen from './screens/PlanOrgaScreen';
-// import PlanJoinScreen from './screens/PlanJoinScreen';
-
-import ProfileMainScreen from './screens/Profil/Profil';
-// import ProfileSettingScreen from './screens/ProfileSettingScreen';
-import ProfilePreferenceScreen from './screens/ProfilePreferenceScreen';
-// import ProfileAvatarModifScreen from './screens/ProfileAvatarModifScreen';
-
 import {createAppContainer } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 
-import HeaderLeft from './shared/HeaderLeft';
-import HeaderCity from './shared/HeaderCity';
-import HeaderRightAvatar from './shared/HeaderRightAvatar';
-import HeaderRightSetting from './shared/HeaderRightSetting';
+import AfficheMainScreen from './screens/Home/HomePage';
+import AfficheSpecialScreen from './screens/AfficheSpecialScreen';
+
+import SignInScreen from './screens/Profil/SignInScreen';
+import SignUpScreen from './screens/Profil/SignUpScreen';
+
+import PlanMainScreen from './screens/PlanMainScreen';
+import PlanDetailScreen from './screens/PlanDetailScreen';
+import PlanOrgaScreen from './screens/PlanOrgaScreen';
+
+import ProfileMainScreen from './screens/Profil/Profil';
+import ProfilePreferenceScreen from './screens/ProfilePreferenceScreen';
+
+import HeaderLeft from './screens/components/Header/HeaderLeft';
+import HeaderCity from './screens/components/Header/HeaderCity';
+import HeaderRightAvatar from './screens/components/Header/HeaderRightAvatar';
+import HeaderRightSetting from './screens/components/Header/HeaderRightSetting';
 
 import { Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -119,16 +108,6 @@ var PlanScreens = {
       }
     }
   },
-  // PlanInvitationScreen: {
-  //   screen: PlanInvitationScreen,
-  //   navigationOptions: ({ navigation }) => {
-  //     return {
-  //     headerLeft: () => <HeaderLeft navigation={navigation}/>,
-  //     headerTitle: () => <HeaderCity navigation={navigation}/>,
-  //     headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-  //     }
-  //   }
-  // },
   PlanOrgaScreen: {
     screen: PlanOrgaScreen,
     navigationOptions: ({ navigation }) => {
@@ -139,17 +118,6 @@ var PlanScreens = {
       }
     }
   }
-  // ,
-  // PlanJoinScreen: {
-  //   screen: PlanJoinScreen,
-  //   navigationOptions: ({ navigation }) => {
-  //     return {
-  //     headerLeft: () => <HeaderLeft navigation={navigation}/>,
-  //     headerTitle: () => <HeaderCity navigation={navigation}/>,
-  //     headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-  //     }
-  //   }
-  // }
 }
 
 var PlanStack = createStackNavigator (PlanScreens, {
@@ -238,25 +206,19 @@ var ProfileStack = createStackNavigator (ProfileScreens, {
 
 var BottomNavigator = createBottomTabNavigator(
   {
-    "À l'affiche": AfficheStack,
-    // Messages: MessagesMainScreen,
-    Planifier: PlanStack,
-    // Amis: FriendsStack,
+    Main: AfficheStack,
+    Planing: PlanStack,
     Profil: ProfileStack
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ tintColor }) => {
         var iconCode;
-        if (navigation.state.routeName == "À l'affiche") {
+        if (navigation.state.routeName === "Main") {
           iconCode = <MaterialCommunityIcons name="bulletin-board" size={25} color={tintColor} />
-        } else if (navigation.state.routeName == 'Messages') {
-          iconCode = <Entypo name='chat' size={25} color={tintColor} />
-        } else if (navigation.state.routeName == 'Planifier') {
+        } else if (navigation.state.routeName === 'Planing') {
           iconCode = <MaterialCommunityIcons name='calendar-heart' size={25} color={tintColor} />
-        } else if (navigation.state.routeName == 'Amis') {
-          iconCode = <MaterialCommunityIcons name="account-supervisor-circle" size={25} color={tintColor} />
-        } else if (navigation.state.routeName == 'Profil') {
+        } else if (navigation.state.routeName === 'Profil') {
           iconCode = <FontAwesome name='user-circle' size={21} color={tintColor} />
         }
         return iconCode;

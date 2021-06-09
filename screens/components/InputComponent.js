@@ -1,16 +1,12 @@
+import React from 'react';
+import {Input} from 'react-native-elements';
 
-import Input from 'react-native-elements';
-
-const InputComponent = (
-    label,
-    placeholder,
-    setState
-    )=>{
+function InputComponent (props) {
         return (
-            <Input label={label}
-            placeholder={placeholder}
-            secureTextEntry={secureTextEntry}
-            onChangeText={(val) => setState(val)} />
+            <Input label={props.label}
+            placeholder={props.placeholder}
+            secureTextEntry={props.secureTextEntry}
+            onChangeText={(val) => props.setState(val)} />
         )
     }
 export default InputComponent

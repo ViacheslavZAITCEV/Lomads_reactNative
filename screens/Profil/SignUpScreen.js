@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, TouchableOpacity, AsyncStorage  } from 'react-native';
-import { Text } from 'react-native-elements';
+import { Text, Input } from 'react-native-elements';
 import  InputComponent  from '../components/InputComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -66,22 +66,22 @@ function SignUpScreen(props) {
                         label="prénom" 
                         placeholder="entrer mon prénom"
                         secureTextEntry={false}
-                        usetState = { setSignUpUserFirstname} />
+                        setState = { setSignUpUserFirstname} />
                         <InputComponent 
                         label="nom" 
                         placeholder="entrer mon nom"
                         secureTextEntry={false}
-                        usetState = { setSignUpUserLastname} />
+                        setState = { setSignUpUserLastname} />
                         <InputComponent 
                         label="e-mail" 
                         placeholder="entrer mon adresse e-mail"
                         secureTextEntry={false}
-                        usetState = { setSignUpEmail} />
+                        setState = { setSignUpEmail} />
                         <InputComponent 
                         label="mot de passe" 
                         placeholder="entrer mon mot de passe"
                         secureTextEntry={true}
-                        usetState = { setSignUpPassword} />
+                        setState = { setSignUpPassword} />
                     </SafeAreaView>
                 </KeyboardAvoidingView>
             </ScrollView>

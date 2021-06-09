@@ -159,59 +159,6 @@ var PlanStack = createStackNavigator (PlanScreens, {
 })
 
 // ===============================================================================
-//                        NAVIGATION SCREENS AMIS
-// ===============================================================================
-
-// var FriendsScreens = {
-//   FriendsMainScreen: {
-//     screen: FriendsMainScreen,
-//     navigationOptions: ({ navigation }) => {
-//       return {
-//       headerLeft: () => <HeaderLeft navigation={navigation}/>,
-//       headerTitle: () => <HeaderCity navigation={navigation}/>,
-//       headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-//       }
-//     }
-//   },
-//   FriendsResearchScreen: {
-//     screen: FriendsResearchScreen,
-//     navigationOptions: ({ navigation }) => {
-//       return {
-//       headerLeft: () => <HeaderLeft navigation={navigation}/>,
-//       headerTitle: () => <HeaderCity navigation={navigation}/>,
-//       headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-//       }
-//     }
-//   },
-//   FriendsAddScreen: {
-//     screen: FriendsAddScreen,
-//     navigationOptions: ({ navigation }) => {
-//       return {
-//       headerLeft: () => <HeaderLeft navigation={navigation}/>,
-//       headerTitle: () => <HeaderCity navigation={navigation}/>,
-//       headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-//       }
-//     }
-//   },
-//   FriendsProfileScreen: {
-//     screen: FriendsProfileScreen,
-//     navigationOptions: ({ navigation }) => {
-//       return {
-//       headerLeft: () => <HeaderLeft navigation={navigation}/>,
-//       headerTitle: () => <HeaderCity navigation={navigation}/>,
-//       headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-//       }
-//     }
-//   }
-// }
-
-// var FriendsStack = createStackNavigator (FriendsScreens, {
-//   defaultNavigationOptions: {
-//     headerStyle: { backgroundColor: '#16253D', height: 70 }
-//   }
-// })
-
-// ===============================================================================
 //                        NAVIGATION SCREENS PROFIL
 // ===============================================================================
 

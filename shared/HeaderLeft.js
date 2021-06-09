@@ -9,7 +9,7 @@ export default function HeaderLeft({ navigation }) {
       <Text style={styles.headerText}
       onPress={() => navigation.navigate('AfficheMainScreen')}
       > 
-      GoWizMe 
+      Menu 
       </Text>
     </View>
   )

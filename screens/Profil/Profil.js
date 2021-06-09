@@ -185,12 +185,6 @@ function ProfileMainScreen(props) {
 
             {badges}
 
-          {/* <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Films' />
-          <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value='Concerts' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Fantastique' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Science-Fiction' />
-          <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value='Comédie' /> */}
-
           </View>
         </View>
 

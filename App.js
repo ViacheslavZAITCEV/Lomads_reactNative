@@ -9,7 +9,7 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import AfficheMainScreen from './screens/Home/HomePage';
 import AfficheSpecialScreen from './screens/AfficheSpecialScreen';
 
-import SignInScreen from './screens/Profil/SignInScreen';
+// import SignInScreen from './screens/Profil/SignInScreen';
 import SignUpScreen from './screens/Profil/SignUpScreen';
 
 import PlanMainScreen from './screens/PlanMainScreen';
@@ -141,16 +141,16 @@ var ProfileScreens = {
       }
     }
   },
-  SignInScreen: {
-    screen: SignInScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      headerLeft: () => <HeaderLeft navigation={navigation}/>,
-      headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-      }
-    }
-  },
+  // SignInScreen: {
+  //   screen: SignInScreen,
+  //   navigationOptions: ({ navigation }) => {
+  //     return {
+  //     headerLeft: () => <HeaderLeft navigation={navigation}/>,
+  //     headerTitle: () => <HeaderCity navigation={navigation}/>,
+  //     headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+  //     }
+  //   }
+  // },
   SignUpScreen: {
     screen: SignUpScreen,
     navigationOptions: ({ navigation }) => {
@@ -206,7 +206,7 @@ var ProfileStack = createStackNavigator (ProfileScreens, {
 
 var BottomNavigator = createBottomTabNavigator(
   {
-    Main: AfficheStack,
+    Home: AfficheStack,
     Planing: PlanStack,
     Profil: ProfileStack
   },
@@ -214,21 +214,21 @@ var BottomNavigator = createBottomTabNavigator(
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ tintColor }) => {
         var iconCode;
-        if (navigation.state.routeName === "Main") {
-          iconCode = <MaterialCommunityIcons name="bulletin-board" size={25} color={tintColor} />
+        if (navigation.state.routeName === "Home") {
+          iconCode = <FontAwesome name="home" size={30} color={tintColor} />
         } else if (navigation.state.routeName === 'Planing') {
           iconCode = <MaterialCommunityIcons name='calendar-heart' size={25} color={tintColor} />
         } else if (navigation.state.routeName === 'Profil') {
-          iconCode = <FontAwesome name='user-circle' size={21} color={tintColor} />
+          iconCode = <FontAwesome name='user-o' size={21} color={tintColor} />
         }
         return iconCode;
       },
     }),
     tabBarOptions: {
-      activeTintColor: '#EFB509',
+      activeTintColor: '#FF8200',
       inactiveTintColor: '#F8F5F2',
-      activeBackgroundColor: '#16253D',
-      inactiveBackgroundColor: '#16253D',
+      activeBackgroundColor: '#353C3F',
+      inactiveBackgroundColor: '#353C3F',
     },
   }
 );

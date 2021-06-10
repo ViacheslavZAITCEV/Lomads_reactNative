@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, AsyncStorage, ScrollView, Button, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import { Text, Input } from 'react-native-elements';
+import { Text} from 'react-native-elements';
+import  InputComponent  from '../components/InputComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
-// import urlLocal from '../urlDevsGoWizMe'
+import urlLocal from '../../urlDevsGoWizMe'
 
 function SignInScreen(props, { navigation, addToken }) {
 
@@ -31,7 +32,7 @@ function SignInScreen(props, { navigation, addToken }) {
     var handleSubmitSignin = async () => {
 
         console.log('function handleSubmitSignin');
-        const data = await fetch(`${process.env.URL_DB}/users/sign-in`, {
+        const data = await fetch(`${urlLocal}/users/sign-in`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `email=${signInEmail}&password=${signInPassword}`
@@ -57,45 +58,32 @@ function SignInScreen(props, { navigation, addToken }) {
         }
     }
 
-    // if (userExists) {
-    //     return <Redirect to='/AfficheMainScreen' />
-    // }
-
-
-    // var tabErrorsSignin = listErrorsSignin.map((error, i) => {
-    //     return (<p>{error}</p>)
-    // })
-
     return (
-        <View style={{ flex: 1 }}>
+        <View >
 
-            <View style={{ backgroundColor: '#E55039' }}>
-                <Text style={{ color: 'white', textAlign: 'center', fontSize: 18, fontWeight: 'bold', maxWidth: "100%", marginTop: 10, marginBottom: 10 }}>
-                    SE CONNECTER
-                </Text>
-            </View>
-
-            <ScrollView contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <KeyboardAvoidingView behavior="padding" style={{ flex: 1, justifyContent: 'center' }}>
+            <ScrollView contentContainerStyle={{ alignItems: 'center', justifyContent: 'center' }}>
+                <KeyboardAvoidingView behavior="padding" style={{  justifyContent: 'center' }}>
                     <SafeAreaView>
-                        <Input label="e-mail" placeholder="entrer mon adresse e-mail"
-                            onChangeText={(val) => setSignInEmail(val)} />
+                        <InputComponent
+                        label="e-mail"
+                        secureTextEntry={false}
+                        placeholder="e-mail"
+                        setState={setSignInEmail} />
 
-                        <Input label="mot de passe" placeholder="entrer mon mot de passe" secureTextEntry={true}
-                            onChangeText={(val) => setSignInPassword(val)} />
-                        <Button
-                            title="Pas encore de profil? Créer mon profil"
-                            onPress={() => props.navigation.navigate('SignUpScreen')}
-                        />
+                        <InputComponent
+                        label="mot de passe" 
+                        placeholder="password" 
+                        secureTextEntry={true}
+                        setState={setSignInPassword} />
                     </SafeAreaView>
                 </KeyboardAvoidingView>
             </ScrollView>
 
-            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+            <View style={{  justifyContent: 'flex-end' }}>
                 <TouchableOpacity
                     onPress={() => handleSubmitSignin()}
                     style={{
-                        width: '100%', height: 40, backgroundColor: '#D70026',
+                        width: '100%', height: 40, backgroundColor: '#FF8200',
                         alignItems: 'center', justifyContent: 'center'
                     }}
                 >

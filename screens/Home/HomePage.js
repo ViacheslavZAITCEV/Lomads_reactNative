@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 
 import Heart from './components/cardEvenement'
 
-// import urlLocal from process.env.URL_DB
+import urlLocal from '../../urlDevs'
 
 const styles = StyleSheet.create({
   imageBackground: {
@@ -45,11 +45,29 @@ function HomePage(props) {
 
   useEffect(() => {
     const getEvents = async () => {
-      const data = await fetch(`${process.env.URL_DB}/pullEvents`)
-      const body = await data.json()
-      setEventsList(body)
+      try{
+        const data = await fetch(`${urlLocal}/pullEvents`)
+        const body = await data.json()
+        setEventsList(body)
+      }catch(e){
+         console.log(e)
+      }
     }
-    getEvents()
+      getEvents()
+  }, [])
+
+    useEffect(() => {
+      const getUsers = async () => {
+      try{
+        const data = await fetch(`${urlLocal}/users/pullUsers`)
+        const body = await data.json()
+        setUsersList(body.users)
+        // console.log('users=', body)
+      }catch(e){
+         console.log(e)
+      }
+    }
+    getUsers()
   }, [])
 
 
@@ -57,7 +75,7 @@ function HomePage(props) {
     const updateUser = async () => {
         if(props.token){
 
-        const userBD = await fetch(`${process.env.URL_DB}/users/getUser`, {
+        const userBD = await fetch(`${urlLocal}/users/getUser`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `token=${props.token}`
@@ -121,7 +139,7 @@ function HomePage(props) {
         <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
           <Card.Image
             style={{ width: 170, height: 230 }}
-            source={{ uri: userMap.image }}
+            source={{ uri: userMap.avatar }}
             resizeMode="cover"
             onPress={() => {
               props.onAddIdEvent(userMap._id);
@@ -129,9 +147,8 @@ function HomePage(props) {
             }}
           />
           <Text style={{ textAlign: 'center', fontWeight: 'bold', padding: 1, textTransform: 'uppercase' }}>{userMap.nom}</Text>
-          {/* <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text> */}
           <View style={{ alignItems: 'center', margin: 2 }}>
-            <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value={userMap.categories[0]} />
+            <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value={userMap.nom} />
           </View>
         </Card>
       )

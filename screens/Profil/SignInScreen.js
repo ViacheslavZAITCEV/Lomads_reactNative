@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, AsyncStorage, ScrollView, Button, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { View,  ScrollView, Button, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { Text} from 'react-native-elements';
 import  InputComponent  from '../components/InputComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,14 +7,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
-import urlLocal from '../../urlDevsGoWizMe'
+import urlLocal from '../../urlDevs'
 
 function SignInScreen(props, { navigation, addToken }) {
 
     const [signInEmail, setSignInEmail] = useState('')
     const [signInPassword, setSignInPassword] = useState('')
-
-    const [userExists, setUserExists] = useState(false)
 
     const [listErrorsSignin, setErrorsSignin] = useState('')
 
@@ -31,30 +29,27 @@ function SignInScreen(props, { navigation, addToken }) {
 
     var handleSubmitSignin = async () => {
 
-        console.log('function handleSubmitSignin');
-        const data = await fetch(`${urlLocal}/users/sign-in`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `email=${signInEmail}&password=${signInPassword}`
-        })
-        const body = await data.json()
+        try {
+            console.log('function handleSubmitSignin');
+            const data = await fetch(`${urlLocal}/users/sign-in`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `email=${signInEmail}&password=${signInPassword}`
+            })
+            const body = await data.json()
 
-        console.log('reponse Backend:', body);
-        if (body.response === true) {
-            try {
-                AsyncStorage.setItem('user', body.token);
-            } catch (e) {
-                console.log(e);
+            console.log('reponse Backend:', body);
+            if (body.response === true) {
+                
+                //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
+                props.addToken(body.token);
+                console.log('user est connecté');
+                props.navigation.goBack();
+            } else {
+                setErrorsSignin(body.error)
             }
-            setUserExists(true);
-
-            //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
-            props.addToken(body.token);
-            props.addIdUser(body._id);
-            console.log('user est connecté');
-            // props.navigation.goBack();
-        } else {
-            setErrorsSignin(body.error)
+        } catch (e) {
+            console.log(e);
         }
     }
 

@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import {Card, Text, Badge} from 'react-native-elements';
 
 import { AntDesign } from '@expo/vector-icons';
-import urlLocal from '../../../urlDevsGoWizMe';
+import urlLocal from '../../../urlDevs';
 
 
 

@@ -8,7 +8,7 @@ import Heart from './Home/components/cardEvenement'
 //Initialisation du store Redux
 import { connect } from 'react-redux';
 
-import urlLocal from '../urlDevsGoWizMe'
+import urlLocal from '../urlDevs'
 
 function AfficheSpecialScreen(props) {
 

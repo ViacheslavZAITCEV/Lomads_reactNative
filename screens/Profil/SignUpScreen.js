@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, KeyboardAvoidingView, TouchableOpacity, AsyncStorage  } from 'react-native';
+import { View, ScrollView, KeyboardAvoidingView, TouchableOpacity  } from 'react-native';
 import { Text } from 'react-native-elements';
 import  InputComponent  from '../components/InputComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,10 +7,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
-import urlLocal from '../../urlDevsGoWizMe'
+import urlLocal from '../../urlDevs'
 const URL_BE = process.env.REACT_APP_URL_BE
-const URL = "http://198.168.1.98:3000"
-console.log(process.env)
+
 
 
 function SignUpScreen(props) {
@@ -21,34 +20,26 @@ function SignUpScreen(props) {
     const [confPassword, setConfUpPassword] = useState('')
     
     var handleSubmitSignup = async () => {
-        console.log('URL=', URL)
-        console.log('URL_BE=', URL_BE)
-        console.log(process.env)
-        console.log(process.env.development)
 
         if (signUpUserFirstname && signUpEmail && signUpPassword ){
             const body = `prenom=${signUpUserFirstname}&email=${signUpEmail}&password=${signUpPassword}` 
             console.log("body=", body)
-            // const data = await fetch(`${urlLocal}/users/sign-up`, {
-            const data = await fetch(`http://192.168.1.98:3000/users/sign-up`, {
+            const data = await fetch(`${urlLocal}/users/sign-up`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body : body,
             })
 
-            console.log("object")
             const request = await data.json()
-            console.log('request=', request)
+            console.log('reponse Backend=', request)
 
-            if (borequestdy.response) {
-                AsyncStorage.setItem('user', request.token);
-                setUserExists(true)
+            if (request.response) {
                 //si l'utilisateur a bien été enregistré en BDD (le sign-up a fonctionné), on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
                 props.addToken(request.token);
                 props.addIdUser(request._id);
-                // props.addUser(userBE);
+                props.addUser(userBE);
                 console.log('user est enregistré');
-                props.navigation.navigate('AfficheMainScreen');
+                // props.navigation.goBack();
             } else {
                 setErrorsSignup(request.error)
             }

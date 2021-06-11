@@ -5,7 +5,7 @@ import { Text, Avatar, Image } from 'react-native-elements';
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
-import urlLocal from '../urlDevsGoWizMe'
+import urlLocal from '../urlDevs'
 
 
 function PlanDetailScreen(props, { navigation }) {

@@ -4,7 +4,7 @@ import { Text, CheckBox } from 'react-native-elements';
 
 import { connect } from 'react-redux';
 
-import urlLocal from '../urlDevsGoWizMe'
+import urlLocal from '../urlDevs'
 
 
 function ProfilePreferenceScreen(props) {

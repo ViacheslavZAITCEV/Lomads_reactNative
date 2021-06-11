@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
-import urlLocal from '../urlDevsGoWizMe'
+import urlLocal from '../urlDevs'
 
 const styles = StyleSheet.create({
   imageBackground: {

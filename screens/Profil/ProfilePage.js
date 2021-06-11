@@ -1,43 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { View, TouchableOpacity, AsyncStorage  } from 'react-native';
+import { View, TouchableOpacity  } from 'react-native';
 import { Avatar, Text, Divider, Badge } from 'react-native-elements';
+import Changer from './components/Changer'
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
-// import urlLocal from '../urlDevsGoWizMe'
+import urlLocal from '../../urlDevs'
 
 
-var badgesModel = {
-  cinema :  'Films' ,
-  theatre:  'Théatre' ,
-  exposition:  'Expositions' ,
-  concert:  'Concerts' ,
-  
-  fantastique:  'Fantastique' ,
-  scienceFiction:   'Science-Fiction' ,
-  comedie:  'Comédie' ,
-  drame:  'Drame' ,
-  spectacleMusical:  'Musical' ,
-  contemporain:  'Contemporain' ,
-  oneManShow:  'One-Man Show' ,
-  musiqueClassique:  'Classique' ,
-  musiqueFrancaise:  'Musique Française' ,
-  musiquePop:  'Pop' ,
-  musiqueRock:  'Rock' ,
-  beauxArts :  'Beaux-Arts' ,
-  histoireCivilisations:  'Civilisations' ,
-}
-
-
-function ProfileMainScreen(props) {
+function ProfilePage(props) {
 
   const [token, setToken] = useState(props.token);
   const [user, setUser] = useState(props.user);
 
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
-  const [ville, setVille] = useState('');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+
+
   const [avatar, setAvatar] = useState('https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png');
   
   const [badges, setBadges] = useState([]);
@@ -45,7 +27,7 @@ function ProfileMainScreen(props) {
   useEffect(() => {
     const takeUserBD = async () => {
         if(props.token){
-          const userBD = await fetch(`${process.env.URL_DB}/users/getUser`, {
+          const userBD = await fetch(`${urlLocal}/users/getUser`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               body: `token=${props.token}`
@@ -71,7 +53,6 @@ function ProfileMainScreen(props) {
       if (user !== null){
         setPrenom(user.prenom);
         setNom(user.nom);
-        setVille(user.ville);
         setAvatar(user.avatar);
         if (user.preferences !== undefined && user.preferences.length > 0){
           var prefs = user.preferences[0];
@@ -125,88 +106,64 @@ function ProfileMainScreen(props) {
 
   }
 
-  if (props.token === null){
-    return(
-      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-      <TouchableOpacity
-        onPress={ ()=> {
-          props.navigation.navigate('SignInScreen');
-        }}
-        style={{
-          width: '100%', height: 40, backgroundColor: '#D70026',
-          alignItems: 'center', justifyContent: 'center'
-        }}
-      >
-        <Text 
-          style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
-              Me connecter
-        </Text>
-      </TouchableOpacity>
-    </View>
-    )
-  }else{
+  return (
+    <View style={{ flex: 1 }}>
 
-
-    return (
-      <View style={{ flex: 1 }}>
-
-        {/* AVATAR, NOM, PRENOM, VILLE */}
-        {console.log('ProfilMainScreen, view. user=',user)}
-        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-          <Avatar
-            size='xlarge'
-            marginTop={10}
-            marginBottom={10}
-            rounded
-            // onPress={() => navigation.navigate('ProfileAvatarModifScreen')}          
-            source={{
-              uri :  user ? user.avatar : ' '
-              // uri:
-              //   'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-            }}
-          />
-          <Text h4>{prenom} {nom}</Text>
-            
-          <Text h5>{ville}</Text>
-          <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#EFB509', width: 250, height: 2 }} />
-        </View>
-
-        {/* PREFERENCES */}
-
+      {/* AVATAR, NOM, PRENOM, VILLE */}
+      {console.log('ProfilMainScreen, view. user=',user)}
+      <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+  
         <View>
           <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
             <Text h4 fontWeight='bold'
               onPress={() => props.navigation.navigate('ProfilePreferenceScreen')}
             >
-              Mes préférences
+              My profil
             </Text>
           </View>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
-
-            {badges}
-
-          </View>
+          <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#EFB509', width: 250, height: 2 }} />
         </View>
+        <Avatar
+          size='xlarge'
+          marginTop={10}
+          marginBottom={10}
+          rounded
+          // onPress={() => navigation.navigate('ProfileAvatarModifScreen')}          
+          source={{
+            uri :  user ? user.avatar : 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'
 
-        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-          <TouchableOpacity
-            onPress={ ()=> {
-              deconnecter()
-            }}
-            style={{
-              width: '100%', height: 40, backgroundColor: '#D70026',
-              alignItems: 'center', justifyContent: 'center'
-            }}
-          >
-            <Text 
-              style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
-                  Me déconnecter
-            </Text>
-          </TouchableOpacity>
-        </View>
+          }}
+        />
+        <Text h4>{prenom} {nom}</Text>
+          
+        <Changer
+          label="e-mail"
+          secureTextEntry={false}
+          placeholder='email'
+          state={email}
+          setState={setEmail}
+        />
       </View>
-    )
-  }
+
+
+      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+        <TouchableOpacity
+          onPress={ ()=> {
+            deconnecter()
+          }}
+          style={{
+            width: '100%', height: 40, backgroundColor: '#FF8200',
+            alignItems: 'center', justifyContent: 'center'
+          }}
+        >
+          <Text 
+            style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
+                Sign out
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
 };
 
 function mapStateToProps(state){
@@ -228,4 +185,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProfileMainScreen);
+)(ProfilePage);

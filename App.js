@@ -79,7 +79,7 @@ var AfficheScreens = {
 
 var AfficheStack = createStackNavigator (AfficheScreens, {
   defaultNavigationOptions: {
-    headerStyle: { backgroundColor: '#16253D', height: 70 }
+    headerStyle: { backgroundColor: '#353C3F', height: 70 }
   }
 })
 
@@ -122,7 +122,7 @@ var PlanScreens = {
 
 var PlanStack = createStackNavigator (PlanScreens, {
   defaultNavigationOptions: {
-    headerStyle: { backgroundColor: '#16253D', height: 70 }
+    headerStyle: { backgroundColor: '#353C3F', height: 70 }
   }
 })
 
@@ -195,7 +195,7 @@ var ProfileScreens = {
 
 var ProfileStack = createStackNavigator (ProfileScreens, {
   defaultNavigationOptions: {
-    headerStyle: { backgroundColor: '#16253D', height: 70 }
+    headerStyle: { backgroundColor: '#353C3F', height: 70 }
   }
 })
 

@@ -2,7 +2,7 @@ import React from "react";
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
-import ProfileMainScreen from './ProfilePage';
+import ProfilePage from './ProfilePage';
 import Connexion from "./UserConnexion";
 
 
@@ -14,7 +14,7 @@ function Profil(props) {
     )
   }else{
     return (
-      <ProfileMainScreen />
+      <ProfilePage />
     )
   }
 };

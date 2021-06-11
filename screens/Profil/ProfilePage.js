@@ -11,86 +11,42 @@ import urlLocal from '../../urlDevs'
 
 function ProfilePage(props) {
 
-  const [token, setToken] = useState(props.token);
   const [user, setUser] = useState(props.user);
 
-  const [nom, setNom] = useState('');
-  const [prenom, setPrenom] = useState('');
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-
-
-  const [avatar, setAvatar] = useState('https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png');
+  const [nom, setNom] = useState(props.user.nom);
+  const [prenom, setPrenom] = useState(props.user.prenom);
+  const [email, setEmail] = useState(props.user.email);
+  const [avatar, setAvatar] = useState(props.user ? props.user.avatar : 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png');
   
-  const [badges, setBadges] = useState([]);
 
-  useEffect(() => {
-    const takeUserBD = async () => {
-        if(props.token){
-          const userBD = await fetch(`${urlLocal}/users/getUser`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              body: `token=${props.token}`
-          })
-          const body = await userBD.json();
-          console.log('ProfileMainScreen, updateUser(), user = ', body);
-          setUser(body);
-          setNom(body.nom);
-          setPrenom(body.prenom);
-          setAvatar(body.avatar);
+  // useEffect(() => {
+  //   const takeUserBD = async () => {
+  //       if(props.token){
+  //         const userBD = await fetch(`${urlLocal}/users/getUser`, {
+  //             method: 'POST',
+  //             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  //             body: `token=${props.token}`
+  //         })
+  //         const body = await userBD.json();
+  //         console.log('ProfilePage, updateUser(), user = ', body);
+  //         setUser(body);
+  //         setNom(body.nom);
+  //         setPrenom(body.prenom);
+  //         setAvatar(body.avatar);
 
-        }else{
-          setUser(null);
-        }
-    }
-    takeUserBD ();
-  },[props.token])
-
+  //       }else{
+  //         setUser(null);
+  //       }
+  //   }
+  //   takeUserBD ();
+  // },[props.user])
 
 
-  useEffect(()=>{
-    const updateState = ()=>{
-      if (user !== null){
-        setPrenom(user.prenom);
-        setNom(user.nom);
-        setAvatar(user.avatar);
-        if (user.preferences !== undefined && user.preferences.length > 0){
-          var prefs = user.preferences[0];
-          var badgesTemp = [];
-          console.log('user.preferences[0]=', user.preferences[0]);
-          console.log('type of prefs=', typeof prefs);
-          var keys = Object.getOwnPropertyNames(prefs);
-          console.log('keys=', keys);
-          keys.forEach( key => {
-            console.log('prefs[key]=', prefs[key]);
-            console.log('key=', key);
-            console.log('badgesModel[key]=', badgesModel[key]);
-            if (prefs[key] === true ){
-              if(key === 'cinema' || key === 'theatre' || key === 'exposition' || key === 'concert'){
-                badgesTemp.push(
-                  // { style : `backgroundColor: '#3C6382', margin: 1`, value : badgesModel[key] }
-                <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value={badgesModel[key]} />
-                )
-              }else{
-                badgesTemp.push(
-                  // { style : `backgroundColor: '#E55039', margin: 1`, value : badgesModel[key] }
-                  <Badge badgeStyle={{ backgroundColor: '#E55039', margin: 1 }} value={badgesModel[key]} />
-                )
-              }
-              setBadges(badgesTemp);
-            }        
-          });
-        }
-      }
-    }
-    updateState();
-  },[props.user])
 
-  console.log('ProfileMainScreen, user=', user)
 
-  // if (props.token === null){
-  //   props.navigation.navigate('SignInScreen');
-  // }
+
+  console.log('=ProfilePage, user=', user)
+
 
   async function deconnecter(){
     console.log('deconnection...')
@@ -100,8 +56,8 @@ function ProfilePage(props) {
       console.log(e);
     }
     console.log('deconnection...en cours...');
-    setToken(null);
-    props.delToken();
+    setUser({});
+    props.signOut();
     console.log('deconnection...complets');
 
   }
@@ -109,8 +65,6 @@ function ProfilePage(props) {
   return (
     <View style={{ flex: 1 }}>
 
-      {/* AVATAR, NOM, PRENOM, VILLE */}
-      {console.log('ProfilMainScreen, view. user=',user)}
       <View style={{ flexDirection: 'column', alignItems: 'center' }}>
   
         <View>
@@ -168,7 +122,6 @@ function ProfilePage(props) {
 
 function mapStateToProps(state){
   return {
-    token: state.tokenReducer,
     user : state.userReducer
   }
 }
@@ -176,8 +129,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch) {
   return {
       // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
-      delToken: function () {
-          dispatch({ type: 'deconnecter' })
+      signOut: function () {
+          dispatch({ type: 'user', user : {} })
       }
   }
 }

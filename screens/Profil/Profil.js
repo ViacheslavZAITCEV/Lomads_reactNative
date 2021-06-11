@@ -8,7 +8,9 @@ import Connexion from "./UserConnexion";
 
 function Profil(props) {
 
-  if (props.token === null){
+  console.log('props.user=', props.user)
+
+  if ( !props.user.token ){
     return(
       <Connexion />
     )
@@ -21,7 +23,7 @@ function Profil(props) {
 
 function mapStateToProps(state){
   return {
-    token: state.tokenReducer,
+    user: state.userReducer,
   }
 }
 

@@ -19,12 +19,12 @@ function SignInScreen(props, { navigation, addToken }) {
 
     useEffect(() => {
         function goToBack() {
-            if (props.token) {
+            if (props.user) {
                 props.navigation.navigate('AfficheMainScreen');
             }
         }
         goToBack();
-    }, [props.token])
+    }, [props.user])
 
 
     var handleSubmitSignin = async () => {
@@ -42,9 +42,9 @@ function SignInScreen(props, { navigation, addToken }) {
             if (body.response === true) {
                 
                 //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
-                props.addToken(body.token);
+                props.setUser(body.user);
                 console.log('user est connecté');
-                props.navigation.goBack();
+                // props.navigation.goBack();
             } else {
                 setErrorsSignin(body.error)
             }
@@ -94,12 +94,9 @@ function SignInScreen(props, { navigation, addToken }) {
 function mapDispatchToProps(dispatch) {
     return {
         // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
-        addToken: function (token) {
-            dispatch({ type: 'saveToken', token })
+        setUser: function (user) {
+            dispatch({ type: 'user', user })
         },
-        addIdUser: function (idUser) {
-            dispatch({ type: 'addIdUser', idUser })
-        }
     }
 }
 

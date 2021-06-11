@@ -39,7 +39,7 @@ function HomePage(props) {
 
   const [eventsList, setEventsList] = useState([]);
   const [usersList, setUsersList] = useState([]);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(props.user);
 
 
 
@@ -207,9 +207,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    token: state.tokenReducer,
     user : state.userReducer,
-    currentCity: state.currentCityReducer
   }
 }
 

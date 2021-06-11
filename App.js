@@ -24,20 +24,20 @@ import HeaderCity from './screens/components/Header/HeaderCity';
 import HeaderRightAvatar from './screens/components/Header/HeaderRightAvatar';
 import HeaderRightSetting from './screens/components/Header/HeaderRightSetting';
 
-import { Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 
-import tokenReducer from './reducers/token.reducer';
-import idEventReducer from './reducers/idEvent.reducer';
-import idSortieReducer from './reducers/idSortie.reducer';
-import newSortieReducer from './reducers/newSortie.reducer';
-import idUserReducer from './reducers/idUser.reducer';
+// import tokenReducer from './reducers/token.reducer';
+// import idEventReducer from './reducers/idEvent.reducer';
+// import idSortieReducer from './reducers/idSortie.reducer';
+// import newSortieReducer from './reducers/newSortie.reducer';
+// import idUserReducer from './reducers/idUser.reducer';
 import userReducer from './reducers/user.reduceur';
 
-const store = createStore(combineReducers({tokenReducer,idEventReducer,idSortieReducer,newSortieReducer,idUserReducer, userReducer}));
-console.log('store.getState=', store.getState.userReduceur)
+const store = createStore(combineReducers({userReducer}));
+// console.log('store.getState=', store.getState.userReduceur)
 
 // ===============================================================================
 //                        NAVIGATION SCREENS A L'AFFICHE

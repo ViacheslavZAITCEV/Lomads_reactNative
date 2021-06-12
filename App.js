@@ -1,4 +1,3 @@
-console.disableYellowBox = true;
 
 import React from 'react';
 
@@ -8,21 +7,18 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 
 import AfficheMainScreen from './screens/Home/HomePage';
 import AfficheSpecialScreen from './screens/AfficheSpecialScreen';
-
-// import SignInScreen from './screens/Profil/SignInScreen';
-import SignUpScreen from './screens/Profil/SignUpScreen';
+import CreateEventScreen from './screens/events/CreateEventScreen';
 
 import PlanMainScreen from './screens/PlanMainScreen';
 import PlanDetailScreen from './screens/PlanDetailScreen';
 import PlanOrgaScreen from './screens/PlanOrgaScreen';
 
 import ProfileMainScreen from './screens/Profil/Profil';
-import ProfilePreferenceScreen from './screens/ProfilePreferenceScreen';
+import ProfileAvatarModifScreen from './screens/Profil/ProfileAvatarModifScreen';
 
 import HeaderLeft from './screens/components/Header/HeaderLeft';
 import HeaderCity from './screens/components/Header/HeaderCity';
 import HeaderRightAvatar from './screens/components/Header/HeaderRightAvatar';
-import HeaderRightSetting from './screens/components/Header/HeaderRightSetting';
 
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -36,6 +32,7 @@ import {Provider} from 'react-redux';
 // import idUserReducer from './reducers/idUser.reducer';
 import userReducer from './reducers/user.reduceur';
 
+// LogBox.ignoreAllLogs(true);
 const store = createStore(combineReducers({userReducer}));
 // console.log('store.getState=', store.getState.userReduceur)
 
@@ -64,17 +61,6 @@ var AfficheScreens = {
       }
     }
   },
-  // AfficheByTypeScreen: {
-  //   screen: AfficheByTypeScreen,
-  //   navigationOptions: ({ navigation }) => {
-  //     return {
-  //     headerLeft: () => <HeaderLeft navigation={navigation}/>,
-  //     headerTitle: () => <HeaderCity navigation={navigation}/>,
-  //     headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-  //     }
-  //   }
-  // },
-
 }
 
 var AfficheStack = createStackNavigator (AfficheScreens, {
@@ -90,6 +76,16 @@ var AfficheStack = createStackNavigator (AfficheScreens, {
 var PlanScreens = {
   PlanMainScreen: {
     screen: PlanMainScreen,
+    navigationOptions: ({ navigation }) => {
+      return {
+      headerLeft: () => <HeaderLeft navigation={navigation}/>,
+      headerTitle: () => <HeaderCity navigation={navigation}/>,
+      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      }
+    }
+  },
+  CreateEventScreen: {
+    screen: CreateEventScreen,
     navigationOptions: ({ navigation }) => {
       return {
       headerLeft: () => <HeaderLeft navigation={navigation}/>,
@@ -141,56 +137,16 @@ var ProfileScreens = {
       }
     }
   },
-  // SignInScreen: {
-  //   screen: SignInScreen,
-  //   navigationOptions: ({ navigation }) => {
-  //     return {
-  //     headerLeft: () => <HeaderLeft navigation={navigation}/>,
-  //     headerTitle: () => <HeaderCity navigation={navigation}/>,
-  //     headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-  //     }
-  //   }
-  // },
-  SignUpScreen: {
-    screen: SignUpScreen,
+  ProfileAvatarModifScreen: {
+    screen: ProfileAvatarModifScreen,
     navigationOptions: ({ navigation }) => {
       return {
       headerLeft: () => <HeaderLeft navigation={navigation}/>,
       headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
+      headerRight: () => <HeaderRightSetting navigation={navigation}/>
       }
     }
-  },
-  // ProfileSettingScreen: {
-  //   screen: ProfileSettingScreen,
-  //   navigationOptions: ({ navigation }) => {
-  //     return {
-  //     headerLeft: () => <HeaderLeft navigation={navigation}/>,
-  //     headerTitle: () => <HeaderCity navigation={navigation}/>,
-  //     headerRight: () => <HeaderRightSetting navigation={navigation}/>
-  //     }
-  //   }
-  // },
-  ProfilePreferenceScreen: {
-    screen: ProfilePreferenceScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      headerLeft: () => <HeaderLeft navigation={navigation}/>,
-      headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-      }
-    }
-  },
-  // ProfileAvatarModifScreen: {
-  //   screen: ProfileAvatarModifScreen,
-  //   navigationOptions: ({ navigation }) => {
-  //     return {
-  //     headerLeft: () => <HeaderLeft navigation={navigation}/>,
-  //     headerTitle: () => <HeaderCity navigation={navigation}/>,
-  //     headerRight: () => <HeaderRightSetting navigation={navigation}/>
-  //     }
-  //   }
-  // }
+  }
 }
 
 var ProfileStack = createStackNavigator (ProfileScreens, {

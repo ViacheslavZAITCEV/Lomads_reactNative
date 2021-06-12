@@ -91,8 +91,8 @@ function HomePage(props) {
   },[props.user])
 
 
-  let events = eventsList.map((event,i) => <CardEvenement event={event} i={i} />)
-  events.push(<CreateEvent />)
+  let events = eventsList.map((event,i) => <CardEvenement event={event} key={i} />)
+  events.push(<CreateEvent navigation={props.navigation} />)
 
   const users = usersList.map((userMap, i) => {
     console.log ('userMap=', userMap)

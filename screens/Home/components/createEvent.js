@@ -1,16 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import {Card, Text, Badge} from 'react-native-elements';
 
 import { FontAwesome } from '@expo/vector-icons';
 
-const newEvent = ()=>{
-  console.log("create Event")
-  
-}
 
-
-function CreateEvent (){
+function CreateEvent (props){
 
   return (
     <Card
@@ -19,7 +14,7 @@ function CreateEvent (){
       <Card.Image
         style={{ width: 130, height: 170, justifyContent: 'center', alignItems: 'center' }}
         resizeMode="cover"
-        onPress={ () => newEvent() }
+        onPress={ ()=> props.navigation.navigate('CreateEventScreen') }
       >
         <FontAwesome 
         name='plus' 

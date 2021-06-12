@@ -14,7 +14,7 @@ function HeaderRightAvatar(props) {
       ? <Avatar
         size='small'
         rounded
-        onPress={props.navigation.navigate('ProfileMainScreen')}
+        onPress={()=>props.navigation.navigate('ProfileMainScreen')}
         source={{ uri: props.user.avatar }}
       />
       : <FontAwesome name='user-o' size={25} color="#FF8200" />

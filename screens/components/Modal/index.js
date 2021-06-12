@@ -1,5 +1,6 @@
 import React from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import { color } from "react-native-reanimated";
 
 const ModalComponent = (props) => {
   const type = props.type
@@ -19,7 +20,13 @@ const ModalComponent = (props) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>{message}</Text>
+            <Text style={{
+              marginBottom: 15,
+              textAlign: "center",
+              color: props.type ==="error" ? "#E7472E" : "#353C3F",
+            }}>
+              {message}
+            </Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModal(false)}

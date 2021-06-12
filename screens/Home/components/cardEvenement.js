@@ -10,7 +10,7 @@ function cardEvenement (props){
 
   return (
     <Card
-    key={i}
+    key={props.key}
     containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }}>
       <Card.Image
         style={{ width: 130, height: 170 }}

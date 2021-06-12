@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, TouchableOpacity  } from 'react-native';
 import { Text } from 'react-native-elements';
-import  InputComponent  from '../components/InputComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import  InputComponent  from '../components/InputComponent';
+import ModalComponent from '../components/Modal'
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
 
 import urlLocal from '../../urlDevs'
 const URL_BE = process.env.REACT_APP_URL_BE
-
 
 
 function SignUpScreen(props) {
@@ -19,9 +19,33 @@ function SignUpScreen(props) {
     const [signUpPassword, setSignUpPassword] = useState('')
     const [confPassword, setConfUpPassword] = useState('')
     
-    var handleSubmitSignup = async () => {
+    const [toModal, setToModal]= useState({})
+    const [modal, setModal] = useState(false)
+    
+    const modalOn = (type, message)=>{
+        setToModal( {type, message, setModal, modal} )   
+        setModal(true)
+    }
 
-        if (signUpUserFirstname && signUpEmail && signUpPassword ){
+    var handleSubmitSignup = async () => {
+        let errors = []
+        if (signUpUserFirstname === ""){
+            err = true
+            errors.push('name is empty')
+            console.log('name is empty');
+        }
+        if (signUpEmail === ""){
+            errors.push('email is incompete')
+            console.log('email is incompete');
+        }
+        if (signUpPassword === "" || signUpPassword !== confPassword){
+            errors.push('passwords are wrongs')
+            console.log('passwords are wrongs');
+            console.log('pass=',signUpPassword, 'conf=',  confPassword);
+        }
+
+
+        if ( errors.length === 0 ){
             const body = `prenom=${signUpUserFirstname}&email=${signUpEmail}&password=${signUpPassword}` 
             console.log("body=", body)
             const data = await fetch(`${urlLocal}/users/sign-up`, {
@@ -30,27 +54,37 @@ function SignUpScreen(props) {
                 body : body,
             })
 
-            const request = await data.json()
-            console.log('reponse Backend=', request)
+            const response = await data.json()
+            console.log('reponse Backend=', response)
 
-            if (request.response) {
+            if (response.status) {
 
                 //si l'utilisateur a bien été enregistré en BDD (le sign-up a fonctionné),
                 // on appelle la fonction 'addToken' comme propriété de Redux et
                 // on ajoute dans Redux l'user reçu du backend
-                props.newUser(request.user);
+                props.newUser(response.user);
                 console.log('user est enregistré');
-                // props.navigation.goBack();
+                modalOn ("succes", 'Profil is created')
+
             } else {
-                setErrorsSignup(request.error)
+                modalOn ("error", response.error)
             }
+
         }else{
-
+            console.log('errors=', errors)
+            modalOn ("error", errors.toLocaleString())
+            
         }
-
     }
-
-    return (           
+   
+    return (
+        <View >
+        <ModalComponent 
+        type={toModal.type}
+        message={toModal.message}
+        setModal={setModal}
+        modal={modal}
+        />        
          <ScrollView contentContainerStyle={{ flexDirection: 'column'}}>
                 <KeyboardAvoidingView behavior="padding" style={{ justifyContent: 'center' }}>
                     <SafeAreaView>
@@ -88,6 +122,7 @@ function SignUpScreen(props) {
                 </TouchableOpacity>
             </View>
         </ScrollView>
+    </View>
     );
 }
 

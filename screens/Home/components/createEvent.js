@@ -9,7 +9,7 @@ function CreateEvent (props){
 
   return (
     <Card
-    key={2000}
+    key={"222000"}
     containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, backgroundColor: '#F8F5F2' }}>
       <Card.Image
         style={{ width: 130, height: 170, justifyContent: 'center', alignItems: 'center' }}

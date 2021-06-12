@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, TouchableOpacity  } from 'react-native';
-import { Text } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import  InputComponent  from '../components/InputComponent';
+import { Text } from 'react-native-elements';
 import ModalComponent from '../components/Modal'
+import  InputComponent  from '../components/InputComponent';
 
 //Initialisation de Redux
 import { connect } from 'react-redux';

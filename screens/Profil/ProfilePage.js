@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { View, TouchableOpacity  } from 'react-native';
-import { Avatar, Text, Divider, Badge } from 'react-native-elements';
+import React, { useCallback, useEffect, useState } from "react";
+import { View, ScrollView, KeyboardAvoidingView, TouchableOpacity  } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { Avatar, Text, Divider } from 'react-native-elements';
 import Changer from './components/Changer'
+import ModalComponent from '../components/Modal'
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
@@ -17,47 +20,68 @@ function ProfilePage(props) {
   const [prenom, setPrenom] = useState(props.user.prenom);
   const [email, setEmail] = useState(props.user.email);
   const [avatar, setAvatar] = useState(props.user ? props.user.avatar : 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png');
-  
 
-  // useEffect(() => {
-  //   const takeUserBD = async () => {
-  //       if(props.token){
-  //         const userBD = await fetch(`${urlLocal}/users/getUser`, {
-  //             method: 'POST',
-  //             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  //             body: `token=${props.token}`
-  //         })
-  //         const body = await userBD.json();
-  //         console.log('ProfilePage, updateUser(), user = ', body);
-  //         setUser(body);
-  //         setNom(body.nom);
-  //         setPrenom(body.prenom);
-  //         setAvatar(body.avatar);
+  const [changeNom, setChangeNom] = useState(false)
+  const [changePrenom, setChangePrenom] = useState(false)
 
-  //       }else{
-  //         setUser(null);
-  //       }
+  const [toModal, setToModal]= useState({})
+  const [modal, setModal] = useState(false)
+
+  // useEffect( ()=>{
+  //   updateUser()
+  //   const updateUser = ()=>{
+  //     setUser(props.user)
+  //     setNom(props.user.nom)
+  //     setPrenom(props.user.prenom)
+  //     setEmail(props.user.email)
+  //     setAvatar(props.user.setAvatar)
   //   }
-  //   takeUserBD ();
-  // },[props.user])
-
-
-
-
+  // }, [props.user])
 
   console.log('=ProfilePage, user=', user)
 
+  const updateBD = async ()=>{
+      // useCallback (  ()=>{
 
-  async function deconnecter(){
-    console.log('deconnection...')
-    try{
-      AsyncStorage.setItem('user', null);
-    }catch(e){
-      console.log(e);
-    }
+          console.log('ProfilePage.updateBD')
+          let newUser = {...props.user}
+          newUser.email = email
+          newUser.nom = nom
+          newUser.prenom = prenom
+          newUser.avatar = avatar
+          const userJSON = JSON.stringify(newUser);
+          console.log('newUser=', newUser)
+          const data = await fetch(`${urlLocal}/users/update`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `token=${props.user.token}&userJSON=${userJSON}`
+          })
+          const response = await data.json()
+          
+          console.log('reponse Backend:', response);
+          if (response.response === true) {
+            
+            props.newUser(response.user);
+          } else {
+
+            modalOn ("error", response.error)
+            setNom(response.user.nom)
+            setPrenom(response.user.prenom)
+            setEmail(response.user.email)
+            setAvatar(response.user.avatar)
+          }
+
+      // }, user)
+  }
+
+  const modalOn = (type, message)=>{
+    setToModal( {type, message, setModal, modal} )   
+    setModal(true)
+  }
+
+  function deconnecter(){
     console.log('deconnection...en cours...');
-    setUser({});
-    props.signOut();
+    props.newUser( {} );
     console.log('deconnection...complets');
 
   }
@@ -65,18 +89,22 @@ function ProfilePage(props) {
   return (
     <View style={{ flex: 1 }}>
 
+      <ModalComponent 
+      type={toModal.type}
+      message={toModal.message}
+      setModal={setModal}
+      modal={modal}
+      />
       <View style={{ flexDirection: 'column', alignItems: 'center' }}>
   
-        <View>
-          <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Text h4 fontWeight='bold'
-              onPress={() => props.navigation.navigate('ProfilePreferenceScreen')}
-            >
-              My profil
-            </Text>
-          </View>
-          <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#EFB509', width: 250, height: 2 }} />
+        <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Text h4 fontWeight='bold'
+            onPress={() => props.navigation.navigate('ProfilePreferenceScreen')}
+          >
+            My profil
+          </Text>
         </View>
+        <Divider marginTop={10} marginBottom={10} style={{ backgroundColor: '#EFB509', width: 250, height: 2 }} />
         <Avatar
           size='xlarge'
           marginTop={10}
@@ -85,10 +113,30 @@ function ProfilePage(props) {
           // onPress={() => navigation.navigate('ProfileAvatarModifScreen')}          
           source={{
             uri :  user ? user.avatar : 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'
-
+            
           }}
-        />
-        <Text h4>{prenom} {nom}</Text>
+          />
+        <View style={{ flexDirection: 'row'}}>
+          <Changer
+            style={{ justifyContent: 'flex-end' }}
+            placeholder='name'
+            state={prenom}
+            setState={setPrenom}
+            setSave={updateBD}
+            fontSize={24}
+          />
+          <Changer
+            placeholder='Family'
+            state={nom}
+            setState={setNom}
+            setSave={updateBD}
+            fontSize={24}
+          />
+          
+        </View>
+        <ScrollView contentContainerStyle={{ alignItems: 'center', justifyContent: 'center' }}>
+            <KeyboardAvoidingView behavior="padding" style={{  justifyContent: 'center' }}>
+                <SafeAreaView style={{ flexDirection : 'column', justifyContent : 'center' }}>
           
         <Changer
           label="e-mail"
@@ -96,7 +144,21 @@ function ProfilePage(props) {
           placeholder='email'
           state={email}
           setState={setEmail}
+          setSave={updateBD}
+          icon
         />
+        {/* <Changer
+          label="password"
+          secureTextEntry={true}
+          placeholder='password'
+          state={pass}
+          setState={setPass}
+          setSave={updatePassBD}
+          icon
+        /> */}
+      </SafeAreaView>
+      </KeyboardAvoidingView>
+      </ScrollView>
       </View>
 
 
@@ -129,8 +191,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch) {
   return {
       // création de la fonction qui va devoir recevoir une info afin de déclencher une action nommée addToken qui enverra cette information auprès de Redux comme propriété
-      signOut: function () {
-          dispatch({ type: 'user', user : {} })
+      newUser: function (user) {
+          dispatch({ type: 'user', user })
       }
   }
 }

@@ -13,7 +13,7 @@ export default function HeaderRightSetting({ navigation }) {
   }
 
   return (
-      <AntDesign name='setting' size={25} onPress={goToProfilePreferenceScreen} style={styles.icon} />      
+      <AntDesign name='setting' size={25} onPress={goToProfilePreferenceScreen} style={styles.icon} />
   )
 }
 
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#16253D'
   },
   icon: {
-    color: '#F8F5F2',
+    color: '#FF8200',
     right: 10
   }
 });

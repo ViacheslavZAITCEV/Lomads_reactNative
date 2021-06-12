@@ -14,13 +14,11 @@ import {
   BottomSheet,
   ListItem,
 } from 'react-native-elements';
+import CardEvenement from './components/cardEvenement'
+import CreateEvent from './components/createEvent'
 
 import { connect } from 'react-redux';
 
-// import * as Location from 'expo-location';
-// import * as Permissions from 'expo-permissions';
-
-import Heart from './components/cardEvenement'
 
 import urlLocal from '../../urlDevs'
 
@@ -68,7 +66,7 @@ function HomePage(props) {
       }
     }
     getUsers()
-  }, [])
+  }, [props.user])
 
 
   useEffect(() => {
@@ -90,65 +88,28 @@ function HomePage(props) {
         }
     }
     updateUser ();
-  },[props.token])
-
-  // console.log('AfficheMainScreen, props.id = ', props.idUser);
-  // console.log('AfficheMainScreen, user = ', user);
-  // console.log('AfficheMainScreen, token = ', token);
+  },[props.user])
 
 
-  let tokenOK = () => {
-    if (props.token) {
-      // console.log("TOKEN:", props.token)
-      props.navigation.navigate('AfficheSpecialScreen')
-    } else {
-      // console.log('token absent: user not connected')
-      // props.navigation.navigate('AfficheSpecialScreen')
-      props.navigation.navigate('SignInScreen')
-    }
-  }
+  let events = eventsList.map((event,i) => <CardEvenement event={event} i={i} />)
+  events.push(<CreateEvent />)
 
-  var events = eventsList.map((event,i) => {
-    
-      return (
-        <Card
-        key={i}
-        containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }}>
-          <Card.Image
-            style={{ width: 170, height: 230 }}
-            source={{ uri: event.image }}
-            resizeMode="cover"
-            onPress={() => {
-              props.onAddIdEvent(event._id);
-              tokenOK();
-            }}
-          />
-          
-
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', padding: 5, textTransform: 'uppercase' }}>{event.nom}</Text>
-          {/* <Text style={{ margin: 2 }}>Une ville</Text><Text> 200m.</Text> */}
-          <View style={{ alignItems: 'center', margin: 2 }}>
-            <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value={event.categories[0]} />
-          </View>
-        </Card>
-      )
-  })
-
-  var users = usersList.map((userMap, i) => {
+  const users = usersList.map((userMap, i) => {
+    console.log ('userMap=', userMap)
       return (
         <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
           <Card.Image
-            style={{ width: 170, height: 230 }}
+            style={{ width: 130, height: 170 }}
             source={{ uri: userMap.avatar }}
             resizeMode="cover"
             onPress={() => {
               props.onAddIdEvent(userMap._id);
-              tokenOK();
             }}
           />
+          <Text style={{ textAlign: 'center', fontWeight: 'bold', padding: 1, textTransform: 'uppercase' }}>{userMap.prenom}</Text>
           <Text style={{ textAlign: 'center', fontWeight: 'bold', padding: 1, textTransform: 'uppercase' }}>{userMap.nom}</Text>
           <View style={{ alignItems: 'center', margin: 2 }}>
-            <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value={userMap.nom} />
+            <Badge badgeStyle={{ backgroundColor: '#3C6382', margin: 1 }} value={userMap.events.length > 0 ?? `${userMap.events.length} evens`} />
           </View>
         </Card>
       )
@@ -160,21 +121,6 @@ function HomePage(props) {
       <ImageBackground source={imageBackground} style={styles.imageBackground}>
 
         <ScrollView style={{ flex: 2 }}>
-          <Text
-            style={{
-              fontSize: 22,
-              margin: 7,
-              fontWeight: 'bold'
-            }}>
-            Users
-            </Text>
-
-          <View style={{ backgroundColor: '#FF8200', paddingBottom: 15 }}>
-            <ScrollView horizontal={true}>
-              {users}
-            </ScrollView>
-          </View>
-
 
           <Text
             style={{
@@ -188,6 +134,21 @@ function HomePage(props) {
           <View style={{ backgroundColor: '#C94B32', paddingBottom: 15 }}>
             <ScrollView horizontal={true}>
               {events}
+            </ScrollView>
+          </View>
+
+          <Text
+            style={{
+              fontSize: 22,
+              margin: 7,
+              fontWeight: 'bold'
+            }}>
+            Users
+            </Text>
+
+          <View style={{ backgroundColor: '#FF8200', paddingBottom: 15 }}>
+            <ScrollView horizontal={true}>
+              {users}
             </ScrollView>
           </View>
 

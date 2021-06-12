@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View,  ScrollView, Button, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { Text} from 'react-native-elements';
-import  InputComponent  from '../components/InputComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import  InputComponent  from '../components/InputComponent';
+import ModalComponent from '../components/Modal'
 
 //Initialisation de Redux
 import { connect } from 'react-redux';
@@ -14,8 +16,8 @@ function SignInScreen(props, { navigation, addToken }) {
     const [signInEmail, setSignInEmail] = useState('')
     const [signInPassword, setSignInPassword] = useState('')
 
-    const [listErrorsSignin, setErrorsSignin] = useState('')
-
+    const [toModal, setToModal]= useState({})
+    const [modal, setModal] = useState(false)
 
     useEffect(() => {
         function goToBack() {
@@ -36,26 +38,37 @@ function SignInScreen(props, { navigation, addToken }) {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `email=${signInEmail}&password=${signInPassword}`
             })
-            const body = await data.json()
+            const response = await data.json()
 
-            console.log('reponse Backend:', body);
-            if (body.response === true) {
+            console.log('reponse Backend:', response);
+            if (response.response === true) {
                 
                 //si l'utilisateur arrive à sign-in, on appelle la fonction 'addToken' comme propriété de Redux et on ajoute dans Redux le token reçu du backend
-                props.setUser(body.user);
+                props.setUser(response.user);
                 console.log('user est connecté');
                 // props.navigation.goBack();
             } else {
-                setErrorsSignin(body.error)
+                modalOn ("error", response.error)
             }
         } catch (e) {
             console.log(e);
         }
     }
 
+    const modalOn = (type, message)=>{
+        setToModal( {type, message, setModal, modal} )   
+        setModal(true)
+    }
+    
+
     return (
         <View >
-
+            <ModalComponent 
+            type={toModal.type}
+            message={toModal.message}
+            setModal={setModal}
+            modal={modal}
+            />
             <ScrollView contentContainerStyle={{ alignItems: 'center', justifyContent: 'center' }}>
                 <KeyboardAvoidingView behavior="padding" style={{  justifyContent: 'center' }}>
                     <SafeAreaView>

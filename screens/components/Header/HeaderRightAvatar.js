@@ -2,37 +2,40 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Avatar } from 'react-native-elements';
 
-export default function HeaderRightAvatar({ navigation }) {
+import { FontAwesome } from '@expo/vector-icons';
 
-  const goToProfileMainScreen = () => {
-    navigation.navigate('ProfileMainScreen')
-  }
+import { connect } from 'react-redux';
+
+function HeaderRightAvatar(props) {
 
   return (
-    <View style={styles.headerAvatar}>
-      <Avatar
+<View style={styles.headerAvatar}>
+      {props.user 
+      ? <Avatar
         size='small'
         rounded
-        onPress={goToProfileMainScreen}
-        source={{
-          uri:
-            'https://res.cloudinary.com/dhtl1axxt/image/upload/v1607637597/sqmsxctqqkh1xpbbnjl2.png',
-        }}
+        onPress={props.navigation.navigate('ProfileMainScreen')}
+        source={{ uri: props.user.avatar }}
       />
+      : <FontAwesome name='user-o' size={25} color="#FF8200" />
+      }
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  header: {
-    width: '100%',
-    height: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#16253D'
-  },
   headerAvatar: {
     right: 10
-  }
+  },
 });
+
+function mapStateToProps(state) {
+  return {
+    user : state.userReducer,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(HeaderRightAvatar)

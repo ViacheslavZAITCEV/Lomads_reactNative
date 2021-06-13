@@ -66,38 +66,42 @@ function newEventScreen (){
             </SafeAreaView>
         </KeyboardAvoidingView>
       </ScrollView>
-      <ChooseType  setState={setType} type={type} />
 
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '95%'}}>
-        <View>
-        <Text style={{color: '#353C3F',justifyContent: 'center', fontSize: 18, fontWeight: 'bold'}} >
-          Date : 
-        </Text>
-        <Text style={{color: '#353C3F',justifyContent: 'center', fontSize: 18, fontWeight: 'bold'}} >
-          {date}
-        </Text>
+      <View style={{flexDirection: 'column', justifyContent: 'space-around', }}>
+
+        <ChooseType  setState={setType} type={type} />
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '95%'}}>
+          <View>
+          <Text style={{color: '#353C3F',justifyContent: 'center', fontSize: 18, fontWeight: 'bold'}} >
+            Date : 
+          </Text>
+          <Text style={{color: '#353C3F',justifyContent: 'center', fontSize: 18, fontWeight: 'bold'}} >
+            {date}
+          </Text>
+          </View>
+          <TouchableOpacity
+              onPress={() => changeDate()}
+              style={{
+                width: '40%', height: 40, backgroundColor: '#FF8200',
+                alignItems: 'center', justifyContent: 'center', borderRadius: 15
+              }}
+              >
+            <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Change Date</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-            onPress={() => changeDate()}
-            style={{
-                width: '40%', height: 40, backgroundColor: '#FF8200',
-                 alignItems: 'center', justifyContent: 'center', borderRadius: 15
-            }}
-        >
-          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Change Date</Text>
-        </TouchableOpacity>
-      </View>
 
-      <View style={{ alignItems: 'center' }}>
-        <TouchableOpacity
-            onPress={() => handleSubmit()}
-            style={{
+        <View style={{ alignItems: 'center' }}>
+          <TouchableOpacity
+              onPress={() => handleSubmit()}
+              style={{
                 width: '40%', height: 40, backgroundColor: '#FF8200',
-                 alignItems: 'center', justifyContent: 'center', borderRadius: 15
-            }}
-        >
-          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>New event</Text>
-        </TouchableOpacity>
+                alignItems: 'center', justifyContent: 'center', borderRadius: 15
+              }}
+              >
+            <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>New event</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

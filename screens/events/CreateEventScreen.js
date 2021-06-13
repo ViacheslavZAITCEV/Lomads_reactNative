@@ -8,7 +8,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import ModalComponent from '../components/Modal'
 import InputComponent from '../components/InputComponent';
 import ChooseType from './components/ChooseType';
-import ChooseDate from './components/ChooseDate';
+import ModalDate from './components/ModalDate';
 
 
 function newEventScreen (){
@@ -17,20 +17,12 @@ function newEventScreen (){
   const [description, setDescription] = useState('')
   const [address, setAddress] = useState('')
   const [type, setType] = useState('')
-  const [date, setDate] = useState(new Date())
-  const [dateFin, setDateFin] = useState(new Date())
+  const [date, setDate] = useState('')
 
   const [toModal, setToModal]= useState({})
   const [modal, setModal] = useState(false)
+  const [modalDateVisible, setModalDateVisible] = useState(false)
   
-  useEffect ( ()=>{
-
-  })
-  const getDate = ()=>{
-    console.log('typeof date',typeof date)
-    return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' - ' + date.getHours() + 'h0' + date.getMinutes();
-  }
-
   const modalOn = (type, message)=>{
       setToModal( {type, message, setModal, modal} )   
       setModal(true)
@@ -38,8 +30,7 @@ function newEventScreen (){
 
   
   var changeDate = async () => {
-    console.warn('changeDate Event Button is pressed')
-
+    setModalDateVisible(true)
   }
   
   var handleSubmit = async () => {
@@ -52,6 +43,12 @@ function newEventScreen (){
       message={toModal.message}
       setModal={setModal}
       modal={modal}
+      />
+      <ModalDate
+      setModal={setModalDateVisible}
+      modal={modalDateVisible}
+      date={date}
+      setDate={setDate}
       />
       <ScrollView contentContainerStyle={{  alignItems: 'center', justifyContent: 'center' }}>
         <KeyboardAvoidingView behavior="padding" style={{ width: "95%", justifyContent: 'center' }}>
@@ -77,7 +74,7 @@ function newEventScreen (){
           Date : 
         </Text>
         <Text style={{color: '#353C3F',justifyContent: 'center', fontSize: 18, fontWeight: 'bold'}} >
-          {getDate()}
+          {date}
         </Text>
         </View>
         <TouchableOpacity

@@ -55,13 +55,7 @@ function newEventScreen (props){
         }
 
         if ( errors.length === 0 ){
-          let body = {
-            token: props.user?.token,
-            eventName,
-            address,
-            description,
-            type
-          };
+          let body;
           props.user
           ? body = `token=${props.user.token}&eventName=${eventName}&address=${address}&description=${description}}&type=${type}&date=${date}` 
           : body = `eventName=${eventName}&address=${address}&description=${description}&type=${type}&date=${date}` 
@@ -69,7 +63,7 @@ function newEventScreen (props){
           const data = await fetch(`${urlLocal}/event/setEvent`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body : body,
+            body,
           })
           // console.log('data', data);
 
@@ -79,7 +73,10 @@ function newEventScreen (props){
           if (response.response) {
             console.log('response BE is true');
 
-             modalOn ("succes", 'Event is created')
+            modalOn ("succes", 'Event is created')
+            let user = {...props.user}
+            user.events.push(response.event)
+            props.setUser(user)
 
           } else {
               modalOn ("error", response.error)
@@ -163,9 +160,21 @@ function newEventScreen (props){
   );
 }
 function mapStateToProps(state) {
-  return { user: state.user }
+  return {
+    user : state.userReducer,
+  }
 }
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+      setUser: function (user) {
+          dispatch({ type: 'user', user })
+      },
+  }
+}
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
   )(newEventScreen)

@@ -20,7 +20,12 @@ function cardEvenement (props){
         //   props.onAddIdEvent(event._id);
         // }}
         />
-      : <FontAwesome name={event.type} size={55} color='#FF8200' style={{ width: 130, height: 170 }} />
+      : <Card.Image
+        style={{ width: 130, height: 170, justifyContent: 'center', alignItems: 'center' }}
+        resizeMode="cover"
+        >
+          <FontAwesome name={event.type} size={55} color='#FF8200' />
+        </Card.Image>  
       }
       <Text style={{ textAlign: 'center', fontWeight: 'bold', padding: 5, textTransform: 'uppercase' }}>{event?.nom}</Text>
       <View style={{ alignItems: 'center', margin: 2 }}>

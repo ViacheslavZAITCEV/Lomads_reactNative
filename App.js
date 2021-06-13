@@ -6,12 +6,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 
 import AfficheMainScreen from './screens/Home/HomePage';
-import AfficheSpecialScreen from './screens/AfficheSpecialScreen';
 import CreateEventScreen from './screens/events/CreateEventScreen';
-
-import PlanMainScreen from './screens/PlanMainScreen';
-import PlanDetailScreen from './screens/PlanDetailScreen';
-import PlanOrgaScreen from './screens/PlanOrgaScreen';
 
 import ProfileMainScreen from './screens/Profil/Profil';
 import ProfileAvatarModifScreen from './screens/Profil/ProfileAvatarModifScreen';
@@ -20,21 +15,17 @@ import HeaderLeft from './screens/components/Header/HeaderLeft';
 import HeaderCity from './screens/components/Header/HeaderCity';
 import HeaderRightAvatar from './screens/components/Header/HeaderRightAvatar';
 
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
-// import tokenReducer from './reducers/token.reducer';
-// import idEventReducer from './reducers/idEvent.reducer';
-// import idSortieReducer from './reducers/idSortie.reducer';
-// import newSortieReducer from './reducers/newSortie.reducer';
-// import idUserReducer from './reducers/idUser.reducer';
 import userReducer from './reducers/user.reduceur';
 
 // LogBox.ignoreAllLogs(true);
 const store = createStore(combineReducers({userReducer}));
-// console.log('store.getState=', store.getState.userReduceur)
+
+
 
 // ===============================================================================
 //                        NAVIGATION SCREENS A L'AFFICHE
@@ -43,16 +34,6 @@ const store = createStore(combineReducers({userReducer}));
 var AfficheScreens = {
   AfficheMainScreen: {
     screen: AfficheMainScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      headerLeft: () => <HeaderLeft navigation={navigation}/>,
-      headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-      }
-    }
-  },
-  AfficheSpecialScreen: {
-    screen: AfficheSpecialScreen,
     navigationOptions: ({ navigation }) => {
       return {
       headerLeft: () => <HeaderLeft navigation={navigation}/>,
@@ -74,16 +55,6 @@ var AfficheStack = createStackNavigator (AfficheScreens, {
 // ===============================================================================
 
 var PlanScreens = {
-  PlanMainScreen: {
-    screen: PlanMainScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      headerLeft: () => <HeaderLeft navigation={navigation}/>,
-      headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-      }
-    }
-  },
   CreateEventScreen: {
     screen: CreateEventScreen,
     navigationOptions: ({ navigation }) => {
@@ -94,26 +65,6 @@ var PlanScreens = {
       }
     }
   },
-  PlanDetailScreen: {
-    screen: PlanDetailScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      headerLeft: () => <HeaderLeft navigation={navigation}/>,
-      headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-      }
-    }
-  },
-  PlanOrgaScreen: {
-    screen: PlanOrgaScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      headerLeft: () => <HeaderLeft navigation={navigation}/>,
-      headerTitle: () => <HeaderCity navigation={navigation}/>,
-      headerRight: () => <HeaderRightAvatar navigation={navigation}/>
-      }
-    }
-  }
 }
 
 var PlanStack = createStackNavigator (PlanScreens, {

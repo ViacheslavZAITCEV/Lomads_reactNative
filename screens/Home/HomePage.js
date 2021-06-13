@@ -53,7 +53,7 @@ function HomePage(props) {
       }
     }
       getEvents()
-  }, [])
+  }, [props.user])
 
     useEffect(() => {
       const getUsers = async () => {
@@ -78,9 +78,6 @@ function HomePage(props) {
             style={{ width: 130, height: 170 }}
             source={{ uri: userMap.avatar }}
             resizeMode="cover"
-            onPress={() => {
-              props.onAddIdEvent(userMap._id);
-            }}
           />
           <Text style={{ textAlign: 'center', fontWeight: 'bold', padding: 1, textTransform: 'uppercase' }}>{userMap.prenom}</Text>
           <Text style={{ textAlign: 'center', fontWeight: 'bold', padding: 1, textTransform: 'uppercase' }}>{userMap.nom}</Text>

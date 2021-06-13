@@ -55,15 +55,21 @@ function newEventScreen (props){
         }
 
         if ( errors.length === 0 ){
-          let body;
+          let body = {
+            token: props.user?.token,
+            eventName,
+            address,
+            description,
+            type
+          };
           props.user
-          ? body = `token=${props.user.token}&eventName=${eventName}&address=${address}&description=${description}}&type=${type}` 
-          : body = `eventName=${eventName}&address=${address}&description=${description}&type=${type}$date=${date}` 
+          ? body = `token=${props.user.token}&eventName=${eventName}&address=${address}&description=${description}}&type=${type}&date=${date}` 
+          : body = `eventName=${eventName}&address=${address}&description=${description}&type=${type}&date=${date}` 
           console.log("body=", body)
           const data = await fetch(`${urlLocal}/event/setEvent`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body : 'body',
+            body : body,
           })
           // console.log('data', data);
 

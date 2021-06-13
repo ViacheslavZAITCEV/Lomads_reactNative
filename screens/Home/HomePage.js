@@ -44,9 +44,10 @@ function HomePage(props) {
   useEffect(() => {
     const getEvents = async () => {
       try{
-        const data = await fetch(`${urlLocal}/events/pullEvents`)
-        const body = await data.json()
-        setEventsList(body)
+        const data = await fetch(`${urlLocal}/event/pullEvents`)
+        const events = await data.json()
+        console.log('events=', events.length);
+        setEventsList(events)
       }catch(e){
          console.log(e)
       }

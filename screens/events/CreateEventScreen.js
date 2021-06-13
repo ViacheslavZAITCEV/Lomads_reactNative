@@ -7,12 +7,14 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import ModalComponent from '../components/Modal'
 import InputComponent from '../components/InputComponent';
+import ChooseType from './components/ChooseType';
 
 
 function newEventScreen (){
 
   const [eventName, setEventName] = useState('')
   const [description, setDescription] = useState('')
+  const [type, setType] = useState('')
 
   const [toModal, setToModal]= useState({})
   const [modal, setModal] = useState(false)
@@ -23,7 +25,7 @@ function newEventScreen (){
   }
 
   
-  var handleSubmitSignup = async () => {
+  var handleSubmit = async () => {
     console.warn('New Event Button is pressed')
   }
   return (
@@ -35,24 +37,25 @@ function newEventScreen (){
       modal={modal}
       />
       <ScrollView contentContainerStyle={{  alignItems: 'center', justifyContent: 'center' }}>
-        <KeyboardAvoidingView behavior="padding" style={{ width: "90%", justifyContent: 'center' }}>
-            <SafeAreaView>
-              <InputComponent 
-              label="Event name" 
-              placeholder="Event"
-              setState = { setEventName} />
-              <InputComponent 
-              placeholder="description"
-              setState = { setDescription} />
+        <KeyboardAvoidingView behavior="padding" style={{ width: "95%", justifyContent: 'center' }}>
+            <SafeAreaView >
+                <InputComponent 
+                label="Event name" 
+                placeholder="Event"
+                setState = { setEventName} />
+                <InputComponent 
+                placeholder="description"
+                setState = { setDescription} />
             </SafeAreaView>
         </KeyboardAvoidingView>
       </ScrollView>
-
+      <ChooseType  setState={setType} type={type} />
       <View style={{ alignItems: 'center' }}>
         <TouchableOpacity
-            onPress={() => handleSubmitSignin()}
+            onPress={() => handleSubmit()}
             style={{
-                width: '40%', height: 40, backgroundColor: '#FF8200', alignItems: 'center', justifyContent: 'center', borderRadius: 15
+                width: '40%', height: 40, backgroundColor: '#FF8200',
+                 alignItems: 'center', justifyContent: 'center', borderRadius: 15
             }}
         >
           <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>New event</Text>

@@ -25,19 +25,19 @@ function PlanMainScreen(props, { navigation }) {
   const [mesSortiesInfo, setMesSortiesInfo] = useState({});
   const [sortiesDesAmisInfo, setSortiesDesAmisInfo] = useState({});
 
-  useEffect(() => {
-    const getIdUser = async () => {
-      const data = await fetch(`${urlLocal}/pullUser`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `id=${props.idUser}`
-      })
-      const body = await data.json();
-      // console.log('BODY',body);
-      setPlanInfo(body);
-    }
-    getIdUser()
-  }, [])
+  // useEffect(() => {
+  //   const getIdUser = async () => {
+  //     const data = await fetch(`${urlLocal}/pullUser`, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  //       body: `id=${props.idUser}`
+  //     })
+  //     const body = await data.json();
+  //     // console.log('BODY',body);
+  //     setPlanInfo(body);
+  //   }
+  //   getIdUser()
+  // }, [])
   
   // console.log('============================', planInfo.mesSorties)
 
@@ -82,7 +82,7 @@ function PlanMainScreen(props, { navigation }) {
       SortiesDuUser = <Text>Aucune sortie planifiée</Text>
     }
   }
-  functionSortiesDuUser();
+  // functionSortiesDuUser();
 
   var FavorisDuUser
   var functionFavorisDuUser = () => {
@@ -108,7 +108,7 @@ function PlanMainScreen(props, { navigation }) {
       FavorisDuUser = <Text>Aucun événement liké</Text>
     }
   }
-  functionFavorisDuUser();
+  // functionFavorisDuUser();
 
   var FavorisDesAmis
   var functionFavorisDesAmis = () => {
@@ -134,7 +134,7 @@ function PlanMainScreen(props, { navigation }) {
       FavorisDesAmis = <Text>Aucun événement liké par mes amis</Text>
     }
   }
-  functionFavorisDesAmis();
+  // functionFavorisDesAmis();
 
   var SortiesDesAmis
   var functionSortieDesAmis = () => {
@@ -164,7 +164,7 @@ function PlanMainScreen(props, { navigation }) {
       SortiesDesAmis = <Text>Aucune sortie planifiée par mes amis</Text>
     }
   }
-  functionSortieDesAmis();
+  // functionSortieDesAmis();
 
   return (
     <View style={{ flex: 1 }}>

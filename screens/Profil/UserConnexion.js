@@ -1,5 +1,5 @@
 import React, {useState}  from "react";
-import { View} from 'react-native';
+import { View, TouchableOpacity} from 'react-native';
 import { Text } from 'react-native-elements';
 
 
@@ -14,16 +14,7 @@ function Connexion() {
 
 
     const [index, setIndex] = useState(true)
-    // const active ={
-    //     color : '#FF8200',
-    //     fontSize: 16,
-    //     fontWeight: 'bold'
-    // }
-    // const inactive ={
-    //     color : '#FFFFFF',
-    //     fontSize: 16,
-    //     fontWeight: 'bold'
-    // }
+
     const styleTab ={
         flex: 1,
         backgroundColor: '#353C3F',
@@ -41,22 +32,20 @@ function Connexion() {
                 alignItems: "baseline",
             }}
             >
-                <View style={styleTab}>
+                <TouchableOpacity style={styleTab} onPress={() => setIndex( true )}>
                     <Text 
                     style={ index ? {color : '#FF8200'} : {color : '#FFFFFF'} }
-                    onPress={() => setIndex( true )}
                     >
                         Sign In
                     </Text>
-                </View>
-                <View style={styleTab }>
+                </TouchableOpacity>
+                <TouchableOpacity style={styleTab} onPress={() => setIndex( false )}>
                     <Text 
                     style={ ! index ? {color : '#FF8200'} : {color : '#FFFFFF'} }
-                    onPress={() => setIndex( false )}
                     >
                         Sign Up
                     </Text>
-                </View>
+                </TouchableOpacity>
             </View>
             <View 
             // style={{ flex : 1}}

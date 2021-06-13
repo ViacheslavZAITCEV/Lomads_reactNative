@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, ScrollView, KeyboardAvoidingView, TouchableOpacity  } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -27,16 +27,6 @@ function ProfilePage(props) {
   const [toModal, setToModal]= useState({})
   const [modal, setModal] = useState(false)
 
-  // useEffect( ()=>{
-  //   updateUser()
-  //   const updateUser = ()=>{
-  //     setUser(props.user)
-  //     setNom(props.user.nom)
-  //     setPrenom(props.user.prenom)
-  //     setEmail(props.user.email)
-  //     setAvatar(props.user.setAvatar)
-  //   }
-  // }, [props.user])
 
   console.log('=ProfilePage, user=', user)
 
@@ -87,7 +77,7 @@ function ProfilePage(props) {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, justifyContent:'space-around' }}>
 
       <ModalComponent 
       type={toModal.type}
@@ -135,41 +125,41 @@ function ProfilePage(props) {
           
         </View>
         <ScrollView contentContainerStyle={{ alignItems: 'center', justifyContent: 'center' }}>
-            <KeyboardAvoidingView behavior="padding" style={{  justifyContent: 'center' }}>
-                <SafeAreaView style={{ flexDirection : 'column', justifyContent : 'center' }}>
-          
-        <Changer
-          label="e-mail"
-          secureTextEntry={false}
-          placeholder='email'
-          state={email}
-          setState={setEmail}
-          setSave={updateBD}
-          icon
-        />
-        {/* <Changer
-          label="password"
-          secureTextEntry={true}
-          placeholder='password'
-          state={pass}
-          setState={setPass}
-          setSave={updatePassBD}
-          icon
-        /> */}
-      </SafeAreaView>
-      </KeyboardAvoidingView>
-      </ScrollView>
+          <KeyboardAvoidingView behavior="padding" style={{  justifyContent: 'center' }}>
+            <SafeAreaView style={{ flexDirection : 'column', justifyContent : 'center' }}>
+        
+              <Changer
+                label="e-mail"
+                secureTextEntry={false}
+                placeholder='email'
+                state={email}
+                setState={setEmail}
+                setSave={updateBD}
+                icon
+              />
+              {/* <Changer
+                label="password"
+                secureTextEntry={true}
+                placeholder='password'
+                state={pass}
+                setState={setPass}
+                setSave={updatePassBD}
+                icon
+              /> */}
+            </SafeAreaView>
+          </KeyboardAvoidingView>
+        </ScrollView>
       </View>
 
 
-      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity
           onPress={ ()=> {
             deconnecter()
           }}
           style={{
-            width: '100%', height: 40, backgroundColor: '#FF8200',
-            alignItems: 'center', justifyContent: 'center'
+            width: '40%', height: 40, backgroundColor: '#FF8200',
+            alignItems: 'center', justifyContent: 'center', borderRadius: 15 
           }}
         >
           <Text 

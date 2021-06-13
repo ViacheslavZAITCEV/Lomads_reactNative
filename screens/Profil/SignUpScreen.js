@@ -86,7 +86,7 @@ function SignUpScreen(props) {
         modal={modal}
         />        
          <ScrollView contentContainerStyle={{ flexDirection: 'column'}}>
-                <KeyboardAvoidingView behavior="padding" style={{ justifyContent: 'center' }}>
+                <KeyboardAvoidingView behavior="padding" style={{width: "90%", justifyContent: 'center' }}>
                     <SafeAreaView>
                             <InputComponent 
                             label="Name" 
@@ -110,12 +110,12 @@ function SignUpScreen(props) {
                             setState = { setConfUpPassword} />
                     </SafeAreaView>
                 </KeyboardAvoidingView>
-            <View style={{ justifyContent: 'flex-end' }}>
+            <View style={{ alignItems: 'center' }}>
                 <TouchableOpacity
                     onPress={() => handleSubmitSignup()}
                     style={{
-                        width: '100%', height: 40, backgroundColor: '#FF8200',
-                        alignItems: 'center', justifyContent: 'center'
+                        width: '40%', height: 40, backgroundColor: '#FF8200',
+                        alignItems: 'center', justifyContent: 'center', borderRadius: 15 
                     }}
                 >
                     <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Inscription</Text>

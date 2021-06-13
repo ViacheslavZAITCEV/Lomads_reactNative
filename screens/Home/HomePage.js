@@ -58,9 +58,8 @@ function HomePage(props) {
       const getUsers = async () => {
       try{
         const data = await fetch(`${urlLocal}/users/pullUsers`)
-        const body = await data.json()
-        setUsersList(body.users)
-        // console.log('users=', body)
+        const response = await data.json()
+        response.response && setUsersList(response.users)
       }catch(e){
          console.log(e)
       }
@@ -92,10 +91,8 @@ function HomePage(props) {
 
 
   let events = eventsList.map((event,i) => <CardEvenement event={event} key={i} />)
-  events.push(<CreateEvent navigation={props.navigation} />)
 
-  const users = usersList.map((userMap, i) => {
-    console.log ('userMap=', userMap)
+  const users = usersList?.map((userMap, i) => {
       return (
         <Card key={i} containerStyle={{ paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, maxWidth: '47%', backgroundColor: '#F8F5F2' }} >
           <Card.Image
@@ -133,6 +130,7 @@ function HomePage(props) {
 
           <View style={{ backgroundColor: '#C94B32', paddingBottom: 15 }}>
             <ScrollView horizontal={true}>
+              <CreateEvent navigation={props.navigation} />
               {events}
             </ScrollView>
           </View>

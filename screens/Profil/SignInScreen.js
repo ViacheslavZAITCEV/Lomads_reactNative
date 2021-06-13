@@ -70,7 +70,7 @@ function SignInScreen(props, { navigation, addToken }) {
             modal={modal}
             />
             <ScrollView contentContainerStyle={{ alignItems: 'center', justifyContent: 'center' }}>
-                <KeyboardAvoidingView behavior="padding" style={{  justifyContent: 'center' }}>
+                <KeyboardAvoidingView behavior="padding" style={{ width: "90%", justifyContent: 'center' }}>
                     <SafeAreaView>
                         <InputComponent
                         label="e-mail"
@@ -87,15 +87,15 @@ function SignInScreen(props, { navigation, addToken }) {
                 </KeyboardAvoidingView>
             </ScrollView>
 
-            <View style={{  justifyContent: 'flex-end' }}>
+            <View style={{ alignItems: 'center' }}>
                 <TouchableOpacity
                     onPress={() => handleSubmitSignin()}
                     style={{
-                        width: '100%', height: 40, backgroundColor: '#FF8200',
-                        alignItems: 'center', justifyContent: 'center'
+                        width: '40%', height: 40, backgroundColor: '#FF8200',
+                        alignItems: 'center', justifyContent: 'center', borderRadius: 15 
                     }}
                 >
-                    <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Connexion</Text>
+                    <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold'}}>Connexion</Text>
                 </TouchableOpacity>
             </View>
 

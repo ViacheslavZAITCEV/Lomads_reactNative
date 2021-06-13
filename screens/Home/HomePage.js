@@ -44,7 +44,7 @@ function HomePage(props) {
   useEffect(() => {
     const getEvents = async () => {
       try{
-        const data = await fetch(`${urlLocal}/pullEvents`)
+        const data = await fetch(`${urlLocal}/events/pullEvents`)
         const body = await data.json()
         setEventsList(body)
       }catch(e){
@@ -66,28 +66,6 @@ function HomePage(props) {
     }
     getUsers()
   }, [props.user])
-
-
-  useEffect(() => {
-    const updateUser = async () => {
-        if(props.token){
-
-        const userBD = await fetch(`${urlLocal}/users/getUser`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `token=${props.token}`
-        })
-        const body = await userBD.json();
-        // console.log('AfficheMainScreen, updateUser(), user = ', body);
-        setUser(body);
-        props.onAddIdUser(body._id);
-        setCurrentCity(body.ville);
-        }else{
-          setUser(null)
-        }
-    }
-    updateUser ();
-  },[props.user])
 
 
   let events = eventsList.map((event,i) => <CardEvenement event={event} key={i} />)

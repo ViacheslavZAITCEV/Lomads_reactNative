@@ -8,6 +8,12 @@ const ModalComponent = (props) => {
   const setModal = props.setModal
   const modal = props.modal
 
+  const COLORS = {
+    error : "red",
+    info : "#FF8200",
+    succes : "#52908B",
+  }
+
   return (
       <Modal
         animationType="slide"
@@ -23,7 +29,7 @@ const ModalComponent = (props) => {
             <Text style={{
               marginBottom: 15,
               textAlign: "center",
-              color: props.type ==="error" ? "#E7472E" : "#353C3F",
+              color: props.type ? COLORS[props.type] : COLORS.info,
             }}>
               {message}
             </Text>

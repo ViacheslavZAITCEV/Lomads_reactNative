@@ -11,7 +11,11 @@ import ChooseType from './components/ChooseType';
 import ModalDate from './components/ModalDate';
 
 
-function newEventScreen (){
+import { connect } from 'react-redux';
+
+import urlLocal from '../../urlDevs'
+
+function newEventScreen (props){
 
   const [eventName, setEventName] = useState('')
   const [description, setDescription] = useState('')
@@ -34,7 +38,53 @@ function newEventScreen (){
   }
   
   var handleSubmit = async () => {
-    console.warn('New Event Button is pressed')
+    console.log('New Event Button is pressed')
+
+    let errors = []
+        if (eventName === ""){
+            errors.push('name is empty')
+        }
+        if (address === ""){
+            errors.push('address is empty')
+        }
+        if (type === ""){
+            errors.push('type is wrong')
+        }
+        if (date === ""){
+          errors.push('date is incorrect')
+        }
+
+        if ( errors.length === 0 ){
+          let body;
+          props.user
+          ? body = `token=${props.user.token}&eventName=${eventName}&address=${address}&description=${description}}&type=${type}` 
+          : body = `eventName=${eventName}&address=${address}&description=${description}&type=${type}$date=${date}` 
+          console.log("body=", body)
+          const data = await fetch(`${urlLocal}/event/setEvent`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body : 'body',
+          })
+          // console.log('data', data);
+
+          const response = await data.json()
+          console.log('reponse Backend=', response)
+
+          if (response.response) {
+            console.log('response BE is true');
+
+             modalOn ("succes", 'Event is created')
+
+          } else {
+              modalOn ("error", response.error)
+          }
+
+        }else{
+            console.log('errors=', errors)
+            modalOn ("error", errors.toLocaleString())
+            
+        }
+
   }
   return (
     <View style={{ width: "95%", justifyContent: 'space-around' }} >
@@ -106,5 +156,10 @@ function newEventScreen (){
     </View>
   );
 }
-
-export default newEventScreen
+function mapStateToProps(state) {
+  return { user: state.user }
+}
+export default connect(
+  mapStateToProps,
+  null
+  )(newEventScreen)

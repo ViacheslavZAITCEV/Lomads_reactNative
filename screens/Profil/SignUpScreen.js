@@ -30,18 +30,13 @@ function SignUpScreen(props) {
     var handleSubmitSignup = async () => {
         let errors = []
         if (signUpUserFirstname === ""){
-            err = true
             errors.push('name is empty')
-            console.log('name is empty');
         }
         if (signUpEmail === ""){
             errors.push('email is incompete')
-            console.log('email is incompete');
         }
         if (signUpPassword === "" || signUpPassword !== confPassword){
             errors.push('passwords are wrongs')
-            console.log('passwords are wrongs');
-            console.log('pass=',signUpPassword, 'conf=',  confPassword);
         }
 
 
